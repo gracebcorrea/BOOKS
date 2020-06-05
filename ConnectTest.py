@@ -1,19 +1,30 @@
-import p1db
+import os
+import Heroku
+
+
 
 #connect to db
-con = p1db.connect(
-    host ="ec2-34-198-243-120.compute-1.amazonaws.com",
-    database="d3ck6mm9jbc163",
-    user="dgssjhgflgvwxj",
-    password="b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
+con = Heroku.connect(
+    host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+    database = "d3ck6mm9jbc163",
+    user = "dgssjhgflgvwxj",
+    password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
     )
-if not os.getenv(con):
-    raise RuntimeError("DATABASE_URL is not set")
-else:
-     print ("connected")
+
+#cursor
+cur = con.cursor()
+
+#execute query
+cur.execute("SELECT id, name from ConnectTest")
+
+rows = cur.fechall()
+    print("Connected")
+    
+for r in rows:
+    print(f"id {r[0]} ,  name {r[1]})
 
 
-
-
+#close cursor
+cur.close()
 #close connection
 con.close()
