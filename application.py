@@ -34,3 +34,4 @@ def index():
 #tirar o debug no final
 if __name__ =="__main__":
    app.run(debug=True)
+   main()
