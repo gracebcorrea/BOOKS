@@ -1,10 +1,10 @@
 import os
-import Heroku
+import db
 
 
 
 #connect to db
-con = Heroku.connect(
+con = db.connect(
     host = "ec2-34-198-243-120.compute-1.amazonaws.com",
     database = "d3ck6mm9jbc163",
     user = "dgssjhgflgvwxj",
@@ -14,14 +14,15 @@ con = Heroku.connect(
 #cursor
 cur = con.cursor()
 
+print ("Hello World")
 #execute query
 cur.execute("SELECT id, name from ConnectTest")
 
+print ("I´m connected")
 rows = cur.fechall()
-    print("Connected")
-    
-for r in rows:
-    print(f"id {r[0]} ,  name {r[1]})
+
+for row in rows:
+  print (f"id {row[0]} name {row[1]}")
 
 
 #close cursor
