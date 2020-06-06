@@ -12,16 +12,15 @@ cur = con.cursor()
 
 #execute query
 cur.execute( "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;")
-
 Tables = cur.fetchall()
-
 for T in Tables:
     print([T])
 
-#cur.execute("SELECT  id, name from ConnectTest")
 
-#for r in rows:
-    #print (f"id {r[0]}, name {[1]}")
+cur.execute("SELECT  id, name FROM  (ConnectTest)")
+Rows = cur.fetchall()
+for r in Rows:
+   print (f"id {r[0]}, name {[1]}")
 
 
 #close cursor
