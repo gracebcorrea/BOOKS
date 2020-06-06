@@ -11,16 +11,14 @@ db = psycopg2.connect(
 cur = db.cursor()
 
 #execute query see all tables on the db
-#cur.execute( "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER By table_name;")
-#Tables = cur.fetchall()
-#for T in Tables:
-    #print([T])
+cur.execute( "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER By table_name;")
+Tables = cur.fetchall()
+for T in Tables:
+    print([T])
+
+print ("Congrats, you accessed the database")
 
 
-cur.execute("SELECT * FROM ConnectTest WHERE Schema = 'public' ORDER By name ;")
-Rows = cur.fetchall()
-for r in Rows:
-   print (f"id {r[0]}, name {[1]}")
 
 
 #close cursor
