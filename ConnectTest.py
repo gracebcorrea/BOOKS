@@ -1,4 +1,5 @@
 import os
+import psycopg2
 
 from flask import Flask, session
 from flask_session import Session
@@ -17,7 +18,7 @@ DATABASE_URL= {(protocol: "postgresql",
                password: "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
                database: "d3ck6mm9jbc163"
                )}
-               
+
 if not os.getenv(DATABASE_URL):
 #if not os.getenv(DATABASE_URL):
     raise RuntimeError("DATABASE_URL is not set")
