@@ -11,12 +11,15 @@ con = psycopg2.connect(
 cur = con.cursor()
 
 #execute query
-#cur.execute("SELECT * FROM "ConnectTest")
+cur.execute( "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;")
 
-cur.execute("SELECT  id, name from ConnectTest")
+for T in Tables:
+    print([table_name])
 
-for r in rows:
-    print (f"id {r[0]}, name {[1]}")
+#cur.execute("SELECT  id, name from ConnectTest")
+
+#for r in rows:
+    #print (f"id {r[0]}, name {[1]}")
 
 
 #close cursor
