@@ -10,12 +10,11 @@ con = psycopg2.connect(
 #cursor
 cur = con.cursor()
 
+#execute query
 cur.execute("select id, name from connecttest")
 
 for r in rows:
     print (f"id {r[0]}, name {[1]}")
-
-
 
 
 #close cursor
