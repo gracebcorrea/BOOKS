@@ -25,8 +25,12 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
+
+
 @app.route("/")
 def index():
     return "Project 1: TODO"
+@app.route("/res")
+def res():
     res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
-print(res.json())
+    print(res.json())
