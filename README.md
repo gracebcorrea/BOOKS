@@ -17,5 +17,20 @@ The goal of this project is to show the knowledge acquired in lectures 2,3 and 4
     imports the "books.csv" file provided in the project specification
 
 3) Index.html
-   Shows the cover page with options to login or create a new user
-   
+   Shows the cover page with options to login or create a new user - I is the Home page
+
+4) layout.html
+    Grants that all pages have the same style
+
+5) Login.html
+      allows the user to enter the site
+
+6) Join.html
+      allows the user to registrate on site
+
+
+7) Logout.html
+
+8) Serach.html
+
+9) Bookspage.html
