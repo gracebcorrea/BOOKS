@@ -25,6 +25,9 @@ cur.close()
 db.close()
 
 #connect database on bash
+# source venv/Scripts/activate      (ativar ambiente virutal - toda vez que entrar no bash)
+# pip install requests    (verifica se tem atualizaçoes)
+# flask --version
 #set or export FLASK_APP=application.py
 #set or export FLASK_DEBUG=1
 #set or export DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
