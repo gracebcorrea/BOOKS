@@ -15,8 +15,7 @@ cur.execute( "SELECT table_name FROM information_schema.tables WHERE table_schem
 Tables = cur.fetchall()
 for T in Tables:
     print([T])
-
-print ("Congrats, you accessed the database")
+    print("Congrats, you accessed the database")
 
 #close cursor
 cur.close()
