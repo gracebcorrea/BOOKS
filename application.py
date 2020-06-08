@@ -10,7 +10,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 app = Flask(__name__)
 
 
-
 # Check for environment variable
 
 if not os.getenv("DATABASE_URL"):
@@ -30,10 +29,17 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
+
+    
     return "Project 1: TODO"
 
-@app.route("/res")
-def res():
-    res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
-    return(res.json())
+
+
+
+
+
+#@app.route("/res")
+#def res():
+#    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+#                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
+#    return(res.json())
