@@ -14,6 +14,8 @@ db = scoped_session(sessionmaker(bind=engine))
 
 
 #  Cria as tabelas
+
+
 # users table
 db.execute("CREATE TABLE users (id SERIAL PRIMARY KEY, username VARCHAR NOT NULL, password VARCHAR NOT NULL)")
 print("Table:users Status;created")
