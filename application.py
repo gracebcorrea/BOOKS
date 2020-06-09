@@ -2,7 +2,7 @@ import os
 import json
 import requests
 import sqlalchemy
-from flask import Flask, session,render_template,request,redirect,url_for
+from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -34,7 +34,6 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    # Request login
     return render_template("login.html")
 
     #if request.method == "POST":
@@ -51,9 +50,9 @@ def login():
 
     #return render_template("login.html", work="Login")
 
-@app.route("/Register", methods=["GET", "POST"])
-def Register():
-    return render_template("register.html", homepage=True)
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("register.html")
 
 
 # Search Page
