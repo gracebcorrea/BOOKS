@@ -1,11 +1,13 @@
 <Style>
    .btn-primary{
-               background-color:  #400080;
+               background-color: #400080;
+               color: white;
                 }
 
 
     .btn-secondary{
               background-color: white;
+              color: #400080
                }
 
 </style>
