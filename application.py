@@ -35,21 +35,30 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # Request rom /register
-    if request.method == "POST":
-        email = request.form.get("email")
+    return render_template("login.html")
+
+    #if request.method == "POST":
+    #    email = request.form.get("email")
         # Checking if the user is registered
-        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
-            return render_template("login.html", work="Login",
-                                   error_message="The user has already registered. Please Login.")
-        password = request.form.get("password")
-        db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
-                   {"email": email, "password": generate_password_hash(password)})
-        db.commit()
-        return render_template("login.html", work="Login", message="Success")
+    #    if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
+    #        return render_template("login.html", work="Login",
+    #                               error_message="The user has already registered. Please Login.")
+    #    password = request.form.get("password")
+    #    db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
+    #               {"email": email, "password": generate_password_hash(password)})
+    #    db.commit()
+    #    return render_template("login.html", work="Login", message="Success")
 
-    return render_template("login.html", work="Login")
+    #return render_template("login.html", work="Login")
 
+# Search Page
+@app.route(/"search")
+def search()
+    return render_template("search.html")
 
+@app.route(/"bookspage")
+def bookspage()
+    return render_template("bookspage.html")
 
 
 
