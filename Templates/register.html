@@ -7,69 +7,70 @@
 {% endblock %}
 
 {% block heading%}
-    <style>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #330066;}
 
-     form {border: 3px solid #400080;}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-     input[type=text], input[type=password] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        }
+button {
+  background-color: #330066;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
 
-     button {
-       background-color: #330066;
-       color: white;
-       padding: 14px 20px;
-       margin: 8px 0;
-       border: none;
-       cursor: pointer;
-       width: 100%;
-        }
+button:hover {
+  opacity: 0.8;
+}
 
-     button:hover {
-          opacity: 0.8;
-          }
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
 
-     .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            background-color: gray;
-             }
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
 
-     .imgcontainer {
-              text-align: center;
-              margin: 24px 0 12px 0;
-              }
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
 
-      img.avatar {
-          width: 40%;
-          border-radius: 50%;
-          }
+.container {
+  padding: 16px;
+}
 
-      .container {
-          padding: 16px;
-           }
+span.password {
+  float: right;
+  padding-top: 16px;
+}
 
-       span.Password {
-            float: right;
-            padding-top: 16px;
-             }
-
-        /* Change styles for span and cancel button on extra small screens */
-         @media screen and (max-width: 300px) {
-                span.Password {
-                     display: block;
-                     float: none;
-                      }
-                .cancelbtn {
-                     width: 100%;
-                      }
-                    }
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.password {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
 </style>
+
 {% endblock %}
 
 
