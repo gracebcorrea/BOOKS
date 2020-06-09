@@ -69,14 +69,14 @@ img.avatar {
 }
 
 /* The "Forgot password" text */
-span.psw {
+span.Password {
   float: right;
   padding-top: 16px;
 }
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
-  span.psw {
+  span.Password {
     display: block;
     float: none;
   }
