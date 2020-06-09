@@ -52,11 +52,11 @@ def login():
     #return render_template("login.html", work="Login")
 
 # Search Page
-@app.route(/"search")
+@app.route("/search")
 def search()
     return render_template("search.html", homepage=True)
 
-@app.route(/"bookspage")
+@app.route("/bookspage")
 def bookspage()
     return render_template("bookspage.html", homepage=True)
 
