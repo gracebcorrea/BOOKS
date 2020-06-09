@@ -36,12 +36,12 @@ def index():
 def login():
     # Request rom /register
     if request.method == "POST":
-        email = request.form.get("Email")
+        email = request.form.get("email")
         # Checking if the user is registered
         if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
             return render_template("login.html", work="Login",
                                    error_message="The user has already registered. Please Login.")
-        password = request.form.get("Password")
+        password = request.form.get("password")
         db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
                    {"email": email, "password": generate_password_hash(password)})
         db.commit()
