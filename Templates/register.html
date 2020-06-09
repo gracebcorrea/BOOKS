@@ -6,28 +6,113 @@
     CS50W Project 1: Books
 {% endblock %}
 
+{% block heading%}
+    <style>
+
+     form {border: 3px solid #400080;}
+
+     input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        }
+
+     button {
+       background-color: #330066;
+       color: white;
+       padding: 14px 20px;
+       margin: 8px 0;
+       border: none;
+       cursor: pointer;
+       width: 100%;
+        }
+
+     button:hover {
+          opacity: 0.8;
+          }
+
+     .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: gray;
+             }
+
+     .imgcontainer {
+              text-align: center;
+              margin: 24px 0 12px 0;
+              }
+
+      img.avatar {
+          width: 40%;
+          border-radius: 50%;
+          }
+
+      .container {
+          padding: 16px;
+           }
+
+       span.Password {
+            float: right;
+            padding-top: 16px;
+             }
+
+        /* Change styles for span and cancel button on extra small screens */
+         @media screen and (max-width: 300px) {
+                span.Password {
+                     display: block;
+                     float: none;
+                      }
+                .cancelbtn {
+                     width: 100%;
+                      }
+                    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+<h2>New User Form</h2>
+
+<form action="/action_page.php" method="post">
+  <div class="imgcontainer">
+    <img src="img_avatar.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="email@exemple.com" name="email" required>
+
+    <label for="Password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="Password" required>
+    <label for="rePassword"><b>Password</b></label>
+    <input type="password" placeholder="Retipe yout password" name="Password" required>
 
 
 
-<div class="dropdown-menu">
-  <form class="px-4 py-3">
-    <div class="form-group">
-      <label for="exampleDropdownFormEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-    </div>
-    <div class="form-group">
-      <label for="exampleDropdownFormPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="dropdownCheck">
-      <label class="form-check-label" for="dropdownCheck">
-        Remember me
-      </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">New around here? Sign up for free</a>
-  <a class="dropdown-item" href="#">Forgot password?</a>
-</div>
+
+
+    <button type="submit">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#400080">
+    <button type="button" class="cancelbtn" onclick="MyHome" >Cancel</button>
+    <span class="Password">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
+
+<script>
+
+    function MyHome()
+       {
+        window.location.replace("index");
+       }
+</script>
+
+{% endblock %}
