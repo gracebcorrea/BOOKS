@@ -53,7 +53,7 @@ def login():
 
 @app.route("/Register", methods=["GET", "POST"])
 def Register():
-    return render_template("Register.html", homepage=True)
+    return render_template("register.html", homepage=True)
 
 
 # Search Page
