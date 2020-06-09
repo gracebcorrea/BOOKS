@@ -25,7 +25,7 @@ The goal of this project is to show the knowledge acquired in lectures 2,3 and 4
 5) Login.html
       allows the user to enter the site
 
-6) Join.html
+6) register.html
       allows the user to registrate on site
 
 
