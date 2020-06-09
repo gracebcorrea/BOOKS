@@ -53,11 +53,11 @@ def login():
 
 # Search Page
 @app.route("/search")
-def search()
+def search():
     return render_template("search.html", homepage=True)
 
 @app.route("/bookspage")
-def bookspage()
+def bookspage():
     return render_template("bookspage.html", homepage=True)
 
 
