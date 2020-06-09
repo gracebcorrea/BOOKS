@@ -1,81 +1,85 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="Mystylelist.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <style>
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #400080;}
 
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
+{% extends "layout.html" %}
 
-button {
-  background-color: #330066;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
+{% block title %}
+    CS50W Project 1: Books
+{% endblock %}
 
-button:hover {
-  opacity: 0.8;
-}
+{% block heading%}
+    <style>
 
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: gray;
-}
+     form {border: 3px solid #400080;}
 
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
+     input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        }
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
+     button {
+       background-color: #330066;
+       color: white;
+       padding: 14px 20px;
+       margin: 8px 0;
+       border: none;
+       cursor: pointer;
+       width: 100%;
+        }
 
-.container {
-  padding: 16px;
-}
+     button:hover {
+          opacity: 0.8;
+          }
 
-span.Password {
-  float: right;
-  padding-top: 16px;
-}
+     .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: gray;
+             }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.Password {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
+     .imgcontainer {
+              text-align: center;
+              margin: 24px 0 12px 0;
+              }
+
+      img.avatar {
+          width: 40%;
+          border-radius: 50%;
+          }
+
+      .container {
+          padding: 16px;
+           }
+
+       span.Password {
+            float: right;
+            padding-top: 16px;
+             }
+
+        /* Change styles for span and cancel button on extra small screens */
+         @media screen and (max-width: 300px) {
+                span.Password {
+                     display: block;
+                     float: none;
+                      }
+                .cancelbtn {
+                     width: 100%;
+                      }
+                    }
 </style>
-</head>
-<body>
+{% endblock %}
+
+
+{% block body %}
 
 <h2>Login Form</h2>
 
 <form action="/action_page.php" method="post">
   <div class="imgcontainer">
-    <img src="image_avatar2.png" alt="Avatar" class="avatar">
+    <img src="img_avatar.png" alt="Avatar" class="avatar">
   </div>
 
   <div class="container">
@@ -103,6 +107,6 @@ span.Password {
        {
         window.location.replace("index.html");
        }
+</script>
 
-</body>
-</html>
+{% endblock %}
