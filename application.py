@@ -69,6 +69,14 @@ def bookspage():
 
 
 
+@app.route('/logout')
+def logout():
+    session['Logged_user'] = None
+    flash('User not Logged in')
+    return redirect(url_for('index'))
+
+
+
 @app.route("/res")
 def res():
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
