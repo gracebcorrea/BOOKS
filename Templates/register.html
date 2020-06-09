@@ -3,7 +3,8 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    CS50W Project 1: Books
+    CS50W Project 1: Books - Login
+
 {% endblock %}
 
 {% block heading%}
@@ -85,25 +86,31 @@ span.password {
 
   <div class="container">
     <label for="email"><b>Username</b></label>
-    <input type="text" placeholder="email@exemple.com" name="email" required>
+    <input type="text" placeholder="email@exemple.com" name="email" id="email" required>
 
     <label for="Password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="Password" required>
+    <input type="password" placeholder="Enter Password" name="Password" id="password" required>
+    <label for="Password"><b>Re-Type Password</b></label>
+    <input type="password" placeholder="Type again your Password" name="Password" id="checkpassword" required>
 
-    <label for="rePassword"><b>Password</b></label>
-    <input type="password" placeholder="Retipe yout password" name="Password" required>
-
-
-    <button type="submit" id=CreateUser>Create User</button>
-
+    <button type="submit" id="login">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
   </div>
 
   <div class="container" style="background-color:#400080">
-    <button type="button" class="cancelbtn" onclick="goHome" >Cancel</button>
-
+    <button type="button" class="btn btn-danger" id="cancel" onclick=goHome()>Cancel
+    </button>
   </div>
 </form>
 
+<!--<script>
 
+    function goHome()
+       {
+        window.location.replace("index");
+       }
+</script>-->
 
 {% endblock %}
