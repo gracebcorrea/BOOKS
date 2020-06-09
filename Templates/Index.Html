@@ -16,17 +16,17 @@
   <h2>      What books do you recommend?       <h2>
   <h2>  Help good readers to find good books! </h2>
   <p style="padding: 80px;" >
-    <button type="button" class="btn btn-lg btn-block btn-primary   active" onclick=MyLogin() >Login</button>
-    <button type="button" class="btn btn-lg btn-block btn-secondary active" onclick=MyRegister()>New User?</button>
+    <button type="button" class="btn btn-lg btn-block btn-primary   active" onclick=goLogin() >Login</button>
+    <button type="button" class="btn btn-lg btn-block btn-secondary active" onclick=goRegister()>New User?</button>
   </p>
   <script>
 
-      function MyLogin()
+      function goLogin()
          {
            window.location.replace("login");
          }
 
-       function MyRegister()
+       function goRegister()
           {
           window.location.replace("register");
           }
