@@ -31,6 +31,23 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template("Index.html", homepage=True)
 
+# Login Page
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    # Request rom /register
+    if request.method == "POST":
+        email = request.form.get("Email")
+        # Checking if the user is registered
+        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
+            return render_template("login.html", work="Login",
+                                   error_message="The user has already registered. Please Login.")
+        password = request.form.get("Password")
+        db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
+                   {"email": email, "password": generate_password_hash(password)})
+        db.commit()
+        return render_template("login.html", work="Login", message="Success")
+
+    return render_template("login.html", work="Login")
 
 
 
