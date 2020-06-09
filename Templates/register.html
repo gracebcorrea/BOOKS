@@ -88,31 +88,21 @@
 
     <label for="Password"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="Password" required>
+
     <label for="rePassword"><b>Password</b></label>
     <input type="password" placeholder="Retipe yout password" name="Password" required>
 
 
+    <button type="submit" id=CreateUser>Create User</button>
 
-
-
-    <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
   </div>
 
   <div class="container" style="background-color:#400080">
-    <button type="button" class="cancelbtn" onclick="MyHome" >Cancel</button>
-    <span class="Password">Forgot <a href="#">password?</a></span>
+    <button type="button" class="cancelbtn" onclick="goHome" >Cancel</button>
+
   </div>
 </form>
 
-<script>
 
-    function MyHome()
-       {
-        window.location.replace("index");
-       }
-</script>
 
 {% endblock %}
