@@ -34,7 +34,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    # Request rom /register
+    # Request login
     return render_template("login.html")
 
     #if request.method == "POST":
@@ -51,11 +51,18 @@ def login():
 
     #return render_template("login.html", work="Login")
 
+@app.route("/Register", methods=["GET", "POST"])
+def Register():
+    return render_template("Register.html", homepage=True)
+
+
 # Search Page
 @app.route("/search")
 def search():
     return render_template("search.html", homepage=True)
 
+
+# Review Page
 @app.route("/bookspage")
 def bookspage():
     return render_template("bookspage.html", homepage=True)
