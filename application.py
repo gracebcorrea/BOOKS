@@ -25,7 +25,7 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 #cursor
-cur = db.cursor()
+#cur = db.cursor()
 
 # Principal Page call
 @app.route("/index")
@@ -85,7 +85,7 @@ def res():
 
 
 #close cursor
-cur.close()
+#cur.close()
 
 #close connection
 db.close()
