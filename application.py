@@ -36,6 +36,8 @@ def index():
 def login():
     return render_template("login.html", homepage=True)
 
+    #depois de validar o login tem que ir direto para a pagina de search
+
     #username = request.form.get("username")
     #password = request.form.get("password")
     #checks if username already exists
