@@ -34,23 +34,20 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        Checking if the user is registered
+        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is None:
+            return render_template("login.html", work="Login",
+                                   error_message="The user is not registered, please join us.")
+        else:
+            password = request.form.get("password")
+             db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
+                  {"email": email, "password": generate_password_hash(password)})
+        db.commit()
+        return render_template("login.html", work="Login", message="Success, You are now Logged")
 
-
-
-    #if request.method == "POST":
-    #    email = request.form.get("email")
-        # Checking if the user is registered
-    #    if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
-    #        return render_template("login.html", work="Login",
-    #                               error_message="The user has already registered. Please Login.")
-    #    password = request.form.get("password")
-    #    db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
-    #               {"email": email, "password": generate_password_hash(password)})
-    #    db.commit()
-    #    return render_template("login.html", work="Login", message="Success")
-
-        return render_template("login.html")
-    #return render_template("login.html", work="Login")
+        return render_template("login.html", work="Login")
 
     # Get form information.
 #    username = request.form.get("username")
@@ -82,16 +79,16 @@ def register():
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
         return render_template("error.html", message="This user already exists.")
-    #else:
-    #    password1 = pbkdf2_sha256.hash(password)
-        # password2 = sha256_crypt.encrypt(password1)
+    else:
+        password = pbkdf2_sha256.hash(password)
+       # password2 = sha256_crypt.encrypt(password1)
 
-    #    db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
-    #            {"username": username, "password": password1})
-    #    db.commit()
-    #    session["user_name"] = username #Store user id here
-    #    session["logged_in"] = True
-    #    return render_template("search.html")
+        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+                {"username": username, "password": password})
+        db.commit()
+        session["user_name"] = username #Store user id here
+        session["logged_in"] = True
+        return render_template("search.html")
 
     return render_template("register.html")
 
