@@ -13,7 +13,8 @@
 
 {% block body%}
 <h2> Data of the Book you chose: </h2>
-<div style="margin-left:50px; margin-right:50px; border:#400080"  class="flex-container">
+<!--margin-left:50px; margin-right:50px; -->
+<div style="border:#400080"  class="flex-container">
       <div class="row"  width="6000px">
            <div class="col-lg-4"  width="2000px" >
                <h3>Cover ?</h3>
@@ -33,21 +34,16 @@
            </div>
            <div class="col-lg-4"  width="2000px">
                  <h3>Your Review</h3>
-                 <div class="widget-area no-padding blank" style="width:500px">
-							    	<div class="status-upload">
-							       		<form>
-								       		<textarea placeholder="Place here your review" ></textarea>
-								      		<ul>
-									    		<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-									    		<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-									     		<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-									    		<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-									      	</ul>
-										<button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Post</button>
-									</form>
-								</div><!-- Status Upload  -->
-							</div><!-- Widget Area -->
-						</div>
+                 <form action="/action_page.php">
+                        <div class="form-group">
+                              <label for="comment">Comment:</label>
+                               <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                 </form>
+
+
+
 
                  <p></p>
                  <form method="POST">
