@@ -29,6 +29,7 @@ img.avatar {
 
 .container {
   padding: 10px;
+  border:1px solid #ccc; <!-- tirar depois-->
 }
 
 input[type=text], input[type=password] {
@@ -77,15 +78,14 @@ span.password {
 <div class="flex-container">
      <div class="row"  width="5000px">
            <div class="col-lg-6"    >
+                <div class="container">
               <!--  <p><img class="img-rounded" alt="Avatar" width="300" height="250"
                         src="/img_avatar.jpg" ></p>-->
-                <p> <img src="{{url_for('static', filename="avatar.jpg")}}" />
-
-                </p>
-
+                <p> <img src="{{url_for('static_folder', filename="avatar.jpg")}}" /> </p>
+               </div>
 
            </div>
-           <div class="col-lg-6"  width="4000px" >
+           <div class="col-lg-6"  width="5000px" >
                 <div class="container">
                      <form action="/action_page.php" method="post">
                           <label for="email" style="margin:15px"><b>Username</b></label>
