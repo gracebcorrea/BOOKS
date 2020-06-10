@@ -1,7 +1,4 @@
-import os
-import json
-import requests
-import sqlalchemy
+import os , requests, sqlalchemy, json, images
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
