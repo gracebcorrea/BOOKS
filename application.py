@@ -1,4 +1,4 @@
-import os , requests, sqlalchemy, json, images
+import os , requests, sqlalchemy, json, images,imgkit
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -34,6 +34,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    imgkit.from_file('login.html', 'img_avatar.jpg')
     return render_template("login.html")
 
     #if request.method == "POST":
