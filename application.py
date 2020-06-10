@@ -34,6 +34,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    img = Image.open('img_avatar.jpg')
     return render_template("login.html")
 
     #if request.method == "POST":
