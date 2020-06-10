@@ -14,11 +14,6 @@
 
 
 
-
-
-
-
-
 <style>
 </style>
 
@@ -37,8 +32,7 @@
    <input type="radio" class="form-check-input" name="optradio">Title
  </label>
 </div>
-<form action="{{ url_for('books') }}" method="post">
-
+<form action="{{ url_for('search') }}" method="post">
     <div class="form-group">
         <input class="form-control" name="searchqry" placeholder="Search by Title, Author or ISBN">
     </div>
