@@ -1,4 +1,4 @@
-import os , requests, sqlalchemy, json, images,imgkit
+import os , requests, sqlalchemy, json, imgkit, codecs
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
