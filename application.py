@@ -34,7 +34,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+
 
 
     #if request.method == "POST":
@@ -49,17 +49,70 @@ def login():
     #    db.commit()
     #    return render_template("login.html", work="Login", message="Success")
 
+        return render_template("login.html")
     #return render_template("login.html", work="Login")
+
+    # Get form information.
+#    username = request.form.get("username")
+#    password = request.form.get("password")
+
+    # Make sure the login exists.
+#    try:
+#        login_cred = db.execute("SELECT username, password FROM users WHERE username = :username", {"username" : username}).fetchone()
+#        hash = pbkdf2_sha256.verify(password, login_cred.password)
+
+#        if hash is True and username == login_cred.username:
+#            session["user_name"] = username #Store user id here
+#            session["logged_in"] = True
+#            return render_template("search.html")
+#        else:
+#            return render_template("error.html", message="Wrong username and/or password!")
+#    except AttributeError:
+#        return render_template("error.html", message="Wrong username and/or password!")
+#    except ValueError:
+#        return render_template("error.html", message="Wrong username and/or password!")
+
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if db.execute("SELECT * FROM users WHERE username = :username",
+                {"username": username}).rowcount > 0:
+        return render_template("error.html", message="This user already exists.")
+    #else:
+    #    password1 = pbkdf2_sha256.hash(password)
+        # password2 = sha256_crypt.encrypt(password1)
+
+    #    db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+    #            {"username": username, "password": password1})
+    #    db.commit()
+    #    session["user_name"] = username #Store user id here
+    #    session["logged_in"] = True
+    #    return render_template("search.html")
+
     return render_template("register.html")
 
 
 # Search Page
 @app.route("/search")
 def search():
+
+
+
+
+
+
+
+
+
+
+
+
     return render_template("search.html", homepage=True)
+
 
 
 # Review Page
