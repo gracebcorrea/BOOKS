@@ -11,7 +11,44 @@
 {% endblock %}
 
 {% block body%}
-
+     <h2> Data of the Book you chose </h2>
+     <div>
+    <h3>
+        Hello, {{ username }}!
+    </h3>
+    <h1>
+        {{ book_title }}
+    </h1>
+    <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg">
+    <h3>
+        Number of reviews {{ reviews_count }}
+    </h3>
+    <h3>
+        Number of ratings {{ ratings_count }}
+    </h3>
+    <h3>
+        Average Rating {{ average_rating }}
+    </h3>
+</div>
+<form method="POST">
+    <input type="text" name="comment" class="commentBox" placeholder="Leave your comment">
+    <button type="submit" class="commentButton">submit</button>
+    <select name="rating">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+</form>
+<h2>Reviews</h2>
+<ul>
+    {% for review in reviews %}
+        <li>Review: {{ review.review }} Username: {{ review.username }} Date: {{ review.date }}</li>
+    {% else %}
+        <li>No reviews!</li>
+    {% endfor %}
+</ul>
 
 
 
