@@ -38,7 +38,13 @@
                      <li class="nav-item">
                      <a class="nav-link text-white" href="search" id="search">Books Search</a>
                      </li>
-                        <!-- {% if user.is_authenticated %}-->
+                      <!-- tirar depois de testar-->
+
+                     <li class="nav-item">
+                     <a class="nav-link text-white" href="bookspage" id="bookspage">Books Search</a>
+                     </li>
+
+                      <!-- {% if user.is_authenticated %}-->
                             <li class="nav-item">
                             <a class="nav-link text-white" href="logout" id="logout">Login</a>
                             </li>
@@ -47,14 +53,16 @@
                           <li class="nav-item">
                           <a class="nav-link text-white" href="login" id="login">Login</a>
                           </li>
-
+                    <!--{%endif %}-->
 
 
                  </ul>
         </nav>
     </div>
     <div class="header">
-      {% block heading%}      {% endblock %}
+       {% block heading%} 
+
+       {% endblock %}
     </div>
   </head>
 
