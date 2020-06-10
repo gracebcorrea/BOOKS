@@ -34,8 +34,9 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    imgkit.from_file('login.html', 'img_avatar.jpg')
+
     return render_template("login.html")
+    imgkit.from_file("login.html", "../img_avatar.jpg"'")
 
     #if request.method == "POST":
     #    email = request.form.get("email")
