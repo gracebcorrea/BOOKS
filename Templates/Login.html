@@ -12,32 +12,16 @@
 
 
 {% block body %}
-
-<!--{% if session['logged_in'] %}
-<p>You are already logged in! Use the <a href="/search">search</a> function to find books and reviews.</p>
-{% else %}
-     <div>
-     </div-->
-
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #330066;}
+    body {font-family: Arial, Helvetica, sans-serif;}
+    form {border: 3px solid #330066;}
 
-.imgcontainer {
-  padding: : 10px
-  text-align: center;
-  margin: 40px  40px ;
-}
+    .imgcontainer {
+       padding: : 10px
+       text-align: center;
+       margin: 40px  40px ;
+        }
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-  }
-
-.container {
-  padding: 10px;
-
-}
 
 input[type=text], input[type=password] {
   width: 92%;
@@ -74,14 +58,28 @@ span.password {
   padding-top: 16px;
 }
 
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+  }
+
+.container {
+  padding: 10px;
+
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.password {
      display: block;
      float: none;
   }
+  .cancelbtn {
+       width: 100%;
+     }
 }
 </style>
+
 <div class="flex-container">
           <div class="col-lg-12"  width="5000px" >
                 <div class="container">
@@ -100,13 +98,16 @@ span.password {
                     </form>
                 </div>
           </div>
-
 </div>
+
+
 <script>
     function goHome()
        {
         window.location.replace("index");
        }
 </script>
+
+
 
 {% endblock %}
