@@ -78,15 +78,15 @@ span.password {
 }
 </style>
 <div class="flex-container">
-     <div class="row"  width="2000px">
-         <div class="col-lg-2 col-sm-4"   width="1000px" >
-              <div class="imgcontainer">
-                   <img src="img_avatar.png" alt="Avatar" class="Avatar" >
-              </div>
-         </div>
-         <div class="col-lg-2 col-sm-4"   width="1000px" >
+     <div class="row"  width="4000px">
+           <div class="col-lg-2 col-sm-4"   width="4000px" >
+                <div class="imgcontainer">
+                    <img src="img_avatar.png" alt="Avatar" class="Avatar" >
+                </div>
+           </div>
+           <div class="col-lg-2 col-sm-4"   width="4000px" >
               <div class="container">
-                   <form action="/action_page.php" method="post">
+                    <form action="/action_page.php" method="post">
                          <label for="email"><b>Username</b></label>
                          <input type="text" placeholder="email@exemple.com" name="email" required>
                          <label for="Password"><b>Password</b></label>
@@ -96,18 +96,13 @@ span.password {
                           </label>
                          <button type="submit" id="login">Login</button>
                          <div class="container" >
-                             <button type="button" class="btn btn-danger" id="cancel" onclick=goHome()>Cancel
-                             </button>
+                             <button type="button" class="btn btn-danger" id="cancel" onclick=goHome()>Cancel</button>
                          </div>
-                  </form>
+                    </form>
               </div>
         </div>
-
-
-
-
-
-
+   </div>
+</div>
 <script>
     function goHome()
        {
