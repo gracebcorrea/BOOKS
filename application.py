@@ -35,19 +35,10 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form.get("email")
-        #Checking if the user is registered
-        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is None:
-            return render_template("login.html", work="Login",
-                                   error_message="The user is not registered, please join us.")
-        #else:
-        #    password = request.form.get("password")
-        #    db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
-        #          {"email": email, "password": generate_password_hash(password)})
-        #    db.commit()
-        #return render_template("login.html", work="Login", message="Success, You are now Logged")
-
-        return render_template("login.html", work="Login")
+        username = request.form.get("username")
+        if db.execute("SELECT * FROM users WHERE username = :username",
+                    {"username": username}).rowcount = 0:
+             return render_template("Alerts.html", message="This user does´t exists you need do register")
 
     # Get form information.
 #    username = request.form.get("username")
