@@ -8,7 +8,7 @@ from PIL import Image
 
 app = Flask(__name__)
 
-
+STATIC_URL = '/static/'
 # Check for environment variable
 
 if not os.getenv("DATABASE_URL"):
