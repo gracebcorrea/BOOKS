@@ -34,9 +34,6 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    with open('\templates\login.html') as f:
-         imgkit.from_file(f, '\images\img_avatar.jpg')
-
     return render_template("login.html")
 
 
