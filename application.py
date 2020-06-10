@@ -36,16 +36,16 @@ def index():
 def login():
     if request.method == "POST":
         email = request.form.get("email")
-        Checking if the user is registered
-        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is None:
+        #Checking if the user is registered
+        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
             return render_template("login.html", work="Login",
                                    error_message="The user is not registered, please join us.")
-        else:
-            password = request.form.get("password")
-             db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
-                  {"email": email, "password": generate_password_hash(password)})
-        db.commit()
-        return render_template("login.html", work="Login", message="Success, You are now Logged")
+        #else:
+        #    password = request.form.get("password")
+        #    db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
+        #          {"email": email, "password": generate_password_hash(password)})
+        #    db.commit()
+        #return render_template("login.html", work="Login", message="Success, You are now Logged")
 
         return render_template("login.html", work="Login")
 
