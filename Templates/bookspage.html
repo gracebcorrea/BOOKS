@@ -7,9 +7,7 @@
 {% endblock %}
 
 {% block heading%}
-    <h3>
-          Hello, {{ username }}!
-    </h3>
+    <h3>   Hello, {{ username }}!    </h3>
     Can you help us by reviewing this book?
 {% endblock %}
 
@@ -37,15 +35,16 @@
                  <h3>Your Review</h3>
                  <p></p>
                  <form method="POST">
-                       <input type="text" name="comment" class="commentBox" placeholder="Leave your comment">
-                       <button type="submit" class="commentButton">submit</button>
-                       <select name="rating">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
-                       </select>
+                       <p><input type="text" name="comment" class="commentBox" placeholder="Leave your comment"></p>
+
+                       <p> <select name="rating">
+                               <option>1</option>
+                               <option>2</option>
+                               <option>3</option>
+                               <option>4</option>
+                               <option>5</option>
+                            </select>
+                            <button type="submit" class="commentButton">submit</button></p>
                  </form>
                  <p></p>
            </div>
