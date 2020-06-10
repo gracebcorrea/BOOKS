@@ -34,11 +34,11 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        username = request.form.get("username")
-        if db.execute("SELECT * FROM users WHERE username = :username",
-                    {"username": username}).rowcount = 0:
-             return render_template("Alerts.html", message="This user does´t exists you need do register")
+    username = request.form.get("username")
+    #checks if username already exists
+    if db.execute("SELECT * FROM users WHERE username = :username",
+                    {"username": username}).rowcount < 1:
+           return render_template("Alerts.html")
 
     # Get form information.
 #    username = request.form.get("username")
