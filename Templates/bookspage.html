@@ -14,34 +14,48 @@
 {% endblock %}
 
 {% block body%}
-     <h2> Data of the Book you chose </h2>
-     <div>
-    
-    <h1>
-        {{ book_title }}
-    </h1>
-    <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg">
-    <h3>
-        Number of reviews {{ reviews_count }}
-    </h3>
-    <h3>
-        Number of ratings {{ ratings_count }}
-    </h3>
-    <h3>
-        Average Rating {{ average_rating }}
-    </h3>
+<h2> Data of the Book you chose: </h2>
+<div style="margin-left:150px; margin-right:30px"  class="flex-container">
+      <div class="row"  width="1700px">
+           <div class="col-lg-4 col-sm-6"  style="background-color:#d1e0e0" width="1000px" >
+               <h3>Cover ?</h3>
+               <p></p>
+               <h1> {{ book_title }} </h1>
+               <p></p>
+               <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg">
+               <p><p>
+           </div>
+           <div class="col-lg-4 col-sm-6"  width="1000px">
+                 <h3>Book Details</h3>
+                 <p></p>
+                 <h4> Number of reviews {{ reviews_count }} </h4>
+                 <h4> Number of ratings {{ ratings_count }} </h4>
+                 <h4> Average Rating {{ average_rating }} </h4>
+                 <p></p>
+           </div>
+           <div class="col-lg-4 col-sm-6" style="background-color:#d1e0e0" width="1000px">
+                 <h3>Your Review</h3>
+                 <p></p>
+                 <form method="POST">
+                       <input type="text" name="comment" class="commentBox" placeholder="Leave your comment">
+                       <button type="submit" class="commentButton">submit</button>
+                       <select name="rating">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                       </select>
+                 </form>
+                 <p></p>
+           </div>
+      </div>
 </div>
-<form method="POST">
-    <input type="text" name="comment" class="commentBox" placeholder="Leave your comment">
-    <button type="submit" class="commentButton">submit</button>
-    <select name="rating">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-    </select>
-</form>
+
+
+
+
+
 <h2>Reviews</h2>
 <ul>
     {% for review in reviews %}
