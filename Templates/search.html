@@ -11,6 +11,14 @@
 {% endblock %}
 
 {% block body%}
+
+
+
+
+
+
+
+
 <style>
 </style>
 
@@ -29,6 +37,35 @@
    <input type="radio" class="form-check-input" name="optradio">Title
  </label>
 </div>
+<form action="{{ url_for('books') }}" method="post">
+
+    <div class="form-group">
+        <input class="form-control" name="searchqry" placeholder="Search by Title, Author or ISBN">
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">Search</button>
+    </div>
+
+</form>
+<h1>Here are the  Books Matching Your Search:</h1>
+
+    <table style="width:80%" class="table">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Year</th>
+        <th scope="col">ISBN</th>
+      </tr>
+      {% for books in books %}
+      <tr class="table-striped">
+        <td><a href="{{ url_for('book', book_id=books.id) }}">{{ books.title }}</a></td>
+        <td>{{ books.author }}</td>
+        <td>{{ books.year }}</td>
+        <td>{{ books.isbn }}</td>
+      </tr>
+      {% endfor %}
+    </table>
 
 
 {% endblock %}
