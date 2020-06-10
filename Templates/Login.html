@@ -80,17 +80,16 @@ span.password {
      <div class="row"  width="5000px">
            <div class="col-lg-6"    >
                 <div class="container">
-              <!--  <p><img class="img-rounded" alt="Avatar" width="300" height="250"
+                <p><img class="img-rounded" alt="Avatar" width="300" height="250"
+                        src="../static/img_avatar.jpg" ></p>
 
-                        src="/img_avatar.jpg" ></p>-->
-
-                <p> <img src="{{url_for("static", filename="img_avatar.jpg")}}" width="400" height="250"> </p>
-               </div>
+                <!--<p> <img src="{{url_for("static", filename="img_avatar.jpg")}}" width="400" height="250"> </p>
+               </div>-->
 
            </div>
            <div class="col-lg-6"  width="5000px" >
                 <div class="container">
-                     <form action="login" method="post">
+                     <form action="/action_page.php" method="post">
                           <label for="email" style="margin:15px"><b>Username</b></label>
                           <input type="text" placeholder="email@exemple.com" name="email" required>
                           <label for="Password" style="margin:15px"><b>Password</b></label>
