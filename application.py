@@ -1,8 +1,10 @@
-import os , requests, sqlalchemy, json, imgkit, codecs
+import os , requests, sqlalchemy, json 
 from flask import Flask, session, render_template, request, redirect, url_for,Response,send_from_directory
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from werkzeug.security import generate_password_hash, check_password_hash
+from helper import login_required
 from PIL import Image
 
 
@@ -68,8 +70,9 @@ def register():
          return render_template("register.html")
 
 
+
 # Search Page
-@app.route("/search")
+@app.route("/search", methods=["GET", "POST"])
 def search():
 
 
@@ -88,7 +91,7 @@ def search():
 
 
 # Review Page
-@app.route("/bookspage")
+@app.route("/bookspage", methods=["GET", "POST"])
 def bookspage():
     return render_template("bookspage.html", homepage=True)
 
@@ -98,7 +101,7 @@ def bookspage():
 def logout():
     session['Logged_user'] = None
     flash('User not Logged in')
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 
