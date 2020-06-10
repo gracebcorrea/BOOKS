@@ -62,7 +62,7 @@ def register():
     #check if the user exists on the base
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
-        return render_template("error.html", message="This user already exists.")
+        return render_template("Alerts.html", message="This user already exists.")
     else:
 
         #db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
