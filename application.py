@@ -37,7 +37,7 @@ def login():
     if request.method == "POST":
         email = request.form.get("email")
         #Checking if the user is registered
-        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is not None:
+        if db.execute("SELECT id FROM users WHERE email= :email", {"email": email}).fetchone() is None:
             return render_template("login.html", work="Login",
                                    error_message="The user is not registered, please join us.")
         #else:
@@ -53,44 +53,26 @@ def login():
 #    username = request.form.get("username")
 #    password = request.form.get("password")
 
-    # Make sure the login exists.
-#    try:
-#        login_cred = db.execute("SELECT username, password FROM users WHERE username = :username", {"username" : username}).fetchone()
-#        hash = pbkdf2_sha256.verify(password, login_cred.password)
-
-#        if hash is True and username == login_cred.username:
-#            session["user_name"] = username #Store user id here
-#            session["logged_in"] = True
-#            return render_template("search.html")
-#        else:
-#            return render_template("error.html", message="Wrong username and/or password!")
-#    except AttributeError:
-#        return render_template("error.html", message="Wrong username and/or password!")
-#    except ValueError:
-#        return render_template("error.html", message="Wrong username and/or password!")
-
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     username = request.form.get("username")
     password = request.form.get("password")
-
+    #check if the user exists on the base
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
         return render_template("error.html", message="This user already exists.")
     else:
-        password = pbkdf2_sha256.hash(password)
-       # password2 = sha256_crypt.encrypt(password1)
 
-        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
-                {"username": username, "password": password})
-        db.commit()
-        session["user_name"] = username #Store user id here
-        session["logged_in"] = True
-        return render_template("search.html")
+        #db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+        #        {"username": username, "password": password})
+        #db.commit()
+        #session["user_name"] = username #Store user id here
+        #session["logged_in"] = True
+        #return render_template("search.html")
 
-    return render_template("register.html")
+         return render_template("register.html")
 
 
 # Search Page
