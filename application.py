@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-STATIC_URL = '/static/'
+
 # Check for environment variable
 
 if not os.getenv("DATABASE_URL"):
@@ -35,7 +35,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html", homepage=True)
+
 
     #depois de validar o login tem que ir direto para a pagina de search
 
@@ -45,7 +45,7 @@ def login():
     #if db.execute("SELECT * FROM users WHERE username = :username",
     #                {"username": username}).rowcount < 1:
     #       return render_template("Alerts.html")
-
+    return render_template("login.html")
 
 
 
@@ -85,21 +85,21 @@ def search():
 
 
 
-    return render_template("search.html", homepage=True)
+    return render_template("search.html")
 
 
 
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
 def bookspage():
-    return render_template("bookspage.html", homepage=True)
+    return render_template("bookspage.html")
 
 
 
 @app.route('/logout')
 def logout():
-    session['Logged_user'] = None
-    flash('User not Logged in')
+#    session['Logged_user'] = None
+#    flash('User not Logged in')
     return redirect(url_for('login'))
 
 
