@@ -42,8 +42,7 @@ def login():
                 {"username": username}).rowcount is none:
         return render_template("Alerts.html", message="This user doesn´t exists, you need to register.")
     else:
-
-    return render_template("login.html")
+        return render_template("login.html")
 
 
 
