@@ -47,7 +47,7 @@ def login():
      #password = util.encrypt(password)
     user=db.execute("SELECT * FROM users WHERE username=:username AND password=:password", {"username":username, "password":password}).fetchone()
     if user is None:
-         return render_template("error.htm", message="Invalid username or password")
+         return render_template("alerts.html", message="Invalid username or password")
     else:
         return render_template("login.html")
 
