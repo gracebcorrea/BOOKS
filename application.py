@@ -125,7 +125,7 @@ def logout():
 #    flash('User not Logged in')
     return redirect(url_for('login'))
     #close cursor
-    cur.close()
+    #cur.close()
 
 
 @app.route("/res")
