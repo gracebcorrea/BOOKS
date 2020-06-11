@@ -33,19 +33,25 @@
 <h2>Alert Messages</h2>
 
 <p>Click on the "x" symbol to close the alert message.</p>
-if <div class="alert alert-danger">:
+
+{%If {{class}} = "alert alert-danger" %}
+     <div class="alert alert-danger">
      <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
      <strong>ERROR !</strong> {{ message }}.
      </div>
-if <div class="alert alert-success">:
+{%endif%}
+{%If {{class}} = "alert alert-success"%}
+      <div class="alert alert-success">
      <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
      <strong>SUCCESS!</strong> {{ message }}.
     </div>
-if<div class="alert alert-primary">:
+{%endif%}
+{%If {{class}} = "alert alert-primary" %}
+    <div class="alert alert-primary">:
     <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
     <strong>WARNING:!</strong> {{ message }}.
     </div>
-
+{%endif%}
 
 <style>
   img {
