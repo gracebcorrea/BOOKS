@@ -10,15 +10,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
 #connect db
-db = psycopg2.connect(
-      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
-      database= "d3ck6mm9jbc163",
-      user = "dgssjhgflgvwxj",
-      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740")
+#db = psycopg2.connect(
+#      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+#      database= "d3ck6mm9jbc163",
+#      user = "dgssjhgflgvwxj",
+#      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740")
 
 
 #cursor
-cur = db.cursor()
+#cur = db.cursor()
 
 # Check for environment variable
 
@@ -63,7 +63,7 @@ def login():
     password = request.form.get("password")
     #check if the user exists on the base
      #password = util.encrypt(password)
-    cur.execute("SELECT * FROM users WHERE username=:username AND password=:password",
+    user=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
                     {"username":username, "password":password}).fetchone()
     if user is None:
          return render_template("Alerts.html", message="Invalid username or password")
@@ -135,8 +135,7 @@ def res():
     return(res.json())
 
 
-#close cursor
-cur.close()
+
 
 #close connection
 db.close()
