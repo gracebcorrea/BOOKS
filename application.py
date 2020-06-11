@@ -67,12 +67,11 @@ def login():
 
     userchek=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
                     {"username":username, "password":password}).fetchone()
-    if userchek is None:
-         return render_template("Alerts.html" , tipo="alert alert-danger")
-         return render_template("Alerts.html", message="This Username is not here!")
-    else:
+    if userchek is not None:
         return render_template("Alerts.html", message="Wellcome, you are logged in!" )
         return render_template("login.html")
+    else:
+        return render_template("Alerts.html", tipo="alert alert-danger", message="This Username is not here!")
 
 
 @app.route("/register", methods=["GET", "POST"])
