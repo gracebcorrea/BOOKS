@@ -44,12 +44,12 @@ def login():
     username = request.form.get("username")
     password = request.form.get("password")
     #check if the user exists on the base
-    if db.execute("SELECT * FROM users WHERE username = :username",
-                {"username": username}).fetchone() is None:
-        return render_template("login.html")
-
+     #password = util.encrypt(password)
+    user=db.execute("SELECT * FROM users WHERE username=:username AND password=:password", {"username":username, "password":password}).fetchone()
+    if user is None:
+         return render_template("error.htm", message="Invalid username or password")
     else:
-        return render_template("Alerts.html", message="This user doesn´t exists, you need to register.")
+        return render_template("login.html")
 
 
 
