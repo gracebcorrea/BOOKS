@@ -9,6 +9,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
+DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
+
 #connect db
 #db = psycopg2.connect(
 #      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
@@ -59,6 +61,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    return render_template("login.html")
     #receive form information)
     username = request.form.get("username")
     password = request.form.get("password")
