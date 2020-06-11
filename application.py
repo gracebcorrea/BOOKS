@@ -59,7 +59,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    #receive form information)
     username = request.form.get("username")
     password = request.form.get("password")
     rememberme = request.form.get("rememberme ")
@@ -69,10 +69,9 @@ def login():
                     {"username":username, "password":password}).fetchone()
     if userchek is None:
          return render_template("Alerts.html", message="This Username is not here!")
-         print("Error: este usuário não existe")
     else:
-        return render_template("Alerts.html", message="Wellcome, you are logged in!"" )
-
+        return render_template("Alerts.html", message="Wellcome, you are logged in!" )
+     return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
