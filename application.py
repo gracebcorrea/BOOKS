@@ -35,16 +35,14 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    username = request.form.get("username")
+    password = request.form.get("password")
+    #check if the user exists on the base
+    if db.execute("SELECT * FROM users WHERE username = :username",
+                {"username": username}).rowcount is none:
+        return render_template("Alerts.html", message="This user doesn´t exists, you need to register.")
+    else:
 
-
-    #depois de validar o login tem que ir direto para a pagina de search
-
-    #username = request.form.get("username")
-    #password = request.form.get("password")
-    #checks if username already exists
-    #if db.execute("SELECT * FROM users WHERE username = :username",
-    #                {"username": username}).rowcount < 1:
-    #       return render_template("Alerts.html")
     return render_template("login.html")
 
 
