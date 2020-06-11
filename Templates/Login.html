@@ -85,12 +85,12 @@ img.avatar {
                 <div class="container">
                      <form action="{{ url_for('login') }}" method="post">
                           <label for="Username" style="margin:15px"><b>Username</b></label>
-                          <input type="text" placeholder="email@exemple.com" name="Username" required>
+                          <input type="text" placeholder="email@exemple.com" name="Username" required id="username">
 
                           <label for="Password" style="margin:15px"><b>Password</b></label>
-                          <input type="password" placeholder="Enter your Password" name="Password" required>
+                          <input type="password" placeholder="Enter your Password" name="Password" required id="password">
                           <label>
-                              <input style="margin:15px" type="checkbox" checked="checked" name="remember"> Remember me
+                              <input style="margin:15px" type="checkbox" checked="checked" name="remember" id="rememberme"> Remember me
                           </label>
                           <button type="submit" id="login" onclick=login()>Login</button>
                           <div class="container" >
