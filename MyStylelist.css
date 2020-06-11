@@ -5,14 +5,14 @@
   padding: 10px;
 }
 
-Div.double {
+#BD {
   border-style: double;
   border-color: #5900b3;
   padding: 10px;
 }
 
 
-Div.dotted{
+#BT{
   border-style: dotted;
   border-color: #5900b3;
   padding: 10px;
