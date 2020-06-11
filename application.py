@@ -1,4 +1,4 @@
-import os , requests, sqlalchemy, json
+import os , requests, sqlalchemy, json, psycopg2
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -9,6 +9,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
+#connect db
+db = psycopg2.connect(
+      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+      database= "d3ck6mm9jbc163",
+      user = "dgssjhgflgvwxj",
+      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740")
+
+
+#cursor
+cur = db.cursor()
 
 # Check for environment variable
 
@@ -36,6 +46,14 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/index")
 @app.route("/")
 def index():
+    #status = "Loggedout"
+    #try:
+    #    username=session["username"]
+    #    status=""
+    #except KeyError:
+    #    username=""
+    #return render_template("index.html", status=status, username=username)
+
     return render_template("index.html")
 
 # Login Page
@@ -45,7 +63,7 @@ def login():
     password = request.form.get("password")
     #check if the user exists on the base
      #password = util.encrypt(password)
-    user=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
+    cur.execute("SELECT * FROM users WHERE username=:username AND password=:password",
                     {"username":username, "password":password}).fetchone()
     if user is None:
          return render_template("Alerts.html", message="Invalid username or password")
@@ -106,7 +124,8 @@ def logout():
 #    session['Logged_user'] = None
 #    flash('User not Logged in')
     return redirect(url_for('login'))
-
+    #close cursor
+    cur.close()
 
 
 @app.route("/res")
@@ -117,7 +136,7 @@ def res():
 
 
 #close cursor
-#cur.close()
+cur.close()
 
 #close connection
 db.close()
