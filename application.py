@@ -1,4 +1,4 @@
-import os , requests, sqlalchemy, json, psycopg2
+import os , requests, sqlalchemy, json, psycopg2,
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -59,13 +59,14 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    return render_template("login.html")
     username = request.form.get("username")
     password = request.form.get("password")
     #check if the user exists on the base
      #password = util.encrypt(password)
-    user=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
+    userchek=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
                     {"username":username, "password":password}).fetchone()
-    if user is None:
+    if userchek is None:
          return render_template("Alerts.html", message="This Username is not here!")
          print("Error: este usuário não existe")
 
