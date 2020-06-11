@@ -2,15 +2,18 @@
 p.solid {
   border-style: solid;
   border-color: #5900b3;
+  padding: 10px;
 }
 
 p.double {
   border-style: double;
   border-color: #5900b3;
+  padding: 10px;
 }
 
 p.dotted{
   border-style: dotted;
   border-color: #5900b3;
+  padding: 10px;
 }
 </style>
