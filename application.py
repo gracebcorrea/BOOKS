@@ -71,7 +71,7 @@ def login():
          return render_template("Alerts.html", message="This Username is not here!")
     else:
         return render_template("Alerts.html", message="Wellcome, you are logged in!" )
-     return render_template("login.html")
+        return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
