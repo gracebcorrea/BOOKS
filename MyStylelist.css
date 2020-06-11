@@ -1,17 +1,18 @@
 <style>
-p.solid {
+Div.solid {
   border-style: solid;
   border-color: #5900b3;
   padding: 10px;
 }
 
-p.double {
+Div.double {
   border-style: double;
   border-color: #5900b3;
   padding: 10px;
 }
 
-p.dotted{
+
+Div.dotted{
   border-style: dotted;
   border-color: #5900b3;
   padding: 10px;
