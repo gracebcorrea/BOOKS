@@ -126,8 +126,12 @@ def bookspage():
 
 @app.route('/logout')
 def logout():
-#    session['Logged_user'] = None
-#    flash('User not Logged in')
+
+    # clear user credentials
+    session.clear()
+
+    # Redirect user to login form
+
     return redirect(url_for('login'))
     #close cursor
     #cur.close()
