@@ -61,20 +61,24 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    #return render_template("login.html")
     #receive form information)
-    username = request.form.get("username")
-    password = request.form.get("password")
-    rememberme = request.form.get("rememberme ")
+    if request.method == 'POST':
+       username = request.form.get("username")
+       print(username)
+       password = request.form.get("password")
+       print(password)
+       rememberme = request.form.get("rememberme ")
+       print(rememberme)
     #check if the user exists on the base
 
-    userchek=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
+       userchek=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
                     {"username":username, "password":password}).fetchone()
-    if userchek is not None:
-        return render_template("Alerts.html", message="Wellcome, you are logged in!" )
-        return render_template("login.html")
-    else:
-        return render_template("Alerts.html", tipo="alert alert-danger", message="This Username is not here!")
+       if userchek is not None:
+           return render_template("Alerts.html", message="Wellcome, you are logged in!" )
+           return render_template("login.html")
+       else:
+           return render_template("Alerts.html", tipo="alert alert-danger", message="This Username is not here!")
 
 
 @app.route("/register", methods=["GET", "POST"])
