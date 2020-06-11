@@ -35,16 +35,16 @@
 <p>Click on the "x" symbol to close the alert message.</p>
 <div class="alert alert-danger">
   <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
-  <strong>Error!</strong> {{ message }}.
+  <strong>ERROR !</strong> {{ message }}.
 </div>
 <div class="alert alert-success">
    <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
-   <strong>Success!</strong> {{ message }}.
+   <strong>SUCCESS!</strong> {{ message }}.
  </div>
-
-
-
-
+ <div class="alert alert-primary">
+    <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
+    <strong>WARNING:!</strong> {{ message }}.
+  </div>
 
 
 <style>
