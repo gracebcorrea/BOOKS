@@ -28,9 +28,9 @@ db = scoped_session(sessionmaker(bind=engine))
 #cur = db.cursor()
 
 # Principal Page call
-@app.route("/index")
+@app.route("/Index")
 def index():
-    return render_template("Index.html", homepage=True)
+    return render_template("Index.html")
 
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
