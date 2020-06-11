@@ -33,11 +33,19 @@
 <h2>Alert Messages</h2>
 
 <p>Click on the "x" symbol to close the alert message.</p>
-<div class="alert">
+<div class="alert alert-danger">
   <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
   <strong>Error!</strong> {{ message }}.
-  
 </div>
+<div class="alert alert-success">
+   <span class="closebtn" onclick="history.go(-1)" id="message">&times;</span>
+   <strong>Success!</strong> {{ message }}.
+ </div>
+
+
+
+
+
 
 <style>
   img {
