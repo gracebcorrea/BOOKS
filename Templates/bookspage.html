@@ -18,15 +18,15 @@
  <div class="solid" >
       <div class="row"  width="6000px" >
            <div class="col-lg-4"  width="2000px" >
-               <h3>Cover ?</h3>
+               <h3 style="font-weight:bold">Cover ?</h3>
                <p></p>
                <h1> {{ book_title }} </h1>
                <p></p>
                <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg">
                <p><p>
            </div>
-           <div class="col-lg-4"  width="2000px"  style="background-color:#d1e0e0">
-                 <h3>Book Details</h3>
+           <div class="col-lg-4"  width="2000px"  style="background-color:#d1e0e0; border-color:#5900b3 ;">
+                 <h3 style="font-weight:bold">Book Details</h3>
                  <p></p>
                  <h4> Number of reviews {{ reviews_count }} </h4>
                  <h4> Number of ratings {{ ratings_count }} </h4>
@@ -34,7 +34,7 @@
                  <p></p>
            </div>
            <div class="col-lg-4"  width="2000px">
-                 <h3>Your Review</h3>
+                 <h3 style="font-weight:bold">Your Review</h3>
                  <form action="/action_page.php">
                         <div class="form-group">
                             <textarea class="form-control" rows="10" id="comment" name="text"></textarea>
