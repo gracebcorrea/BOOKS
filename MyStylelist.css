@@ -1,3 +1,16 @@
 <style>
+p.solid {
+  border-style: solid;
+  border-color: #5900b3;
+}
 
+p.double {
+  border-style: double;
+  border-color: #5900b3;
+}
+
+p.dotted{
+  border-style: dotted;
+  border-color: #5900b3;
+}
 </style>
