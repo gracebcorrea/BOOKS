@@ -64,9 +64,12 @@ def login():
     #check if the user exists on the base
      #password = util.encrypt(password)
     user=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
-                    {"username":username, "password":password}).fetchone()
+                    {"username":username, "password":password}).fetchall()
     if user is None:
-         return render_template("Alerts.html", message="Invalid username or password")
+         return render_template("Alerts.html", message="This Username is not here!")
+         print("Error: este usuário não existe")
+    
+
     else:
         return render_template("login.html")
 
