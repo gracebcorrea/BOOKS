@@ -69,8 +69,10 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET" , "POST"])
 def login():
+    print('Entrei no login')
     #receive form information)
     if request.method == "POST":
+       print('Vou ler o arquivo')
        username = request.form.get("username")
        password = request.form.get("password")
        rememberme = request.form.get("rememberme")
