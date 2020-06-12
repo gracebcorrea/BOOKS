@@ -3,11 +3,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    CS50W Project 1: Books - Login
+    CS50W Project 1: Books - Register
 {% endblock %}
 
 {% block heading%}
-    Login Form
+    New User Form
 {% endblock %}
 
 
@@ -35,8 +35,9 @@
        color: white;
        padding: 14px 20px;
        margin: 8px 0;
+       border: none;
        cursor: pointer;
-       width: 90%;
+       width: 100%;
        }
 
     button:hover {
@@ -46,7 +47,9 @@
     .cancelbtn {
         padding: 14px 20px;
         margin: 8px 0;
-        width: 90%;
+        width: auto;
+        padding: 14px 20px;
+
         }
 
      span.password {
@@ -68,20 +71,20 @@
 
 
 <form action="{{ url_for('login') }}" method="post">
-  <div class="form-group">
+  <div class="container">
     <label for="username"><b>Username</b></label>
-    <input class="form-control" type= text  name="lusername" required placeholder="email@exemple.com" id="username">
+    <input type="text" placeholder="email@exemple.com" name="lusername" id="lusername" required>
 
     <label for="Password"><b>Password</b></label>
-    <input class="form-control" type="password" name="lpassword" required placeholder="Enter Password" id="password">
+    <input type="password" placeholder="Enter Password" name="lpassword" id="lpassword" required>
 
-    <label><input  type="checkbox" checked="checked" name="lrememberme" id="rememberme"> Remember me</label>
 
-    <button class="btn btn-primary" style="background-color: #400080">Login</button>
+    <button type="submit" id="login" >Login</button>
   </div>
 
   <div class="container" >
-    <button class="btn btn-danger"  onclick=goHome()>Cancel </button>
+    <button type="button" class="btn btn-danger" id="cancel" onclick=goHome()>Cancel
+    </button>
   </div>
 </form>
 
@@ -90,7 +93,6 @@
        {
         window.location.replace("index");
        }
-
 
 
 
