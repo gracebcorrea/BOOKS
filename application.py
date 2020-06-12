@@ -71,9 +71,9 @@ def index():
 def login():
     #return render_template("login.html")
     #receive form information)
-    username = request.form("username")
-    password = request.form("password")
-    rememberme = request.form("rememberme")
+    username = request.form.get("username")
+    password = request.form.get("password")
+    rememberme = request.form.get("rememberme")
     if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
                  {"username": username} , {"password" : username}).rowcount > 1:
          return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
