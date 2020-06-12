@@ -70,7 +70,7 @@
 </style>
 
 
-<form action="/login" method="post">
+<form action="{{ url_for('login') }}" method="post">
   <div class="form-group">
     <label for="username"><b>Username</b></label>
     <input autocomplete="off" type="text" placeholder="email@exemple.com" name="fusername"  required>
