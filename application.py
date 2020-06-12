@@ -70,16 +70,16 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     print("Entrei no form login")
-    username = request.form.get("username")
-    password = request.form.get("password")
-    rememberme = request.form.get("rememberme")
+    username = request.form.get("lusername")
+    password = request.form.get("lpassword")
+    rememberme = request.form.get("lrememberme")
     print(username, password)
 
     #check if the user exists on the base
-    if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount >= 1:
-        return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username="username" )
-    else:
-        return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
+    #if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount >= 1:
+    return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username="username" )
+    #else:
+    #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
     return("login.html")
 
 
