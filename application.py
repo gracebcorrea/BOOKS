@@ -74,7 +74,7 @@ def login():
     username = request.form.get("username")
     password = request.form.get("password")
     rememberme = request.form.get("rememberme")
-    if (username or pasword) == "":
+    if ("username" or "pasword") == "":
     #if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
     #                    {"username": username} , {"password" : username}).rowcount > 1:
 
