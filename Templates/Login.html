@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block heading%}
-      Login Form
+    Login Form
 {% endblock %}
 
 
@@ -18,89 +18,90 @@
 
     .container {
       padding: 10px;
+      Width: 70%;
+       }
 
-    }
-
-input[type=text], input[type=password] {
-  width: 92%;
-  padding: 10px 20px;
-  margin: 15px 15px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-button {
-  background-color: #330066;
-  color: white;
-  padding: 12px 20px;
-  margin: 15px 15px;
-  border: none;
-  cursor: pointer;
-  width: 92%;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-.cancelbtn {
+    input[type=text], input[type=password] {
+    width: 100%;
     padding: 12px 20px;
-    margin: 15px 15px;
-    width: 92%;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
     }
 
-
-span.password {
-  float: right;
-  padding-top: 16px;
-}
-
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-  }
-
-
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.password {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
+    button {
+       background-color: #330066;
+       color: white;
+       padding: 14px 20px;
+       margin: 8px 0;
+       border: none;
+       cursor: pointer;
        width: 100%;
-     }
-}
+       }
+
+    button:hover {
+       opacity: 0.8;
+       }
+
+    .cancelbtn {
+        padding: 14px 20px;
+        margin: 8px 0;
+        width: auto;
+        padding: 14px 20px;
+
+        }
+
+     span.password {
+        float: right;
+        padding-top: 16px;
+         }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+    span.password {
+         display: block;
+        float: none;
+         }
+    .cancelbtn {
+         width: 100%;
+       }
+    }
 </style>
 
+
 <form action="{{ url_for('login') }}" method="post">
-      <div class="container">
-           <label for="Username"><b>Username</b></label>
-           <input type="text" placeholder="email@exemple.com" name="username" id="username" required >
+  <div class="container">
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="email@exemple.com" name="username" id="username" required>
 
-           <label for="Password" ><b>Password</b></label>
-           <input type="password" placeholder="Enter your Password" name="password" id="password" required  >
+    <label for="Password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
-           <label><input  type="checkbox" checked="checked" name="rememberme" > Remember me</label>
-           <button type="submit" value="login" >Login</button>
+    <label><input  type="checkbox" checked="checked" name="rememberme" > Remember me</label>
+    <button type="submit" >Login</button>
 
-          <div class="container" >
-               <button type="button" class="btn btn-danger" onclick=goHome()>Cancel</button>
-          </div>
-          </div>
+    <button type="submit" id="login" >Login</button>
+  </div>
+
+  <div class="container" >
+    <button type="button" class="btn btn-danger" id="cancel" onclick=goHome()>Cancel
+    </button>
+  </div>
 </form>
-
-
 
 <script>
     function goHome()
        {
         window.location.replace("index");
        }
+
+    function MySubmit()
+     {
+     alert("Thank You! We will return soon.");
+      }
+
+
 </script>
-
-
 
 {% endblock %}
