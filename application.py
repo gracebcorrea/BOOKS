@@ -67,18 +67,18 @@ def index():
     return render_template("index.html")
 
 # Login Page
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["POST"])
 def login():
     #return render_template("login.html")
     #receive form information)
-    username = request.form.get("fusername")
-    password = request.form.get("fpassword")
-    rememberme = request.form.get("frememberme")
-    
+    username = request.form.get("username")
+    password = request.form.get("password")
+    rememberme = request.form.get("rememberme")
+    print(username,password)
     #if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
     #                    {"username": username} , {"password" : username}).rowcount > 1:
 
-    return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
+    return render_template("alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
     #else:
      #  return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
 
