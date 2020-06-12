@@ -16,19 +16,19 @@
   <h2>      What books do you recommend?       <h2>
   <h2>  Help good readers to find good books! </h2>
   <p style="padding: 80px;" >
-    <button type="button" class="btn btn-lg btn-block btn-primary   active" style="background-color:#400080" onclick=goLogin() >Login</button>
-    <button type="button" class="btn btn-lg btn-block btn-secondary active" onclick=goRegister()>New User?</button>
+    <button type="button" class="btn btn-lg btn-block btn-primary   active" style="background-color:#400080" onclick="location.href='login';" >Login</button>
+    <button type="button" class="btn btn-lg btn-block btn-secondary active" onclick="location.href='register';">New User?</button>
   </p>
   <script>
 
       function goLogin()
          {
-           window.location.replace("/login.html");
+           window.location.replace("/login");
          }
 
        function goRegister()
           {
-          window.location.replace("/register.html");
+          window.location.replace("/register");
           }
 
    </script>
