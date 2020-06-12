@@ -1,4 +1,4 @@
-import os, requests, sqlalchemy, json, psycopg2, login, db, urlparse
+import os, requests, sqlalchemy, json, psycopg2, login
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
