@@ -73,19 +73,18 @@
 <form action="{{ url_for('login') }}" method="post">
   <div class="form-group">
     <label for="username"><b>Username</b></label>
-    <input autocomplete="off" type="text" placeholder="email@exemple.com" name="fusername"  required>
+    <input class="form-control" type= text name="fusername" required placeholder="email@exemple.com" >
 
     <label for="Password"><b>Password</b></label>
-    <input autocomplete="off" type="password" placeholder="Enter Password" name="fpassword"  required>
+    <input class="form-control" type="password" name="fpassword" required placeholder="Enter Password"   >
 
     <label><input  type="checkbox" checked="checked" name="frememberme" > Remember me</label>
 
-    <button type="submit" onclick=MySubmit() >Login</button>
+    <button class="btn btn-primary" style="color:#400080">Login</button>
   </div>
 
   <div class="container" >
-    <button type="button" class="btn btn-danger" id="cancel" onclick=goHome()>Cancel
-    </button>
+    <button class="btn btn-danger" id="cancel" onclick=goHome()>Cancel </button>
   </div>
 </form>
 
