@@ -76,6 +76,7 @@ def login():
        username = request.form.get("username")
        password = request.form.get("password")
        rememberme = request.form.get("rememberme")
+       print(username,password)
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
                  {"username": username} , {"password" : username}).rowcount >= 1:
             return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
