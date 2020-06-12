@@ -68,7 +68,7 @@ def index():
 
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
-def register():
+def login():
     print("Entrei no form login")
     username = request.form.get("username")
     password = request.form.get("password")
