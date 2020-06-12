@@ -71,16 +71,16 @@
 
 
 <form action="/login" method="post">
-  <div class="container">
+  <div class="form-group">
     <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="email@exemple.com" name="fusername" id="fusername"  required>
+    <input autocomplete="off" type="text" placeholder="email@exemple.com" name="fusername"  required>
 
     <label for="Password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="fpassword" id="fpassword" required>
+    <input autocomplete="off" type="password" placeholder="Enter Password" name="fpassword"  required>
 
     <label><input  type="checkbox" checked="checked" name="frememberme" > Remember me</label>
 
-    <button type="submit" id="login" onclick=MySubmit() >Login</button>
+    <button type="submit" onclick=MySubmit() >Login</button>
   </div>
 
   <div class="container" >
