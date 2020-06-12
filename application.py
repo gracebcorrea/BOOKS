@@ -61,12 +61,13 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    return render_template("login.html")
     #receive form information)
     username = request.form.get("username")
     password = request.form.get("password")
     rememberme = request.form.get("rememberme")
     return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
-    return render_template("login.html")
+
 
 
 
