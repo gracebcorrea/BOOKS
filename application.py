@@ -1,4 +1,4 @@
-import os, requests, sqlalchemy, json, psycopg2
+import os, requests, sqlalchemy, json, psycopg2,
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -74,7 +74,7 @@ def login():
     username = request.form.get("username")
     password = request.form.get("password")
     rememberme = request.form.get("rememberme")
-    if ("username" or "pasword") == "":
+    if ( username or password ) != "":
     #if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
     #                    {"username": username} , {"password" : username}).rowcount > 1:
 
