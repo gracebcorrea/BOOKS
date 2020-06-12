@@ -61,7 +61,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    
     #receive form information)
     username = request.form.get("username")
     password = request.form.get("password")
