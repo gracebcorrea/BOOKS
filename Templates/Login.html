@@ -89,10 +89,10 @@ img.avatar {
                   <input type="text" placeholder="email@exemple.com" name="username" required value="{{username}}">
 
                   <label for="Password" style="margin:15px"><b>Password</b></label>
-                  <input type="password" placeholder="Enter your Password" name="password" required value="{{password}}">
+                  <input type="password" placeholder="Enter your Password" name="password" required value={{password}} >
 
-                  <label><input style="margin:15px" type="checkbox" checked="checked" name="rememberme" value="{{rememberme}}"> Remember me</label>
-                  <button type="submit" >Login</button>
+                  <label><input style="margin:15px" type="checkbox" checked="checked" name="rememberme" > Remember me</label>
+                  <button type="submit" value="login" >Login</button>
 
                   <div class="container" >
                         <button type="button" class="btn btn-danger" onclick=goHome()>Cancel</button>
