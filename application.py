@@ -69,7 +69,6 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET" , "POST"])
 def login():
-    #return render_template("login.html")
     #receive form information)
     username = request.form.get("username")
     password = request.form.get("password")
@@ -78,7 +77,7 @@ def login():
                  {"username": username} , {"password" : username}).rowcount >= 1:
          return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
     else:
-         return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
+         return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
          return("login.html")
 @app.route("/register", methods=["GET", "POST"])
 def register():
