@@ -65,16 +65,16 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     rememberme = request.form.get('rememberme')
-    if request.method == 'POST':
+    #if request.method == 'POST':
 
-        print(username ,password)
+    return(username ,password)
         #check if the user exists on the base
         #userchek= db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
         #{"username":username, "password":password}).fetchone()
         #if userchek is not None:
-        return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!" )
+    return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!" )
         #else:
-        return render_template("Alerts.html", tipo="alert alert-danger", message="This Username is not here!")
+        #return render_template("Alerts.html", tipo="alert alert-danger", message="This Username is not here!")
         #return render_template("login.html")
 
 
