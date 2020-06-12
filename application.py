@@ -71,11 +71,11 @@ def index():
 def login():
     #return render_template("login.html")
     #receive form information)
-    username = request.form.get("username")
-    password = request.form.get("password")
-    rememberme = request.form.get("rememberme")
+    username = request.form.get("fusername")
+    password = request.form.get("fpassword")
+    rememberme = request.form.get("frememberme")
     print(username,password)
-    if db.execute("SELECT * FROM users WHERE username = :username and password = :password" ).rowcount > 0:
+    if db.execute("SELECT * FROM users WHERE username = %(username) and password = %(password)" ).rowcount > 0:
        return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
     else:
        return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
