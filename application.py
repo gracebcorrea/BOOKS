@@ -71,19 +71,15 @@ def index():
 def login():
     #return render_template("login.html")
     #receive form information)
-    username = request.form.get("username")
-    password = request.form.get("password")
-    rememberme = request.form.get("rememberme")
-    if ( "username" or "password" ) != " ":
-    #if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
-    #                    {"username": username} , {"password" : username}).rowcount > 1:
-
+    username = request.form("username")
+    password = request.form("password")
+    rememberme = request.form("rememberme")
+    if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
+                 {"username": username} , {"password" : username}).rowcount > 1:
          return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
-     #else:
-     #  return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
     else:
-         return render_template("Alerts.html",tipo="alert alert-danger", message="I didn´t received the user.")
-
+         return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
+         return("login.html")
 @app.route("/register", methods=["GET", "POST"])
 def register():
     username = request.form.get("username")
