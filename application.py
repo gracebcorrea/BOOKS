@@ -65,15 +65,13 @@ def login():
     #receive form information)
     if request.method == 'POST':
         username = request.form.get("username")
-        print(username)
         password = request.form.get("password")
-        print(password)
         rememberme = request.form.get("rememberme ")
-        print(rememberme)
 
         #check if the user exists on the base
         userchek=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",{"username":username, "password":password}).fetchone()
         if userchek is not None:
+            print(username ,password)
             return render_template("Alerts.html", message="Wellcome, you are logged in!" )
 
         else:
