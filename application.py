@@ -12,15 +12,15 @@ app = Flask(__name__)
 #DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
 
 #connect db
-#db = psycopg2.connect(
-#      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
-#      database= "d3ck6mm9jbc163",
-#      user = "dgssjhgflgvwxj",
-#      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740")
+db = psycopg2.connect(
+      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+      database= "d3ck6mm9jbc163",
+      user = "dgssjhgflgvwxj",
+      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740")
 
 
 #cursor
-#cur = db.cursor()
+cur = db.cursor()
 
 # Check for environment variable
 
@@ -129,8 +129,8 @@ def logout():
     # Redirect user to login form
 
     return redirect(url_for('login'))
-    #close cursor
-    #cur.close()
+           #close cursor
+           #cur.close()
 
 
 @app.route("/res")
