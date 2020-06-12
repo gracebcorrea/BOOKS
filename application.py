@@ -1,5 +1,5 @@
-import os, requests, sqlalchemy, json, psycopg2
-from flask import Flask, session, render_template, request, redirect, url_for, login
+import os, requests, sqlalchemy, json, psycopg2, login
+from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
