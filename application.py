@@ -74,13 +74,13 @@ def login():
     username = request.form.get("fusername")
     password = request.form.get("fpassword")
     rememberme = request.form.get("frememberme")
-    print(username,password)
-    if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
-                        {"username": username} , {"password" : username}).rowcount > 0:
 
-       return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
-    else:
-       return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
+    #if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
+    #                    {"username": username} , {"password" : username}).rowcount > 1:
+
+    return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
+    #else:
+     #  return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -107,18 +107,6 @@ def register():
 # Search Page
 @app.route("/search", methods=["GET", "POST"])
 def search():
-
-
-
-
-
-
-
-
-
-
-
-
     return render_template("search.html")
 
 
