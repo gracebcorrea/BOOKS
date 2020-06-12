@@ -75,7 +75,7 @@ def login():
     password = request.form.get("password")
     rememberme = request.form.get("rememberme")
     if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
-                 {"username": username} , {"password" : username}).rowcount > 1:
+                 {"username": username} , {"password" : username}).rowcount >= 1:
          return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
     else:
          return render_template("Alerts.html",tipo="alert alert-danger",  username="username" , message="This username or password not on database" )
