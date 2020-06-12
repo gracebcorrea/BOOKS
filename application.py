@@ -64,9 +64,9 @@ def login():
 
     #receive form information)
     if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-        rememberme = request.form.get("rememberme")
+        username = request.form("username")
+        password = request.form("password")
+        rememberme = request.form("rememberme")
         print(username ,password)
         #check if the user exists on the base
         #userchek= db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
