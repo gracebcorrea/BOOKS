@@ -67,22 +67,26 @@ def index():
     return render_template("index.html")
 
 # Login Page
-@app.route("/login", methods=["GET" , "POST"])
-def login():
-    print('Entrei no login')
-    #receive form information)
-    if request.method == "POST":
-       print('Vou ler o arquivo')
-       username = request.form.get("username")
-       password = request.form.get("password")
-       rememberme = request.form.get("rememberme")
-       print(username,password)
-       if db.execute("SELECT * FROM users WHERE username = :username and password = :password",
-                 {"username": username} , {"password" : username}).rowcount >= 1:
-            return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome , you are logged in!", username="username" )
+@app.route("/login", methods=["GET", "POST"])
+def register():
+    print("Entrei aqui")
+    username = request.form.get("username")
+    password = request.form.get("password")
+    rememberme = request.form.get("rememberme")
+    print(username, password)
+
+    #check if the user exists on the base
+    if db.execute("SELECT * FROM users WHERE username = :username",
+                {"username": username}).rowcount >= 1:
+        return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username="username" )
     else:
-         return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
-         return("login.html")
+        return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
+        return("login.html")
+
+
+
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     username = request.form.get("username")
