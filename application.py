@@ -69,19 +69,18 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def register():
-    print("Entrei aqui")
+    print("Entrei no form login")
     username = request.form.get("username")
     password = request.form.get("password")
     rememberme = request.form.get("rememberme")
     print(username, password)
 
     #check if the user exists on the base
-    if db.execute("SELECT * FROM users WHERE username = :username",
-                {"username": username}).rowcount >= 1:
+    if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount >= 1:
         return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username="username" )
     else:
         return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
-        return("login.html")
+    return("login.html")
 
 
 
@@ -89,6 +88,7 @@ def register():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    print("Entrei no form register")
     username = request.form.get("username")
     password = request.form.get("password")
     #check if the user exists on the base
@@ -103,8 +103,7 @@ def register():
         #session["user_name"] = username #Store user id here
         #session["logged_in"] = True
         #return render_template("search.html")
-
-         return render_template("register.html")
+        return render_template("register.html")
 
 
 
