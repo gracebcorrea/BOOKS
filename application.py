@@ -63,15 +63,16 @@ def index():
 def login():
 
     #receive form information)
-    if request.method == 'POST':
+    if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         rememberme = request.form.get("rememberme ")
-
+        print(username ,password)
         #check if the user exists on the base
-        userchek=db.execute("SELECT * FROM users WHERE username=:username AND password=:password",{"username":username, "password":password}).fetchone()
+        userchek= db.execute("SELECT * FROM users WHERE username=:username AND password=:password",
+        {"username":username, "password":password}).fetchone()
         if userchek is not None:
-            print(username ,password)
+
             return render_template("Alerts.html", message="Wellcome, you are logged in!" )
 
         else:
