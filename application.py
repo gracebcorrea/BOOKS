@@ -104,7 +104,7 @@ def register():
            #db.commit()
            #session["user"] = username #Store user id here
            #session["logged"] = True
-           return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
+            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
     else:
         return render_template("register.html")
 
