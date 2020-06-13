@@ -82,7 +82,7 @@ def login():
            #abrir seçao
 
        else:
-           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , local="/login")
+           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , local="/index")
 
 
     else:
