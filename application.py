@@ -74,7 +74,7 @@ def login():
        username = request.form.get("lusername")
        password = request.form.get("lpassword")
        rememberme = request.form.get("lrememberme")
-       print("lusername", "lpassword")
+       print(username, lpassword)
 
     #check if the user exists on the base
     #if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount >= 1:
