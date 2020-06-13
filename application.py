@@ -88,10 +88,9 @@ def register():
        username = request.form.get("username")
        password = request.form.get("password")
        ckpassword = request.form.get("checkpassword")
-       print("going to select:" , [username],[password])
+       print("going to select:" , [username],[password],[ckpassword])
        #check if the user exists on the base
-       if db.execute("SELECT * FROM users WHERE username = :username",
-                {"username": username}).rowcount > 0:
+       if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 1:
             print("user exists")
             return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page", username=username , NewUrl="/register")
        elif username != ckpassword:
