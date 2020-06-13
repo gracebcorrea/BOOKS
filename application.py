@@ -100,10 +100,10 @@ def register():
             session.clear()
        else:
             print("casastrar usuário")
-
+            
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
              {"username": username, "password": password})
-            
+
             db.commit()
             session["user"] = username  #Store user id here
             session["logged"] = True
