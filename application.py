@@ -92,7 +92,7 @@ def register():
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
         return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try agai or go to login page", username=username , NewUrl="/register")
-    if username <> ckpassword :
+    if username != ckpassword:
         return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try agai or go to login page", username=username , NewUrl="/register")
 
         print([username], [password])
