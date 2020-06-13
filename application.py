@@ -104,7 +104,7 @@ def register():
             print("casastrar usuário")
             #Cursor
             MyCursor = db.cursor()
-            SQL = "INSERT INTO users ( ":= nextval('users_id_seq');",username, password) VALUES (:id, :username, :password)"
+            SQL = "INSERT INTO users ( id, username, password) VALUES (:id, :username, :password)"
             DATA ="{"id" :id, "username": username, "password": password}"
             MyCursor.execute(SQL,DATA)
             MyCursor.commit()
