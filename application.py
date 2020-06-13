@@ -48,11 +48,6 @@ db = scoped_session(sessionmaker(bind=engine))
 #cur = db.cursor()
 
 # Principal Page call
-#@app.route("/")
-#def index():
-#    return render_template("index.html")
-
-
 @app.route("/index")
 @app.route("/")
 def index():
