@@ -102,7 +102,7 @@ def register():
             print("casastrar usuário")
             BEGIN;
                db.execute("INSERT INTO users (username, password) VALUES (:username, :password)", {"username": username, "password": password})
- 
+
             COMMIT;
             db.commit()
             session["user"] = username  #Store user id here
@@ -125,7 +125,7 @@ def bookspage():
     return render_template("bookspage.html")
 
 
-
+#Logout: Logged in users should be able to log out of the site.
 @app.route('/logout')
 def logout():
     session['logged'] = False
