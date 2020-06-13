@@ -52,24 +52,32 @@
                  <li class="nav-item">
                      <a class="nav-link text-white" href="index" id="index">Home         </a>
                  </li>
+                 {% if Search == "True" %}
                  <li class="nav-item">
                      <a class="nav-link text-white" href="search" id="search">Books Search</a>
                  </li>
-                      <!-- tirar depois de testar-->
+                 {%endif%}
 
+                 {% if Bookspage == "True" %}
                  <li class="nav-item">
                      <a class="nav-link text-white" href="bookspage" id="bookspage">Books Review</a>
                  </li>
+                 {%endif%}
+                 {% if Login == "True" %}
                  <li class="nav-item">
                      <a class="nav-link text-white" href="login" id="login">Login</a>
                  </li>
+                 {%endif%}
+                 {% if NewUser == "True" %}
                  <li class="nav-item">
                      <a class="nav-link text-white" href="register" id="register">New User</a>
                  </li>
+                 {%endif%}
+                 {% if Logout == "True" %}
                  <li class="nav-item">
                      <a class="nav-link text-white" href="logout" id="logout">Logout</a>
                  </li>
-
+                 {%endif%}
             </ul>
         </nav>
     </div>
