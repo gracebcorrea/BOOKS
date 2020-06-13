@@ -75,10 +75,13 @@ def login():
        password = request.form.get("password")
        rememberme = request.form.get("rememberme")
        print([username], [password])
+       #check if the user exists on the base
+       if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username} and {"password": password}).rowcount >= 1:
+           return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username)
+       else:
+           return render_template("Alerts.html",tipo=""alert alert-primary"", message="This User or E-mail is not valid, please try again", username=username)
+    
 
-    #check if the user exists on the base
-    #if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount >= 1:
-       return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username="username" )
     else:
     #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
          print("Não achei nada")
@@ -96,7 +99,7 @@ def register():
     #check if the user exists on the base
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
-        return render_template("Alerts.html",username="username", message="This user already exists.")
+        return render_template("Alerts.html",tipo="alert alert-primary", username="username", message="This user already exists.")
     else:
 
         #db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
