@@ -59,7 +59,6 @@ def index():
 def login():
     #session.clear()
     if request.method == 'POST':
-       print("Entrei no form login")
        username = request.form.get("username")
        password = request.form.get("password")
        rememberme = request.form.get("rememberme")
@@ -92,7 +91,7 @@ def register():
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
         return render_template("Alerts.html",tipo="alert alert-primary", username="username", message="This user already exists.")
-
+        print([username], [password])
     else:
 
         #db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
