@@ -32,7 +32,8 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-
+#Cursor
+MyCursor = db.cursor()
 
 # Principal Page call
 user = []
@@ -99,7 +100,7 @@ def register():
             session.clear()
        else:
             print("casastrar usuário")
-            
+
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
              {"username": username, "password": password})
 
