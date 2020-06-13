@@ -72,10 +72,10 @@
 
 <form action="{{ url_for('login') }}" method="post">
   <div class="container">
-    <label for="username"><b>Username</b></label>
+    <label for="lusername"><b>Username</b></label>
     <input type="text" placeholder="email@exemple.com" name="lusername" id="lusername" required>
 
-    <label for="Password"><b>Password</b></label>
+    <label for="lpassword"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="lpassword" id="lpassword" required>
 
 
@@ -93,9 +93,6 @@
        {
         window.location.replace("index");
        }
-
-
-
 </script>
 
 {% endblock %}
