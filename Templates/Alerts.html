@@ -6,9 +6,11 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <image rel="stylesheet" href="{{url_for('static', filename="avatar.jpg")}}">
 <style>
+
 .alert {
   padding: 20px;
   color: white;
+  width: 1000px;
 }
 
 .closebtn {
@@ -52,6 +54,14 @@
     </div>
 {% endif %}
 
+<script>
+function Myredirect()
+ {
+   window.location.href= {{local}};
+  }
+</script>
+
+
 <style>
   img {
         width: 400px 300px;
@@ -69,12 +79,6 @@
 
 <p> <img class="rouded-circle"   src="static/avatar.jpg" alt="My avatar" >  </p>
 
-<script>
-function Myredirect()
- {
-   window.location.replace({{local}});
-  }
-</script>
 
 
 </body>
