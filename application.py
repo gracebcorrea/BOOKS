@@ -92,11 +92,11 @@ def register():
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 1:
             print("user exists")
-            return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page", username=username , NewUrl="/index")
+            return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page, ", username=username , NewUrl="/index")
             session.clear()
        elif password != ckpassword:
             print("wrong pass" , [username],[password])
-            return render_template("Alerts.html",tipo="alert alert-danger", message="Passwords do no check, please try again", username=username , NewUrl="/register")
+            return render_template("Alerts.html",tipo="alert alert-danger", message="Passwords do no check, please try again, ", username=username , NewUrl="/register")
             session.clear()
        else:
             print("casastrar usuário")
