@@ -81,7 +81,7 @@ def login():
        return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username="username" )
     else:
     #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
-         return("login.html")
+         return render_template("login.html")
 
 
 
