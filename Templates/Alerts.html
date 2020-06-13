@@ -38,19 +38,19 @@
 {% if tipo == "alert alert-danger" %}
      <div class="alert alert-danger">
      <span class="closebtn" onclick="Myredirect()"  id="message">&times;</span>
-     <strong>ERROR !</strong> {{ message }}.
+     <strong>ERROR !</strong> {{ message }} {{username}}.
      </div>
 {% endif %}
 {% if tipo == "alert alert-success" %}
       <div class="alert alert-success">
       <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
-      <strong>SUCCESS!</strong> {{ message }} "," {{username}}.
+      <strong>SUCCESS!</strong> {{ message }} {{username}}.
      </div>
 {% endif %}
 {% if tipo == "alert alert-primary" %}
     <div class="alert alert-primary">
     <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
-    <strong>WARNING:!</strong> {{ message }}.
+    <strong>WARNING:!</strong> {{ message }} {{username}}.
     </div>
 {% endif %}
 
