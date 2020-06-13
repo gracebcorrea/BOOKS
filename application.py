@@ -79,8 +79,8 @@ def login():
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username} and {"password": password}).rowcount >= 1:
            return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username)
        else:
-           return render_template("Alerts.html",tipo=""alert alert-primary"", message="This User or E-mail is not valid, please try again", username=username)
-    
+           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again", username=username)
+
 
     else:
     #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
