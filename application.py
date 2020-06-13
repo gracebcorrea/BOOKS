@@ -115,14 +115,14 @@ def register():
 # Search Page
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    return render_template("search.html")
+    return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
 
 
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
 def bookspage():
-    return render_template("bookspage.html")
+    return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
 
 #Logout: Logged in users should be able to log out of the site.
