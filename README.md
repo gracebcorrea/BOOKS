@@ -17,20 +17,25 @@ The goal of this project is to show the knowledge acquired in lectures 2,3 and 4
     imports the "books.csv" file provided in the project specification
 
 3) Index.html
-   Shows the cover page with options to login or create a new user - I is the Home page
+   Shows the cover page with options to login or create a new user - IT is the Homepage
 
 4) layout.html
-    Grants that all pages have the same style
+    Grants that all pages have the same style and menu format
 
 5) Login.html
-      allows the user to enter the site
+      Allows the user to enter the site, if all is ok redirect to search page
+      if something go wrong display error messages from Alerts.html using parameters
 
 6) register.html
-      allows the user to registrate on site
+      Allows the user to registrate on site, if all is right redirect to serach pages
+      if something go wrong display error messages from Alerts.html using parameters
 
+7) Logout
+      If the user logout dislplay message and redirect do Home or index.html
 
-7) Logout.html
-
-8) Serach.html
+8) Search.html
+      After login user can search a book from the database and list research results
 
 9) Bookspage.html
+      After serach the book and clik on the books name redirect to this page and Shows
+      details from the book, also allow to make a review on the book.
