@@ -88,7 +88,11 @@ def register():
        username = request.form.get("username")
        password = request.form.get("password")
        ckpassword = request.form.get("checkpassword")
-       print("going to select:" , [username],[password],[ckpassword])
+
+
+       #Cursor
+       MyCursor = db.cursor()
+
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 1:
             #print("user exists")
@@ -101,10 +105,11 @@ def register():
        else:
             print("casastrar usuário")
 
-            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+            MyCursor.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
              {"username": username, "password": password})
 
-            db.commit()
+            MyCursor.commit()
+            MyCursor.close()
             session["user"] = username  #Store user id here
             session["logged"] = True
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
