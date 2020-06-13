@@ -40,11 +40,11 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/")
 def index():
     if session['logged_in'] == "Fasle":
-       return render_template("index.html", Search="False", Bookspage="Fasle", Login="True", NewUser=""True" ,logout="False" )
+       return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
 
 
     if session['logged_in'] == "True":
-        return render_template("index.html", Search="True", Bookspage="True", Login="Fasle", NewUser="Fasle" ,logout="True" )
+        return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F" ,logout="T" )
 
 
 
