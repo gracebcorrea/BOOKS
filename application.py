@@ -36,15 +36,24 @@ db = scoped_session(sessionmaker(bind=engine))
 #cur = db.cursor()
 
 # Principal Page call
+user = []
+logged = []
+
+
 @app.route("/index")
 @app.route("/")
 def index():
-    #if session['logged_in'] == "True" :
-        return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F" ,logout="T" )
+    if session.get('user') is None:
+        session['user'] = []
+        return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
 
-    #else:
-    #   return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
-    #return(render_template("index.html", homepage=True))
+    else:
+        request.method == "POST"
+        username= request.form.get("username")
+        session['user'].append(username)
+        return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+
+
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -59,13 +68,13 @@ def login():
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username , NewUrl="/search")
            #abrir seçao
-           session['username'] = username
-           session['logged_in'] = True
+           session['user'] = username
+           session['logged'] = True
            print([username], [password])
 
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
-           session['logged_in'] = False
+           session['logged'] = False
     else:
     #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
          return render_template("login.html")
@@ -89,8 +98,8 @@ def register():
         #db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
         #        {"username": username, "password": password})
         #db.commit()
-        #session["user_name"] = username #Store user id here
-        #session["logged_in"] = True
+        #session["user"] = username #Store user id here
+        #session["logged"] = True
         #return render_template("search.html")
         return render_template("register.html")
 
@@ -112,7 +121,7 @@ def bookspage():
 
 @app.route('/logout')
 def logout():
-    session['logged_in'] = False
+    session['logged'] = False
     # clear user credentials
     session.clear()
     #close connection
