@@ -69,8 +69,9 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    print("Entrei no form login")
+
     if request.method == 'POST':
+       print("Entrei no form login")
        username = request.form.get("username")
        password = request.form.get("password")
        rememberme = request.form.get("rememberme")
@@ -86,7 +87,7 @@ def login():
 
     else:
     #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
-         print("Não achei nada")
+
          return render_template("login.html")
 
 
