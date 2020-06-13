@@ -17,18 +17,6 @@ app = Flask(__name__)
 #set or export FLASK_DEBUG=1
 #set or export DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
 
-#or connect db
-#db = psycopg2.connect(
-#      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
-#      database= "d3ck6mm9jbc163",
-#      user = "dgssjhgflgvwxj",
-#      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740")
-
-
-#cursor
-#cur = db.cursor()
-
-
 
 
 # Check for environment variable - begin
@@ -51,15 +39,14 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/index")
 @app.route("/")
 def index():
-    #status = "Loggedout"
-    #try:
-    #    username=session["username"]
-    #    status=""
-    #except KeyError:
-    #    username=""
-    #return render_template("index.html", status=status, username=username)
+    if session['logged_in'] == "Fasle":
+       return render_template("index.html", Search="False", Bookspage="Fasle", Login="True", NewUser=""True" ,logout="False" )
 
-    return render_template("index.html")
+
+    if session['logged_in'] == "True":
+        return render_template("index.html", Search="True", Bookspage="True", Login="Fasle", NewUser="Fasle" ,logout="True" )
+
+
 
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
@@ -70,19 +57,20 @@ def login():
        username = request.form.get("username")
        password = request.form.get("password")
        rememberme = request.form.get("rememberme")
-       print([username], [password])
+
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username , NewUrl="/search")
            #abrir seçao
+           session['username'] = username
+           session['logged_in'] = True
+           print([username], [password])
 
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
-
-
+           session['logged_in'] = False
     else:
     #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
-
          return render_template("login.html")
 
 
@@ -98,6 +86,7 @@ def register():
     if db.execute("SELECT * FROM users WHERE username = :username",
                 {"username": username}).rowcount > 0:
         return render_template("Alerts.html",tipo="alert alert-primary", username="username", message="This user already exists.")
+
     else:
 
         #db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
@@ -126,15 +115,14 @@ def bookspage():
 
 @app.route('/logout')
 def logout():
-
+    session['logged_in'] = False
     # clear user credentials
     session.clear()
+    #close connection
+    db.close()
 
-    # Redirect user to login form
-
-    return redirect(url_for('login'))
-           #close cursor
-           #cur.close()
+    # Redirect user to index form
+    return redirect(url_for('index'))
 
 
 @app.route("/res")
@@ -143,11 +131,6 @@ def res():
                         params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
     return(res.json())
 
-
-
-
-#close connection
-db.close()
 
 if __name__ == "__main__":
     with app.app_context():
