@@ -35,7 +35,6 @@
 <h2 style="margin-left: 100px">Alert Messages</h2>
 
 <p style="margin-left: 100px">Click on the "x" symbol to close the alert message.</p>
-
 {% if tipo == "alert alert-danger" %}
      <div class="alert alert-danger">
      <span class="closebtn" onclick="Myredirect()"  id="message">&times;</span>
@@ -58,7 +57,7 @@
 <script>
 function Myredirect()
  {
-    location.replace("{{NewUrl}}"); 
+    location.replace("{{NewUrl}}");
    /*location.replace("/login");*/
   }
 </script>
