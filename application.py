@@ -78,11 +78,11 @@ def login():
        print([username], [password])
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
-           return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username , local="/search")
+           return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username , NewUrl="/search")
            #abrir seçao
 
        else:
-           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , local="/index")
+           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
 
 
     else:
