@@ -10,7 +10,7 @@
 .alert {
   padding: 20px;
   color: white;
-  width: 90%;
+  width: 80%;
   margin-left: 100px;
 }
 
@@ -19,7 +19,7 @@
   color: white;
   font-weight: bold;
   float: right;
-  font-size: 30px;
+  font-size: 35px;
   line-height: 20px;
   cursor: pointer;
   transition: 0.3s;
@@ -32,9 +32,9 @@
 </head>
 <body>
 
-<h2>Alert Messages</h2>
+<h2 style="margin-left: 100px">Alert Messages</h2>
 
-<p>Click on the "x" symbol to close the alert message.</p>
+<p style="margin-left: 100px">Click on the "x" symbol to close the alert message.</p>
 
 {% if tipo == "alert alert-danger" %}
      <div class="alert alert-danger">
@@ -58,7 +58,8 @@
 <script>
 function Myredirect()
  {
-   window.location.href= {{local}};
+   /* location.replace({{local}}); */
+   location.replace("/login");
   }
 </script>
 
