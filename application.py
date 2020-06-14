@@ -104,8 +104,9 @@ def register():
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
 
-            session["user"] = username  #Store user id here
-            session["logged"] = True
+            session['user'] = username  #Store user id here
+            session['logged'] = True
+            print(session[1])
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
     else:
         return render_template("register.html")
@@ -114,7 +115,7 @@ def register():
 # Search Page
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    if session["logged"] == True:
+    if session['logged'] == "True":
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
     else:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username , NewUrl="/index")
