@@ -88,7 +88,8 @@ def register():
        ckpassword = request.form.get("checkpassword")
 
        #check if the user exists on the base
-       if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 1:
+       if db.execute("SELECT * FROM users WHERE username = :username",
+                     {"username": username}).fetchone():
             #print("user exists")
             return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page, ", username=username , NewUrl="/index")
             session.clear()
@@ -100,7 +101,8 @@ def register():
             print("casastrar usuário")
 
             #db.execute(SQL,USERDATA)
-            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)"  , "{ username : [username], password: [password] }" )
+            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" ,
+                       { "username" : [username], "password": [password] }" )
             db.commit()
 
             session["user"] = username  #Store user id here
