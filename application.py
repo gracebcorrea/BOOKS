@@ -117,13 +117,12 @@ def register():
 def search():
     print("tentando search session:" ,session['user'], session['logged'])
     if session.get('user') is None:
-        sn = session['user']
-        sok = session['logged']
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=s , NewUrl="/index")
-
+        session['logged'] =False
+        return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
+        print("sessão search falhou:" ,session['user'] , session['logged'])
     else:
-        print("sessão search:" ,[s], [sok])
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=s)
+        print("sessão search:" ,session['user'] , session['logged'])
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
 
 
 # Review Page
