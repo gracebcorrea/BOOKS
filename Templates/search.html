@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
 <!--Search: Once a user has logged in, they should be taken to a page where they
-can search for a book. Users should be able to type in the ISBN number of a book,
+can search for a book. Users should be able to type in the ISBM number of a book,
 the title of a book, or the author of a book. After performing the search,
 your website should display a list of possible matching results, or some sort
 of message if there were no matches. If the user typed in only part of a title,
-ISBN, or author name, your search page should find matches for those as well! -->
+ISBM, or author name, your search page should find matches for those as well! -->
 
 
 {% extends "layout.html" %}
@@ -36,7 +36,7 @@ ISBN, or author name, your search page should find matches for those as well! --
    </div>
    <form action="{{ url_for('search')}}" method="post">
         <div class="form-group">
-            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBN">
+            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM">
         </div>
         <div class="form-group">
              <button class="btn btn-primary" style="background-color:#400080">Search</button>
@@ -50,15 +50,16 @@ ISBN, or author name, your search page should find matches for those as well! --
       <tr>
         <th scope="col" >Title</th>
         <th scope="col" >Author</th>
+        <th scope="col" >ISBM</th>
         <th scope="col" >Year</th>
-        <th scope="col" >ISBN</th>
       </tr>
-      {% for result in results %}
+      {% for {{result}} in {{results}} %}
             <tr class="table-striped">
-               <td><a href="{{ url_for('search', result=result) }}">{{ results.title }}</a></td>
-               <td>{{ results.author }}</td>
-               <td>{{ results.isbn }}</td>
-               <td>{{ results.year }}</td>
+               <td><a href="{{ url_for('search'}}">
+                   {{ results.Title }}</a></td>
+               <td>{{ results.Author }}</td>
+               <td>{{ results.ISBM }}</td>
+               <td>{{ results.Year }}</td>
             </tr>
       {% endfor %}
     </table>
