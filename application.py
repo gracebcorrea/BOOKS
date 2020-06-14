@@ -100,9 +100,9 @@ def register():
             print("casastrar usuário")
 
             #db.execute(SQL,USERDATA)
-            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)"  , "{ username : [username], password: [password]}" )
+            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)"  , "{ username : "[username]", password: "[password]"}" )
             db.commit()
-    
+
             session["user"] = username  #Store user id here
             session["logged"] = True
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
