@@ -105,7 +105,7 @@ def register():
 
             session['user'] = username #Store user id here
             session['logged'] = True
-            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=[session['user']] , NewUrl="/search")
+            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=[session[0]] , NewUrl="/search")
     else:
         return render_template("register.html")
 
@@ -115,18 +115,18 @@ def register():
 def search():
     if session.get('user') is None:
         print(session['user'])
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=[session['user']]  , NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=[session[0]]  , NewUrl="/index")
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=[session['user']] )
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=[session[0]] )
 
 
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
 def bookspage():
     if session.get('user') is None:
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=[session['user']] , NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=[session[0]] , NewUrl="/index")
     else:
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=[session['user']])
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=[session[0]])
 
 
 
