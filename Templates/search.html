@@ -34,7 +34,7 @@ ISBM, or author name, your search page should find matches for those as well! --
         <input type="radio" class="form-check-input" name="Title" id="Title" checked>Title
         </label>
    </div>
-   <form action="{{ url_for('search')}}" method="post">
+   <form action="{{ url_for('search') }}" method="post">
         <div class="form-group">
             <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM">
         </div>
@@ -55,7 +55,7 @@ ISBM, or author name, your search page should find matches for those as well! --
       </tr>
       {% for result in results %}
             <tr class="table-striped">
-               <td><a href="{{ url_for('search'}}">
+               <td><a href="{{ url_for('search')}}">
                    {{ result.Title }}</a></td>
                <td>{{ result.Author }}</td>
                <td>{{ result.ISBM }}</td>
