@@ -48,14 +48,14 @@ ISBN, or author name, your search page should find matches for those as well! --
 
     <table style="width:100%" class="table" >
       <tr>
-        <th scope="col" style="color:white">Title</th>
-        <th scope="col" style="color:white">Author</th>
-        <th scope="col" style="color:white">Year</th>
-        <th scope="col" style="color:white">ISBN</th>
+        <th scope="col" >Title</th>
+        <th scope="col" >Author</th>
+        <th scope="col" >Year</th>
+        <th scope="col" >ISBN</th>
       </tr>
       {% for books in books %}
       <tr class="table-striped">
-        <td><a href="{{ url_for('book', book_id=books.id) }}">{{ books.title }}</a></td>
+        <td><a href="{{ url_for('search', book_id=books.id) }}">{{ books.title }}</a></td>
         <td>{{ books.author }}</td>
         <td>{{ books.year }}</td>
         <td>{{ books.isbn }}</td>
