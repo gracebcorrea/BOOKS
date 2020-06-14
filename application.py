@@ -114,14 +114,19 @@ def register():
 # Search Page
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
-
+    if session["logged"] == True:
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+    else:
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username , NewUrl="/index")
 
 
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
 def bookspage():
-    return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+    if session["logged"] == True:
+       return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+    else:
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username , NewUrl="/index")
 
 
 #Logout: Logged in users should be able to log out of the site.
