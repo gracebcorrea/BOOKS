@@ -130,32 +130,32 @@ def search():
             SQLquerry = request.form.get("SQLquerry")
             results = []
             print (RBISBM,RBTitle,RBAuthor,SQLquerry)
-            if RBISBM:
-                RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
-                results.append(RTisbm)
-                print("Buscando ISBM.")
-                for result in results:
-                    print(result.Title)
-                if len(results) == 0:
-                    print("No Results.")
-            if RBTitle:
-                RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
-                results.append(RTitle)
-                print("Buscando Título.")
-                for result in results:
-                    print(result.Title)
-                if len(results) == 0:
-                    print("No Results.")
-            if RBAuthor:
+            if RBAuthor == "Checked":
+                print("Buscando Autor.")
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
-                print("Buscando Autor.")
                 for result in results:
-                    print(result.Title)
                     return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
-                    return("No Results.Autor.")
-            return render_template("search.html" , results.Title=="results.Title", results.Author=="results.Author", results.ISBM=="results.ISBM", results.Year=="results.Year")
+                    print("No Results FOR AUTHOR.")
+            if RBISBM:
+                print("Buscando ISBM.")
+                RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
+                results.append(RTisbm)
+                for result in results:
+                    return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+                if len(results) == 0:
+                    print("No Results FOR ISBM.")
+            if RBTitle:
+                print("Buscando Título.")
+                RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
+                results.append(RTitle)
+                for result in results:
+                    return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+                if len(results) == 0:
+                    print("No Results FOR TITLE.")
+
+
         else:
             return render_template("Alerts.html" , message="Error", username=session['user'])
         print("Não achei nada")
