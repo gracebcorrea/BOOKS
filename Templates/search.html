@@ -20,18 +20,18 @@ ISBN, or author name, your search page should find matches for those as well! --
 
 {% block body%}
    <div class="form-check-inline">
-       <label class="form-check-label">
-       <input type="radio" class="form-check-input" name="ISBM">ISBM
+       <label class="form-check-label" >
+       <input type="radio" class="form-check-input" name="ISBM" id="ISBM">ISBM
        </label>
    </div>
    <div class="form-check-inline">
-       <label class="form-check-label">
-       <input type="radio" class="form-check-input" name="Author">Author
+       <label class="form-check-label" id="Author">
+       <input type="radio" class="form-check-input" name="Author" id="Author">Author
        </label>
    </div>
    <div class="form-check-inline">
-        <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="Title" >Title
+        <label class="form-check-label" id="Title">
+        <input type="radio" class="form-check-input" name="Title" id="Title" >Title
         </label>
    </div>
    <form action="{{ url_for('search') }}" method="post">
@@ -55,7 +55,7 @@ ISBN, or author name, your search page should find matches for those as well! --
       </tr>
       {% for result in results %}
       <tr class="table-striped">
-        <td><a href="{{ url_for('search', book_id=books.id) }}">{{ results.title }}</a></td>
+        <td><a href="{{ url_for('search', result=result) }}">{{ results.title }}</a></td>
         <td>{{ results.author }}</td>
         <td>{{ results.isbn }}</td>
         <td>{{ results.year }}</td>
