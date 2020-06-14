@@ -107,7 +107,7 @@ def register():
             session['user'] = username  #Store user id here
             session['logged'] = True
             print(session[0])
-            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'] , NewUrl="/search")
+            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username="session['user']" , NewUrl="/search")
     else:
         return render_template("register.html")
 
@@ -118,7 +118,7 @@ def search():
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username , NewUrl="/index")
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username="session['user']" )
 
 
 # Review Page
