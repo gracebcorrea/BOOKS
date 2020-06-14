@@ -65,8 +65,8 @@ def login():
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            #abrir seçao
-           session['user'] = username
-           session['logged'] = True
+           session['user'].append(username)
+           session['logged'].append(True)
            print("sessão iniciada:" ,[session['user']], [session['logged']])
            return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=session['user'] , NewUrl="/search")
        else:
@@ -104,9 +104,9 @@ def register():
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
 
-            session['user'] = username #Store user id here
-            session['logged'] = True
-            print("sessão iniciada:" ,[session['user']], [session['logged']])
+            session['user'].append(username)
+            session['logged'].append(True)
+            print("sessão register:" ,[session['user']], [session['logged']])
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
         return render_template("register.html")
@@ -115,11 +115,13 @@ def register():
 # Search Page
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    print("tentando serach:" ,[session['user']], [session['logged']])
     if session.get('user') is None:
-        print("sessão search:" ,[session['user']], [session['logged']])
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
+
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'])
+        print("sessão search:" ,[session['user']], [session['logged']])
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
 
 
 # Review Page
