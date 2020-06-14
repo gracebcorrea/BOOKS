@@ -20,11 +20,11 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% block body%}
 <form action="{{ url_for('search') }}">
-  <input type="radio" id="Author" name="Author" value="Author">
+  <input type="radio" id="Author" name="choice" value="Author">
   <label for="Author">Author</label>
-  <input type="radio" id="Title" name="Title" value="Title"> 
+  <input type="radio" id="Title" name="choice" value="Title">
   <label for="Title">Title</label>
-  <input type="radio" id="ISBM" name="ISBM" value="ISBM">
+  <input type="radio" id="ISBM" name="choice" value="ISBM">
   <label for="ISBM">ISBM</label><br>
 </form>
 
