@@ -122,6 +122,7 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
         print("sessão search vou tentar o post :" ,session['user'] , session['logged'])
+
         if method=='POST':
             return render_template("Alerts.html", tipo="alert alert-primary", message="Entrei no POST", username=session['user'] , NewUrl="/search")
 
