@@ -22,30 +22,29 @@ ISBN, or author name, your search page should find matches for those as well! --
    <div class="form-check-inline">
        <label class="form-check-label">
        <input type="radio" class="form-check-input" name="ISBM">ISBM
-   </label>
+       </label>
    </div>
    <div class="form-check-inline">
        <label class="form-check-label">
        <input type="radio" class="form-check-input" name="Author">Author
-   </label>
+       </label>
    </div>
    <div class="form-check-inline">
         <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="Title">Title
-   </label>
-</div>
-<form action="{{ url_for('search') }}" method="post">
-    <div class="form-group">
-        <input class="form-control" name="searchqry" placeholder="Search by Title, Author or ISBN">
-    </div>
+        <input type="radio" class="form-check-input" name="Title" >Title
+        </label>
+   </div>
+   <form action="{{ url_for('search') }}" method="post">
+        <div class="form-group">
+            <input class="form-control" name="searchqry" placeholder="Search by Title, Author or ISBN">
+        </div>
+        <div class="form-group">
+             <button class="btn btn-primary" style="background-color:#400080">Search</button>
+        </div>
+   </form>
 
-    <div class="form-group">
-        <button class="btn btn-primary" style="background-color:#400080">Search</button>
-    </div>
 
-</form>
-
-<h1>Here are the Books Matching Your Search:</h1>
+<h1 sytle= "padding : 10px">Here are the Books Matching Your Search:</h1>
 
     <table style="width:100%" class="table" >
       <tr>
