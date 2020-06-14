@@ -67,7 +67,7 @@ def login():
            #abrir seçao
            session['user'].append(username)
            session['logged'].append(True)
-           print("sessão iniciada:" ,[session['user']], [session['logged']])
+           print("sessão iniciada:" , session['user'], session['logged'])
            return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username , NewUrl="/search")
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
@@ -106,16 +106,16 @@ def register():
 
             session['user'].append(username)
             session['logged'].append(True)
-            print("sessão register:" ,[session['user']], [session['logged']])
+            print("sessão register:" ,session['user'], session['logged'])
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
         return render_template("register.html")
 
 
-# Search Page
+# Search Page parei aqui 13/06/2020 problema a sessao nao vem para a pagina
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    print("tentando search session:" ,[session[0]], [session[1]])
+    print("tentando search session:" ,session['user'], session['logged'])
     if session.get('user') is None:
         sn = session['user']
         sok = session['logged']
