@@ -116,9 +116,9 @@ def register():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     if session.get('user') is None:
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username , NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username  , NewUrl="/index")
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username="session['user']" )
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=username )
 
 
 # Review Page
