@@ -130,12 +130,18 @@ def search():
             RBTitle = request.form.get("Title")
             RBAuthor = request.form.get("Author")
             SQLquerry = request.form.get("SQLquerry")
-            print ()
+            results = []
+            print (RBISBM,RBTitle,RBAuthor,SQLquerry)
             if RBISBM:
-                db.execute()
+                RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
+                results.append(RTisbm)
             if RBTitle:
-
+                RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
+                results.append(RTitle)
             if RBAuthor:
+                Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
+                results.append(Rauthor)
+                
 
 
 
