@@ -54,12 +54,12 @@ ISBN, or author name, your search page should find matches for those as well! --
         <th scope="col" >ISBN</th>
       </tr>
       {% for result in results %}
-      <tr class="table-striped">
-        <td><a href="{{ url_for('search', result=result) }}">{{ results.title }}</a></td>
-        <td>{{ results.author }}</td>
-        <td>{{ results.isbn }}</td>
-        <td>{{ results.year }}</td>
-      </tr>
+            <tr class="table-striped">
+               <td><a href="{{ url_for('search', result=result) }}">{{ results.title }}</a></td>
+               <td>{{ results.author }}</td>
+               <td>{{ results.isbn }}</td>
+               <td>{{ results.year }}</td>
+            </tr>
       {% endfor %}
     </table>
 
