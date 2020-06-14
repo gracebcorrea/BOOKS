@@ -115,7 +115,7 @@ def register():
 # Search Page parei aqui 13/06/2020 problema a sessao nao vem para a pagina
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-
+    results = []
     if session.get('user') is None:
         session['logged'] =False
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
@@ -128,7 +128,6 @@ def search():
             RBTitle = request.form.get("Title")
             RBAuthor = request.form.get("Author")
             SQLquerry = request.form.get("SQLquerry")
-            results = []
             print (RBISBM,RBTitle,RBAuthor,SQLquerry)
             if RBAuthor == "Checked":
                 print("Buscando Autor.")
