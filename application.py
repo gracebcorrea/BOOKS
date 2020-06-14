@@ -47,14 +47,14 @@ def index():
         return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
 
     else:
-        request.method == "POST"
+        request.method == 'POST'
         username= request.form.get("username")
         session['user'].append(username)
         return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
 
 # Login Page
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=['GET', 'POST'])
 def login():
 
     if request.method == 'POST':
@@ -80,7 +80,7 @@ def login():
 
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
        username = request.form.get("username")
@@ -113,7 +113,7 @@ def register():
 
 
 # Search Page parei aqui 13/06/2020 problema a sessao nao vem para a pagina
-@app.route("/search", methods=["GET", "POST"])
+@app.route("/search", methods=['GET', 'POST'])
 def search():
     print("tentando search session:" ,session['user'], session['logged'])
     if session.get('user') is None:
@@ -125,16 +125,25 @@ def search():
         session['logged'] = True
         print("sessão search:" ,session['user'] , session['logged'])
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
-        if method=="GET":
-            RBISBM = request.form.get("ISBM ")
-            RBTitle = request.form.get("Title ")
-            RBAuthor = request.form.get("Author ")
+        if method=='GET':
+            RBISBM = request.form.get("ISBM")
+            RBTitle = request.form.get("Title")
+            RBAuthor = request.form.get("Author")
+            SQLquerry = request.form.get("SQLquerry")
+            print ()
+            if RBISBM:
+                db.execute()
+            if RBTitle:
+
+            if RBAuthor:
+
+
 
 
 
 
 # Review Page
-@app.route("/bookspage", methods=["GET", "POST"])
+@app.route("/bookspage", methods=['GET', 'POST'])
 def bookspage():
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=session['user'], NewUrl="/index")
