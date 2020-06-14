@@ -55,7 +55,7 @@ def index():
 # Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    #session.clear()
+
     if request.method == 'POST':
        username = request.form.get("username")
        password = request.form.get("password")
@@ -72,8 +72,8 @@ def login():
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
            session['logged'] = False
+           session.clear()
     else:
-    #    return render_template("Alerts.html",tipo="alert alert-danger" , message="This username or password not on database : " ,  username="username" )
          return render_template("login.html")
 
 
@@ -106,8 +106,8 @@ def register():
 
             session['user'] = username  #Store user id here
             session['logged'] = True
-            print(session[1])
-            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
+            print(session[0])
+            return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'] , NewUrl="/search")
     else:
         return render_template("register.html")
 
