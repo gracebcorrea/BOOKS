@@ -149,7 +149,7 @@ def search():
             if RBAuthor:
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
-                
+
                 for result in results:
                     print(result.Title)
                 if len(results) == 0:
@@ -157,7 +157,7 @@ def search():
             return render_template("searck.html" ,results=results )
         else:
             return render_template("Alerts.html" , message="Error", username=session['user'])
-
+        print("Não achei nada")
 
 
 
