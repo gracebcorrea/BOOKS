@@ -87,10 +87,6 @@ def register():
        password = request.form.get("password")
        ckpassword = request.form.get("checkpassword")
 
-
-       #Cursor
-       MyCursor = db.cursor()
-
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 1:
             #print("user exists")
@@ -105,7 +101,7 @@ def register():
             #Cursor
             MyCursor = db.cursor()
             SQL = "INSERT INTO users (username, password) VALUES (:username, :password)"
-            DATA ="{ "username": username, "password": password}"
+            DATA ="{ username : [username], password: [password]}"
             MyCursor.execute(SQL,DATA)
             MyCursor.commit()
             MyCursor.close()
