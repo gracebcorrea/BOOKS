@@ -121,9 +121,11 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
         print("sessão search falhou:" ,session['user'] , session['logged'])
     else:
+        session['user'] = request.form.get("username")
+        session['logged'] = True
         print("sessão search:" ,session['user'] , session['logged'])
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
-
+        if
 
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
