@@ -43,6 +43,7 @@ logged = []
 def index():
     if session.get('user') is None:
         session['user'] = []
+        session['logged']= []
         return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
 
     else:
@@ -67,7 +68,7 @@ def login():
            session['user'] = username
            session['logged'] = True
            print("sessão iniciada:" ,[session['user']], [session['logged']])
-           return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=username , NewUrl="/search")
+           return render_template("Alerts.html",tipo="alert alert-success", message="Wellcome ", username=session['user'] , NewUrl="/search")
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
            session['logged'] = False
@@ -116,9 +117,9 @@ def register():
 def search():
     if session.get('user') is None:
         print("sessão search:" ,[session['user']], [session['logged']])
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username="session['user']" , NewUrl="/index")
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'])
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username="session['user']")
 
 
 # Review Page
