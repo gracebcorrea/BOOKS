@@ -56,10 +56,10 @@ ISBM, or author name, your search page should find matches for those as well! --
       {% for {{result}} in {{results}} %}
             <tr class="table-striped">
                <td><a href="{{ url_for('search'}}">
-                   {{ results.Title }}</a></td>
-               <td>{{ results.Author }}</td>
-               <td>{{ results.ISBM }}</td>
-               <td>{{ results.Year }}</td>
+                   {{ result.Title }}</a></td>
+               <td>{{ result.Author }}</td>
+               <td>{{ result.ISBM }}</td>
+               <td>{{ result.Year }}</td>
             </tr>
       {% endfor %}
     </table>
