@@ -152,9 +152,10 @@ def search():
                 print("Buscando Autor.")
                 for result in results:
                     print(result.Title)
+                    return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
-                    print("No Results.Autor.")
-            return render_template("searck.html" , results.Title="results.Title", results.Author="results.Author", results.ISBM="results.ISBM", results.Year="results.Year")
+                    return("No Results.Autor.")
+            return render_template("search.html" , results.Title=="results.Title", results.Author=="results.Author", results.ISBM=="results.ISBM", results.Year=="results.Year")
         else:
             return render_template("Alerts.html" , message="Error", username=session['user'])
         print("Não achei nada")
