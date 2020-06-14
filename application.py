@@ -123,14 +123,17 @@ def search():
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
         print("sessão search vou tentar o post :" ,session['user'] , session['logged'])
         if method=='POST':
-            print("Entrei no Post")
+            return render_template("Alerts.html", tipo="alert alert-primary", message="Entrei no POST", username=session['user'] , NewUrl="/search")
+
             RBISBM = request.form.get("ISBM")
             RBTitle = request.form.get("Title")
             RBAuthor = request.form.get("Author")
             SQLquerry = request.form.get("SQLquerry")
-            print ("Peguei os dados da qry; ",RBISBM,RBTitle,RBAuthor,SQLquerry)
+
+            return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RBISBM],[RBTitle],[RBAuthor],[SQLquerry]" , NewUrl="/search")
+
             if RBAuthor == "Author":
-                print("Buscando Autor.")
+
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
                 for result in results:
@@ -154,8 +157,9 @@ def search():
                 if len(results) == 0:
                     print("No Results FOR TITLE.")
         else:
-            return render_template("Alerts.html" , message="Error", username=session['user'])
-        print("Não achei nada")
+            return render_template("Alerts.html" ,  tipo="alert alert-danger", message="Error!", NewUrl="/search ")
+
+        #return render_template("Alerts.html" , tipo="alert alert-danger", message="Não achei nada!" ,NewUrl="search ")
 
 
 
