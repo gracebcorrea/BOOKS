@@ -133,7 +133,7 @@ def search():
             if RBISBM:
                 RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
                 results.append(RTisbm)
-
+                print("Buscando ISBM.")
                 for result in results:
                     print(result.Title)
                 if len(results) == 0:
@@ -141,7 +141,7 @@ def search():
             if RBTitle:
                 RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
                 results.append(RTitle)
-
+                print("Buscando Título.")
                 for result in results:
                     print(result.Title)
                 if len(results) == 0:
@@ -149,12 +149,12 @@ def search():
             if RBAuthor:
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
-
+                print("Buscando Autor.")
                 for result in results:
                     print(result.Title)
                 if len(results) == 0:
-                    print("No Results.")
-            return render_template("searck.html" ,results=results )
+                    print("No Results.Autor.")
+            return render_template("searck.html" , results.Title="results.Title", results.Author="results.Author", results.ISBM="results.ISBM", results.Year="results.Year")
         else:
             return render_template("Alerts.html" , message="Error", username=session['user'])
         print("Não achei nada")
@@ -189,7 +189,7 @@ def logout():
 @app.route("/res")
 def res():
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
+                        params={"key": "vELE3rrO4BMGthbgfBiKA", "ISBMs": "9781632168146"})
     return(res.json())
 
 
