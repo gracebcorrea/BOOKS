@@ -124,7 +124,7 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
 
-    if method=='POST':
+    if request.method == 'POST':
         RBISBM = request.form.get("ISBM")
         RBTitle = request.form.get("Title")
         RBAuthor = request.form.get("Author")
