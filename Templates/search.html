@@ -20,18 +20,16 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% block body%}
 <form action="{{ url_for('search') }}" method="post" >
+  <div class="form-group">
   <input type="radio" id="Author" name="choice" value="Author" >
   <label for="Author">Author</label>
   <input type="radio" id="Title" name="choice" value="Title" checked>
   <label for="Title">Title</label>
   <input type="radio" id="ISBM" name="choice" value="ISBM">
   <label for="ISBM">ISBM</label><br>
-
-  <div class="form-group">
-      <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
-  </div>
-  <div class="form-group">
-       <button type="submit" class="btn btn-primary" style="background-color:#400080">Search</button>
+  <p></p>
+  <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
+  <button type="submit" class="btn btn-primary" style="background-color:#400080">Search</button>
   </div>
 </form>
 
