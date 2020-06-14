@@ -133,16 +133,28 @@ def search():
             if RBISBM:
                 RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
                 results.append(RTisbm)
-                print ("Procurando ISBM")
+                print("Procurando ISBM \nresults")
+                for result in results:
+                    print(result.Title)
+                if len(results) == 0:
+                    print("No Results.")
             if RBTitle:
                 RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
                 results.append(RTitle)
-                print ("Procurando Titulo")
+                print ("Procurando Titulo \nresults")
+                for result in results:
+                    print(result.Title)
+                if len(results) == 0:
+                    print("No Results.")
             if RBAuthor:
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
-                print ("Procurando Autor")
-            return render_template("searck.html" , )
+                print ("Procurando Autor \nresults")
+                for result in results:
+                    print(result.Title)
+                if len(results) == 0:
+                    print("No Results.")
+            return render_template("searck.html" ,results=results )
         else:
             return render_template("Alerts.html" , message="Error", username=session['user'])
 
