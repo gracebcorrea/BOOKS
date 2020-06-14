@@ -125,7 +125,13 @@ def search():
         session['logged'] = True
         print("sessão search:" ,session['user'] , session['logged'])
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
-        if
+        if method=="GET":
+            RBISBM = request.form.get("ISBM ")
+            RBTitle = request.form.get("Title ")
+            RBAuthor = request.form.get("Author ")
+
+
+
 
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
