@@ -117,9 +117,9 @@ def register():
 def search():
     if session.get('user') is None:
         print("sessão search:" ,[session['user']], [session['logged']])
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username="session['user']" , NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username="session['user']")
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'])
 
 
 # Review Page
