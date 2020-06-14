@@ -115,17 +115,15 @@ def register():
 # Search Page parei aqui 13/06/2020 problema a sessao nao vem para a pagina
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    print("tentando search session:" ,session['user'], session['logged'])
+
     if session.get('user') is None:
         session['logged'] =False
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login", username=session['user'] , NewUrl="/index")
         print("sessão search falhou:" ,session['user'] , session['logged'])
     else:
-        session['user'] = request.form.get("username")
-        session['logged'] = True
         print("sessão search:" ,session['user'] , session['logged'])
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
-        if method=='GET':
+        if method=='POST':
             RBISBM = request.form.get("ISBM")
             RBTitle = request.form.get("Title")
             RBAuthor = request.form.get("Author")
@@ -142,7 +140,10 @@ def search():
             if RBAuthor:
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
-            return render_template("search.html" , results=[results])    
+
+            return render_template("searck.html" ,tipo= "alert alert-primary",username=session['user'] )        
+          else:
+            return render_template("Alerts.html" , message="Error", username=session['user'])
 
 
 
