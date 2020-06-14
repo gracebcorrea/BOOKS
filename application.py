@@ -98,13 +98,11 @@ def register():
             session.clear()
        else:
             print("casastrar usuário")
-            #Cursor
-            MyCursor = db.cursor()
-            SQL = "INSERT INTO users (username, password) VALUES (:username, :password)"
-            DATA ="{ username : [username], password: [password]}"
-            MyCursor.execute(SQL,DATA)
-            MyCursor.commit()
-            MyCursor.close()
+
+            #db.execute(SQL,USERDATA)
+            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)"  , "{ username : [username], password: [password]}" )
+            db.commit()
+    
             session["user"] = username  #Store user id here
             session["logged"] = True
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=username , NewUrl="/search")
