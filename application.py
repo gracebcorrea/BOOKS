@@ -124,10 +124,11 @@ def search():
 # Review Page
 @app.route("/bookspage", methods=["GET", "POST"])
 def bookspage():
-    if session['logged'] == True:
-       return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
-    else:
+    if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=username , NewUrl="/index")
+    else:
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+
 
 
 #Logout: Logged in users should be able to log out of the site.
