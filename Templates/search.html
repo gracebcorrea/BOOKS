@@ -28,8 +28,9 @@ ISBM, or author name, your search page should find matches for those as well! --
            <input type="radio" name="choice" id="Title" value="Title" onclick="MyRadio(value)">
            <label for="Title">Title</label>
            <input type="radio" name="choice" id="ISBM"  value="ISBM" onclick="MyRadio(value)">
-           <label for="ISBM">ISBM</label><br>
-
+           <label for="ISBM">ISBM</label>
+           <input class="form-control" name="checkedvalue" id="checkedvalue" value=document.getElementById("checkedvalue").innerHTML = MyRadio()>
+           <br>
       <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
 
