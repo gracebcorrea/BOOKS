@@ -121,28 +121,27 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
-        checkedvalue ="Author"    #request.form.get("checkedvalue")
+        checkedvalue ="author"    #request.form.get("checkedvalue")
         SQLquerry ="Jodi Picoult" #request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
-        if checkedvalue == "Author":
-            print("Buscando Autor")
-            Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
+        if checkedvalue == "author":
+            Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"author": SQLquerry}).fetchall()
             results.append(Rauthor)
             for result in results:
                 return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-        if checkedvalue == "Title":
+        if checkedvalue == "title":
             print("Buscando Título.")
-            RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
+            RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"title": SQLquerry}).fetchall()
             results.append(RTitle)
             for result in results:
                 return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
             if len(results) == 0:
                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-        if checkedvalue == "ISBM":
+        if checkedvalue == "isbm":
             print("Buscando ISBM.")
-            RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
+            RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"isbm": SQLquerry}).fetchall()
             results.append(RTisbm)
             for result in results:
                 return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
