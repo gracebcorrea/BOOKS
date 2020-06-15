@@ -129,7 +129,7 @@ def search():
             Rauthor=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry}).fetchall()
             results.append(Rauthor)
             for result in results:
-                return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+                return render_template("search.html" , result.title=="result.title", result.author=="result.author", result.isbm=="result.isbm", result.year=="result.year")
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
         if checkedvalue == "title":
