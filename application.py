@@ -34,9 +34,9 @@ db = scoped_session(sessionmaker(bind=engine))
 
 
 # Principal Page call
-user = []
-logged = []
-results = []
+#user = []
+#logged = []
+#results = []
 
 @app.route("/index")
 @app.route("/")
@@ -153,7 +153,7 @@ def search():
             return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
             chceckedvalue = request.form.get("checkedvalue")
 
-        #return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?", NewUrl="/search")
+        return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?  ", NewUrl="/search")
 
 
 
