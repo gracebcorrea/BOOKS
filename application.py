@@ -149,7 +149,7 @@ def search():
                     return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
                     return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-    return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
     #return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?", NewUrl="/search")
 
 
