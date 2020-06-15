@@ -129,9 +129,9 @@ def search():
         if checkedvalue == "author":
             result=db.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author" , {"author": SQLquerry})
             results.append(result)
-
+            xlen = len(results)
             for result in results:
-                xlen = len(results)
+
                 #return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlen =xlen , result =[result] )
 
