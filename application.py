@@ -128,6 +128,12 @@ def search():
         if checkedvalue == "author":
             result=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
             results.append(result)
+            for result in results:
+                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
+
+            if len(results) == 0:
+                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+
 
         if checkedvalue == "title":
             result=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
@@ -138,11 +144,7 @@ def search():
             result=db.execute("SELECT * FROM books WHERE isbm = :isbm" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
             results.append(result)
 
-        for result in results:
-            return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
-        if len(results) == 0:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-    else:
+            else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
 
 
