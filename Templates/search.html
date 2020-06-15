@@ -43,24 +43,24 @@ ISBM, or author name, your search page should find matches for those as well! --
 <!--search results-->
 <h1 sytle= "padding : 10px">Here are the Books Matching: {{checkedvalue}}, {{SQLquerry}}:</h1>
 
-  <!--  <table style="width:100%" class="table" >
+  <table style="width:100%" class="table" >
       <tr>
         <th scope="col" >Title</th>
         <th scope="col" >Author</th>
         <th scope="col" >ISBM</th>
         <th scope="col" >Year</th>
-      </tr>-->
+      </tr>
 
 
+<p>1</p>
 
-      <ul>
           {% for result in results %}
-          <p>1</p>
+
               <li>
                   <a href="{{ url_for('search')}}"> {{result}} </a>
               </li>
           {% endfor %}
-      </ul>
+
 
 
 
