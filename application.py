@@ -127,7 +127,7 @@ def search():
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
             results=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry }).fetchall()
-            results.append(title, author, isbm, year)
+            results.append(result)
             for result in results:
                 print(result)
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
