@@ -144,7 +144,7 @@ def search():
             result=db.execute("SELECT * FROM books WHERE isbm = :isbm" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
             results.append(result)
 
-            else:
+    else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
 
 
