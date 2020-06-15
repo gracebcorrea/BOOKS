@@ -123,13 +123,16 @@ def search():
     if request.method == 'POST':
         checkedvalue ="author"    #request.form.get("checkedvalue")
         SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
-
+        result=[]
+        results=[]
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            results=db.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author" , {"author": SQLquerry}
+            result=db.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author" , {"author": SQLquerry})
+            results.append(result)
+
             for result in results:
                 print(result.title)
-                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
+                return render_template("search.html" , checkedvalue = checkedvalue, books=books, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
