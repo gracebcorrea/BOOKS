@@ -126,9 +126,10 @@ def search():
         results =[]
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            result=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry }).fetchall()
+            results=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry }).fetchall()
             results.append(result.title, result.author, result.isbm, result.year)
             for result in results:
+                print(result)
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
             if len(results) == 0:
