@@ -128,14 +128,15 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
         #cursor
-        
+
         result=[]
         results=[]
         checkedvalue ="author"    #request.form.get("checkedvalue")
         SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            cur.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author" , {"author": SQLquerry})
+            cur.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author",
+                        {"author": SQLquerry})
             results = cur.fetchall()
             xlen = len(results)
             for result in results:
