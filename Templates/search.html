@@ -20,7 +20,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% block body%}
 
-<form action="{{ url_for('search')}}" method="post" >
+<form action="{{ url_for('search')}}" onsubmit="javascript: return MyRadio()" method="post" >
   <div class="container">
        <div class="form-group">
            <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)">
@@ -84,7 +84,7 @@ function MyRadio(value) {
 
     var checkedvalue = value;
     document.getElementById("checkedvalue").innerHTML = [checkedvalue];
-
+    return [checkedvalue];
 }
 </script>
 
