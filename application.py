@@ -32,17 +32,6 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-#connect db
-db = psycopg2.connect(
-      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
-      user = "dgssjhgflgvwxj",
-      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
-      database= "d3ck6mm9jbc163"
-      )
-
-#cursor
-cur = db.cursor()
-
 
 @app.route("/index")
 @app.route("/")
@@ -127,26 +116,23 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
-        #cursor
-        #cur = db.cursor()
+
         result=[]
         results=[]
-        checkedvalue ="author"    #request.form.get("checkedvalue")
-        SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
+        checkedvalue = request.form.get("checkedvalue")
+        SQLquerry = request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
 
-            cur.execute("SELECT * FROM books WHERE author = 'Agatha Christie'", {'author':SQLquerry})
-            results = cur.fetchall()
-
+            results = db.execute("SELECT * FROM books  WHERE 'author' = 'author'", {'author':SQLquerry}).fetchall()
             for result in results:
-                print([result])
+                x = len(results)
+                print(x, [result])
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
 
-            if len(results) == 0:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-            #close cursor
-            cur.close()
+                if len(results) == 0:
+                    return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+
 
         #if checkedvalue == "title":
         #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
