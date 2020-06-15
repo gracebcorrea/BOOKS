@@ -142,7 +142,6 @@ def search():
             return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
-        checkedvalue = request.form.get("checkedvalue")
 
 
     #return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?  ", NewUrl="/search")
