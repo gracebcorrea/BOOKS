@@ -146,13 +146,13 @@ def search():
                 if len(results) == 0:
                     print("No Results FOR ISBM.")
             if RBTitle == "Title":
-                print("Buscando Título.")
-                RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
-                results.append(RTitle)
-                for result in results:
-                    return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
-                if len(results) == 0:
-                    print("No Results FOR TITLE.")
+                 print("Buscando Título.")
+                 RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
+                 results.append(RTitle)
+                 for result in results:
+                     return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+                 if len(results) == 0:
+                     print("No Results FOR TITLE.")
         else:
             return render_template("Alerts.html" ,  tipo="alert alert-danger", message="não peguei os dados", NewUrl="/search ")
 return render_template("Alerts.html" ,  tipo="alert alert-danger", message="Tem algo muito errado", NewUrl="/search ")
