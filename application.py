@@ -138,11 +138,11 @@ def search():
 
             cur.execute("SELECT * FROM books WHERE author = 'author'", {'author':SQLquerry})
             results = cur.fetchall()
-            xlinhas = cur.rowcount()
+            print( cur.rowcount())
 
             for result in results:
                 print([result])
-                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlinhas =xlinhas , result =[result] )
+                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlinhas =cur.rowcount() , result =[result] )
 
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
