@@ -69,7 +69,7 @@ def login():
            session['user'].append(username)
            session['logged'].append(True)
            print("sessão iniciada:" , session['user'], session['logged'])
-           return render_template("search.html", username=username )
+           return render_template("search.html",Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
            session['logged'] = False
@@ -116,44 +116,43 @@ def register():
 # Search Page parei aqui 13/06/2020 problema a sessao nao vem para a pagina
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-
     if session.get('user') is None:
         session['logged'] =False
         session['user']= ""
-        return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=session['user'] , NewUrl="/index")
+        return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
+    if request.method == 'POST':
+        checkedvalue = request.form.get("checkedvalue")
+        SQLquerry = request.form.get("SQLquerry")
+        if checkedvalue == "Author":
+            print("Buscando Autor")
+            Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
+            results.append(Rauthor)
+            for result in results:
+                return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+            if len(results) == 0:
+                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+        if checkedvalue == "Title":
+            print("Buscando Título.")
+            RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
+            results.append(RTitle)
+            for result in results:
+                return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+            if len(results) == 0:
+               return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+        if checkedvalue == "ISBM":
+            print("Buscando ISBM.")
+            RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
+            results.append(RTisbm)
+            for result in results:
+                return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+            if len(results) == 0:
+                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
     else:
-        if request.method == 'POST':
-            checkedvalue = request.form.get("checkedvalue")
-            SQLquerry = request.form.get("SQLquerry")
-            if checkedvalue == "Author":
-                print("Buscando Autor")
-                Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
-                results.append(Rauthor)
-                for result in results:
-                    return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
-                if len(results) == 0:
-                    return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-            if checkedvalue == "Title":
-                print("Buscando Título.")
-                RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
-                results.append(RTitle)
-                for result in results:
-                    return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
-                if len(results) == 0:
-                   return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-            if checkedvalue == "ISBM":
-                print("Buscando ISBM.")
-                RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
-                results.append(RTisbm)
-                for result in results:
-                    return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
-                if len(results) == 0:
-                    return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-        else:
-            return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
-            chceckedvalue = request.form.get("checkedvalue")
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
+        checkedvalue = request.form.get("checkedvalue")
 
-        return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?  ", NewUrl="/search")
+
+    #return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?  ", NewUrl="/search")
 
 
 
