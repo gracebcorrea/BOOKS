@@ -135,12 +135,13 @@ def search():
         SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            cur.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author",
-                        {"author": SQLquerry})
+            SQL = ("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE 'author' LIKE  :author"),
+                        ({"author": SQLquerry})
+            cur.execute(SQL)
             results = cur.fetchall()
             xlinhas = cur.rowcount()
 
-            list(result) for result in results:
+            for result in results:
                 print([result])
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlinhas =xlinhas , result =[result] )
 
