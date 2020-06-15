@@ -153,7 +153,7 @@ def search():
             return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
             chceckedvalue = request.form.get("checkedvalue")
 
-        return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?", NewUrl="/search")
+        #return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?", NewUrl="/search")
 
 
 
