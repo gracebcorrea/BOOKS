@@ -29,13 +29,14 @@ ISBM, or author name, your search page should find matches for those as well! --
            <label for="Title">Title</label>
            <input type="radio" name="choice" id="ISBM"  value="ISBM" onclick="MyRadio(value)">
            <label for="ISBM">ISBM</label>
-           <p id="checkedvalue" name="MyRadio" value="MyRadio" ></p>
-           <br>
+           <p id="checkedvalue"> </p>
+           <p> Selected: <input type="text" id="checkedvalue" name=[checkedvalue] > </p>
+
       <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
 
          <p></p>
-           <button type="submit" class="btn btn-primary" style="background-color:#400080" >Search</button>
+           <button type="submit" class="btn btn-primary" valor="MyRadio()"  style="background-color:#400080" >Search</button>
            <p></p>
         </div>
   </div>
