@@ -123,10 +123,11 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=session['user'] , NewUrl="/index")
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
+        RB = request.form.get(checkedvalue)
+        SQLquerry = request.form.get("SQLquerry")
+        return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RB],[SQLquerry]" , NewUrl="/search")
+
         if request.method == 'POST':
-           RB = request.form.get(checkedvalue)
-           SQLquerry = request.form.get("SQLquerry")
-           return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RB],[SQLquerry]" , NewUrl="/search")
 
            if RB == "Author":
                print("Buscando Autor")
