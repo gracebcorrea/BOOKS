@@ -136,19 +136,17 @@ def search():
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
 
-            cur.execute("SELECT * FROM books WHERE author = 'author'", {'author':SQLquerry})
+            cur.execute("SELECT * FROM books WHERE author = 'Agatha Christie'", {'author':SQLquerry})
             results = cur.fetchall()
-            print( cur.rowcount())
 
             for result in results:
                 print([result])
-                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlinhas =cur.rowcount() , result =[result] )
+                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
 
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
             #close cursor
             cur.close()
-
 
         #if checkedvalue == "title":
         #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
