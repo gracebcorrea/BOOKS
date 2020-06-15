@@ -122,10 +122,10 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
         checkedvalue ="author"    #request.form.get("checkedvalue")
-        SQLquerry ="Jodi Picoult" #request.form.get("SQLquerry")
+        SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"author": SQLquerry}).fetchall()
+            Rauthor=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry}).fetchall()
             results.append(Rauthor)
             for result in results:
                 return render_template("search.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
