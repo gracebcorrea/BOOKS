@@ -43,7 +43,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 <!--search results-->
 <h1 sytle= "padding : 10px">Here are the Books Matching: {{checkedvalue}}, {{SQLquerry}}:</h1>
 
-  <table style="width:100%" class="table" >
+<table style="width:100%" class="table" >
       <tr>
         <th scope="col" >Title</th>
         <th scope="col" >Author</th>
@@ -56,9 +56,8 @@ ISBM, or author name, your search page should find matches for those as well! --
 
           {% for result in results %}
 
-              <li>
-                  <a href="{{ url_for('search')}}"> {{result}} </a>
-              </li>
+              <p> <a href="{{ url_for('search')}}"> {{result}} </a>
+              </p>
           {% endfor %}
 
 
