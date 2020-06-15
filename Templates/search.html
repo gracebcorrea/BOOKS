@@ -51,12 +51,12 @@ ISBM, or author name, your search page should find matches for those as well! --
         <th scope="col" >Year</th>
       </tr>
 
-<a href="{{ url_for('flight', flight_id=flight.id) }}">
+  
 
       <ul>
           {% for result in results %}
               <li>
-                  <a href="{{ url_for('search'), result.id=id }}">
+                  <a href="{{ url_for('search', flight_id=id) }}">
                     {{ title }}
                     {{ author }}
                     {{ isbm }}
