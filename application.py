@@ -124,7 +124,9 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T")
         if request.method == 'POST':
-            checkedvalue = request.get("checkedvalue")
+
+
+            checkedvalue = request.form.get("checkedvalue")
             SQLquerry = request.form.get("SQLquerry")
             Print(RB, SQLquerry)
             if checkedvalue == "Author":
