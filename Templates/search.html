@@ -41,24 +41,24 @@ ISBM, or author name, your search page should find matches for those as well! --
 <script type="text/javascript">
 function MyRadio(value) {
     if(value == "Author"){
-        console.log("Choice: ", value);
+        alert("Checked is: "value);
         document.getElementById("Author").checked = true;
         document.getElementById("Title").checked = false;
         document.getElementById("ISBM" ).checked = false;
        }
     else if (value == "Title"){
-        console.log("Choice: ", value);
+        alert("Checked is: "value);
         document.getElementById("Title").checked = true;
         document.getElementById("ISBM").checked = false;
         document.getElementById("Author").checked = false;
         }
     else if (value == "ISBM"){
-        console.log("Choice: ", value);
+        alert("Checked is: "value);
         document.getElementById("ISBM").checked = true;
         document.getElementById("Title").checked = false;
         document.getElementById("Author").checked = false;
         }
-    alert("Checked is: "value)
+
 }
 </script>
 
