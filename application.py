@@ -124,9 +124,9 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
         if request.method == 'POST':
-           RB = request.form.get(value)
+           RB = request.form.get(checkedvalue)
            SQLquerry = request.form.get("SQLquerry")
-           return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RBISBM],[RBTitle],[RBAuthor],[SQLquerry]" , NewUrl="/search")
+           return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RB],[SQLquerry]" , NewUrl="/search")
 
            if RB == "Author":
                print("Buscando Autor")
