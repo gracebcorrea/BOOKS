@@ -140,7 +140,7 @@ def search():
             results = cur.fetchall()
             xlinhas = cur.rowcount()
 
-            for result in results:
+            list(result) for result in results:
                 print([result])
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlinhas =xlinhas , result =[result] )
 
