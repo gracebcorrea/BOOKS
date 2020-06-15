@@ -129,15 +129,15 @@ def search():
             return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RB],[SQLquerry]" , NewUrl="/search")
 
 
-           if RB == "Author":
-               print("Buscando Autor")
-               Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
-               results.append(Rauthor)
-               for result in results:
-                   return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
-               if len(results) == 0:
-                   print("No Results FOR AUTHOR.")
-           if RB == "Title":
+            if RB == "Author":
+                print("Buscando Autor")
+                Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
+                results.append(Rauthor)
+                for result in results:
+                    return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
+                if len(results) == 0:
+                    print("No Results FOR AUTHOR.")
+            if RB == "Title":
                 print("Buscando Título.")
                 RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
                 results.append(RTitle)
@@ -145,7 +145,7 @@ def search():
                     return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
                    print("No Results FOR TITLE.")
-           if RB == "ISBM":
+            if RB == "ISBM":
                 print("Buscando ISBM.")
                 RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
                 results.append(RTisbm)
