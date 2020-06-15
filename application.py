@@ -124,33 +124,33 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T")
         if request.method == 'POST':
-            RB = request.form.get("checkedvalue")
+            checkedvalue = request.get("checkedvalue")
             SQLquerry = request.form.get("SQLquerry")
             Print(RB, SQLquerry)
-            if RB == "Author":
+            if checkedvalue == "Author":
                 print("Buscando Autor")
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                 results.append(Rauthor)
                 for result in results:
                     return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
-                    print("No Results FOR AUTHOR.")
-            if RB == "Title":
+                    return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+            if checkedvalue == "Title":
                 print("Buscando Título.")
                 RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
                 results.append(RTitle)
                 for result in results:
                     return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
-                   print("No Results FOR TITLE.")
-            if RB == "ISBM":
+                   return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+            if checkedvalue == "ISBM":
                 print("Buscando ISBM.")
                 RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
                 results.append(RTisbm)
                 for result in results:
                     return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
-                    print("No Results FOR ISBM.")
+                    return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
         else:
             return render_template("search.html")
