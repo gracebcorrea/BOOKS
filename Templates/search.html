@@ -20,7 +20,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% block body%}
 
-<form action="{{ url_for('search') }}" method="post" >
+<form action="{{ url_for('search')}}" onsubmit="return MyRadio(checkedvalue)" method="post" >
   <div class="container">
        <div class="form-group">
            <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)">
@@ -32,7 +32,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 
       <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
-           <input class="form-control" name="checkedvalue" id="checkedvalue" value=[checkedvalue] invisible>
+
          <p></p>
            <button type="submit" class="btn btn-primary" style="background-color:#400080" >Search</button>
            <p></p>
