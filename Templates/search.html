@@ -22,20 +22,30 @@ ISBM, or author name, your search page should find matches for those as well! --
 <form action="{{ url_for('search') }}" method="post" >
   <div class="container">
        <div class="form-group">
-           <input type="radio" id="1" name="choice" value="Author" checked >
+           <input type="radio" id="myRadio" name="choice" value="Author"  >
            <label for="Author">Author</label>
-           <input type="radio" id="2" name="choice" value="Title" >
+           <input type="radio" id="myRadio" name="choice" value="Title" >
            <label for="Title">Title</label>
-           <input type="radio" id="3" name="choice" value="ISBM">
+           <input type="radio" id="myRadio" name="choice" value="ISBM">
            <label for="ISBM">ISBM</label><br>
            <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
            <p></p>
-           <button type="submit" class="btn btn-primary" style="background-color:#400080">Search</button>
+           <button type="submit" class="btn btn-primary" style="background-color:#400080" onclick=Myradio()>Search</button>
            <p></p>
         </div>
   </div>
 </form>
+
+<script>
+function MyRadio() {
+  var checked = document.getElementById("myRadio").value;
+
+}
+</script>
+
+
+
 
 <!--search results
 <h1 sytle= "padding : 10px">Here are the Books Matching Your Search:</h1>
