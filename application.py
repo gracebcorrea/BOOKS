@@ -32,13 +32,17 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+#connect db
+db = psycopg2.connect(
+      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+      user = "dgssjhgflgvwxj",
+      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
+      database= "d3ck6mm9jbc163"
+      )
+
 #cursor
 cur = db.cursor()
 
-# Principal Page call
-#user = []
-#logged = []
-#results = []
 
 @app.route("/index")
 @app.route("/")
@@ -124,7 +128,7 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
         #cursor
-        cur = db.cursor()
+        
         result=[]
         results=[]
         checkedvalue ="author"    #request.form.get("checkedvalue")
