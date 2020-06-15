@@ -126,9 +126,7 @@ def search():
         if request.method == 'POST':
             RB = request.form.get("checkedvalue")
             SQLquerry = request.form.get("SQLquerry")
-            return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RB],[SQLquerry]" , NewUrl="/search")
-
-
+            Print(RB, SQLquerry)
             if RB == "Author":
                 print("Buscando Autor")
                 Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
