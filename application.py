@@ -139,7 +139,7 @@ def search():
             results.append(result)
 
         for result in results:
-            return render_template("search.html" , title="result.title", author="result.author", isbm="result.isbm", year="result.year")
+            return render_template("search.html" , checkedvalue ="checkedvalue", SQLquerry ="SQLquerry" ,title="result.title", author="result.author", isbm="result.isbm", year="result.year")
         if len(results) == 0:
             return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
     else:
