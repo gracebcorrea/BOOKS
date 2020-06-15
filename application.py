@@ -122,7 +122,7 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=session['user'] , NewUrl="/index")
     else:
-        RB = request.form.get(checkedvalue)
+        RB = request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
         return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RB],[SQLquerry]" , NewUrl="/search")
 
