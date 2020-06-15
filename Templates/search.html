@@ -57,8 +57,8 @@ ISBM, or author name, your search page should find matches for those as well! --
           {% for result in results %}
               <li>
                   <a href="{{ url_for('search')}}">
-                    {{ result }}
-                  
+                    {{ result.title }}
+
                   </a>
               </li>
           {% endfor %}
