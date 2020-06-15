@@ -131,11 +131,13 @@ def search():
             return render_template("Alerts.html",tipo="alert alert-success", message="Executei a query:")
 
         if checkedvalue == "title":
-            result=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"title": SQLquerry}).fetchall()
+            result=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
             results.append(result)
+
         if checkedvalue == "isbm":
-            result=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"isbm": SQLquerry}).fetchall()
+            result=db.execute("SELECT * FROM books WHERE isbm = :isbm" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
             results.append(result)
+            
         for result in results:
             return render_template("search.html" , title="result.title", author="result.author", isbm="result.isbm", year="result.year")
         if len(results) == 0:
