@@ -22,11 +22,11 @@ ISBM, or author name, your search page should find matches for those as well! --
 <form action="{{ url_for('search') }}" method="post" >
   <div class="container">
        <div class="form-group">
-           <input type="radio" name="choice" id="MyRadio"  value="Author" onclick="MyRadio()" >
+           <input type="radio" name="choice" id="Author"  value="Author" onclick=MyRadio() >
            <label for="Author">Author</label>
-           <input type="radio" name="choice" id="MyRadio"  value="Title" onclick="MyRadio()">
+           <input type="radio" name="choice" id="Title"  value="Title" onclick="MyRadio()">
            <label for="Title">Title</label>
-           <input type="radio" name="choice" id="MyRadio"  value="ISBM" onclick="MyRadio()">
+           <input type="radio" name="choice" id="ISBM"  value="ISBM" onclick="MyRadio()">
            <label for="ISBM">ISBM</label><br>
            <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
@@ -40,13 +40,24 @@ ISBM, or author name, your search page should find matches for those as well! --
 </form>
 
 <script>
-function MyRadio()
- {
-   document.getElementById("MyRadio").click();
-   document.getElementById("MyRadio").checked = true;
-   var x = document.getElementById("MyRadio").value;
-   alert(x);
- }
+window.onload = function("MyRadio")
+                 {
+                 var ex1 = document.getElementById("Author");
+                 var ex2 = document.getElementById("Title");
+                 var ex3 = document.getElementById("ISBM");
+
+                 ex1.onclick = handler;
+                 ex2.onclick = handler;
+                 ex3.onclick = handler;
+                 }
+
+  function handler()
+    {
+    alert('clicked');
+    }
+
+
+
 </script>
 
 
