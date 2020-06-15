@@ -52,14 +52,13 @@ ISBM, or author name, your search page should find matches for those as well! --
       </tr>
       {% for result in results %}
             <tr class="table-striped">
-               <td><a href="{{ url_for('search')}}">
-                   {{ title }}</a></td>
-               <td>{{ author }}</td>
-               <td>{{ isbm }}</td>
-               <td>{{ year }}</td>
+               <td><a href="{{ url_for('search')}}">{{ title }}</a></td>
+               <td><a href="{{ url_for('search')}}">{{ author }}</a></td>
+               <td><a href="{{ url_for('search')}}">{{ isbm }}</a></td>
+               <td><a href="{{ url_for('search')}}">{{ year }}</a></td>
             </tr>
       {% endfor %}
-    </table>-->
+    </table>
 
 <script type="text/javascript">
 function MyRadio(value) {
