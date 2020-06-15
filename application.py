@@ -121,6 +121,7 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
+        return render_template("Alerts.html",tipo="alert alert-success", message="entrei no post", NewUrl="/search")
         checkedvalue = request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
         if checkedvalue == "Author":
@@ -148,6 +149,8 @@ def search():
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
     else:
+        return render_template("Alerts.html",tipo="alert alert-success", message="Não entrei no post", NewUrl="/search")
+
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
         checkedvalue = request.form.get("checkedvalue")
 
