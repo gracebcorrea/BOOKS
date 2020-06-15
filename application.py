@@ -122,10 +122,7 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=session['user'] , NewUrl="/index")
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T")
         if request.method == 'POST':
-
-
             checkedvalue = request.form.get("checkedvalue")
             SQLquerry = request.form.get("SQLquerry")
             Print(RB, SQLquerry)
@@ -155,7 +152,7 @@ def search():
                     return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
         else:
-            return render_template("search.html")
+            return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
     return render_template("Alerts.html" ,  tipo="alert alert-danger", message="Tem algo muito errado", NewUrl="/search")
 
 
