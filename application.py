@@ -128,12 +128,12 @@ def search():
         if checkedvalue == "author":
             result=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
             results.append(result)
+            return render_template("Alerts.html",tipo="alert alert-success", message="Executei a query:")
+
         if checkedvalue == "title":
-            print("Buscando Título.")
             result=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"title": SQLquerry}).fetchall()
             results.append(result)
         if checkedvalue == "isbm":
-            print("Buscando ISBM.")
             result=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"isbm": SQLquerry}).fetchall()
             results.append(result)
         for result in results:
