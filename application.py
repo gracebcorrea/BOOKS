@@ -152,7 +152,7 @@ def search():
 
         else:
             return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
-        return render_template("Alerts.html" ,  tipo="alert alert-danger", message="Tem algo muito errado", NewUrl="/search")
+#        return render_template("Alerts.html" ,  tipo="alert alert-danger", message="Tem algo muito errado", NewUrl="/search")
 
 
 
