@@ -121,8 +121,8 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
-        checkedvalue = request.form.get("checkedvalue")
-        SQLquerry = request.form.get("SQLquerry")
+        checkedvalue ="Author"    #request.form.get("checkedvalue")
+        SQLquerry ="Jodi Picoult" #request.form.get("SQLquerry")
         return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "Author":
             print("Buscando Autor")
