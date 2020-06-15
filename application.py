@@ -124,20 +124,19 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=session['user'])
         if request.method == 'POST':
-           RBAuthor = request.form.get("Author")
-           RBTitle = request.form.get("Title")
-           RBISBM = request.form.get("ISBM")
+           RB = request.form.get(value)
            SQLquerry = request.form.get("SQLquerry")
            return render_template("Alerts.html", tipo="alert alert-primary", message="Consegui os seguintes dados ", username="[RBISBM],[RBTitle],[RBAuthor],[SQLquerry]" , NewUrl="/search")
 
-           if RBAuthor == 1:
+           if RB == "Author":
+               print("Buscando Autor")
                Rauthor=db.execute("SELECT * FROM books WHERE author = :SQLquerry" , {"SQLquerry": "%"+author+"%"}).fetchall()
                results.append(Rauthor)
                for result in results:
                    return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                if len(results) == 0:
                    print("No Results FOR AUTHOR.")
-           if RBTitle == 2:
+           if RB == "Title":
                 print("Buscando Título.")
                 RTitle=db.execute("SELECT * FROM books WHERE title = :SQLquerry" , {"SQLquerry": "%"+title+"%"}).fetchall()
                 results.append(RTitle)
@@ -145,7 +144,7 @@ def search():
                     return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                 if len(results) == 0:
                    print("No Results FOR TITLE.")
-           if RBISBM == 3:
+           if RB == "ISBM":
                 print("Buscando ISBM.")
                 RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
                 results.append(RTisbm)
