@@ -131,9 +131,9 @@ def search():
             results.append(result)
 
             for result in results:
-                print(result)
+                xlen = len(results)
                 #return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
-                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
+                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlen =xlen , result =[result] )
 
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
