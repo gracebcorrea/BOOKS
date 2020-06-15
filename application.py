@@ -119,7 +119,7 @@ def search():
 
         result=[]
         results=[]
-        checkedvalue = request.form.get("checkedvalue")
+        checkedvalue = request.form.get.id("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
