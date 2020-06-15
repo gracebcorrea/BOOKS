@@ -69,7 +69,7 @@ def login():
            session['user'].append(username)
            session['logged'].append(True)
            print("sessão iniciada:" , session['user'], session['logged'])
-           return render_template("search.html", username=username )
+           return render_template("search.html", username=session['user'] )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
            session['logged'] = False
