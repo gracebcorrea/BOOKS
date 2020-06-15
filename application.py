@@ -154,7 +154,7 @@ def search():
                 if len(results) == 0:
                    print("No Results FOR TITLE.")
         else:
-            return render_template("Alerts.html" ,  tipo="alert alert-danger", message="não peguei os dados", NewUrl="/search")
+            return render_template("search.html")
     return render_template("Alerts.html" ,  tipo="alert alert-danger", message="Tem algo muito errado", NewUrl="/search")
 
 
