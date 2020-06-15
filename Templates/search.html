@@ -42,11 +42,9 @@ ISBM, or author name, your search page should find matches for those as well! --
 <script>
 function MyRadio()
  {
-   var x = document.getElementById("myRadio");
-   x.checked = true;
-   var y = document.getElementById("MyRadio").value;
-
-  alert(x,y );
+   document.getElementById("MyRadio").checked = true;
+   var x = document.getElementById("MyRadio").value;
+   alert(x);
  }
 </script>
 
