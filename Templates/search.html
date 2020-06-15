@@ -33,7 +33,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 
            <p></p>
-           <button type="submit" class="btn btn-primary" style="background-color:#400080" onclick=MyRadio()>Search</button>
+           <button type="submit" class="btn btn-primary" style="background-color:#400080" onclick="MyRadio()">Search</button>
            <p></p>
         </div>
   </div>
@@ -44,8 +44,7 @@ function MyRadio()
  {
   var x = document.getElementById("MyRadio").value;
   x.checked = true;
-
-  alert(checked1,checked2,checked3);
+  alert(document.getElementById("MyRadio").value,x.checked );
  }
 </script>
 
