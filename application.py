@@ -137,7 +137,7 @@ def search():
                    return render_template("Results.html" , result.Title=="result.Title", result.Author=="result.Author", result.ISBM=="result.ISBM", result.Year=="result.Year")
                if len(results) == 0:
                    print("No Results FOR AUTHOR.")
-            if RBISBM == "ISBM" :
+           if RBISBM == "ISBM":
                 print("Buscando ISBM.")
                 RTisbm=db.execute("SELECT * FROM books WHERE isbm = :SQLquerry" , {"SQLquerry": "%"+isbm+"%"}).fetchall()
                 results.append(RTisbm)
