@@ -19,7 +19,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 {% endblock %}
 
 {% block body%}
-<form action="{{ url_for('search') , checkedvalue }}" method="post" >
+<form action="{{ url_for('search') , checkedvalue=checkedvalue }}" method="post" >
   <div class="container">
        <div class="form-group">
            <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)">
