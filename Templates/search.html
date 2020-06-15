@@ -20,7 +20,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% block body%}
 
-<form action="{{ url_for('search')}}" onsubmit="return MyRadio(checkedvalue)" method="post" >
+<form action="{{ url_for('search')}}" method="post" >
   <div class="container">
        <div class="form-group">
            <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)">
@@ -40,6 +40,26 @@ ISBM, or author name, your search page should find matches for those as well! --
         </div>
   </div>
 </form>
+<!--search results-->
+<h1 sytle= "padding : 10px">Here are the Books Matching Your Search:</h1>
+
+    <table style="width:100%" class="table" >
+      <tr>
+        <th scope="col" >Title</th>
+        <th scope="col" >Author</th>
+        <th scope="col" >ISBM</th>
+        <th scope="col" >Year</th>
+      </tr>
+      {% for result in results %}
+            <tr class="table-striped">
+               <td><a href="{{ url_for('search')}}">
+                   {{ result.Title }}</a></td>
+               <td>{{ result.Author }}</td>
+               <td>{{ result.ISBM }}</td>
+               <td>{{ result.Year }}</td>
+            </tr>
+      {% endfor %}
+    </table>-->
 
 <script type="text/javascript">
 function MyRadio(value) {
@@ -63,8 +83,6 @@ function MyRadio(value) {
     }
 
     var checkedvalue = value;
-  /*  alert([checkedvalue]);*/
-
     document.getElementById("checkedvalue").innerHTML = [checkedvalue];
     return checkedvalue;
 }
@@ -73,26 +91,6 @@ function MyRadio(value) {
 
 
 
-<!--search results
-<h1 sytle= "padding : 10px">Here are the Books Matching Your Search:</h1>
-
-    <table style="width:100%" class="table" >
-      <tr>
-        <th scope="col" >Title</th>
-        <th scope="col" >Author</th>
-        <th scope="col" >ISBM</th>
-        <th scope="col" >Year</th>
-      </tr>
-      {% for result in results %}
-            <tr class="table-striped">
-               <td><a href="{{ url_for('search')}}">
-                   {{ result.Title }}</a></td>
-               <td>{{ result.Author }}</td>
-               <td>{{ result.ISBM }}</td>
-               <td>{{ result.Year }}</td>
-            </tr>
-      {% endfor %}
-    </table>-->
 
 
 {% endblock %}
