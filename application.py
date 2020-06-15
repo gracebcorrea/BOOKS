@@ -135,7 +135,7 @@ def search():
         SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            cur.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author",
+            cur.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author LIKE :author",
                         {"author": SQLquerry})
             results = cur.fetchall()
             xlen = len(results)
