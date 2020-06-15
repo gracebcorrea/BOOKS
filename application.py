@@ -123,6 +123,7 @@ def search():
     if request.method == 'POST':
         checkedvalue ="author"    #request.form.get("checkedvalue")
         SQLquerry ="Agatha Christie" #request.form.get("SQLquerry")
+        results =[]
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
             Rauthor=db.execute("SELECT * FROM books WHERE author = :author" , {"author": SQLquerry}).fetchall()
