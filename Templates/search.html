@@ -22,48 +22,44 @@ ISBM, or author name, your search page should find matches for those as well! --
 <form action="{{ url_for('search') }}" method="post" >
   <div class="container">
        <div class="form-group">
-           <input type="radio" name="choice" id="Author"  value="Author" onclick="MyRadio(id)" >
+           <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)">
            <label for="Author">Author</label>
-           <input type="radio" name="choice" id="Title"  value="Title" onclick="MyRadio(id)" >
+           <input type="radio" name="choice" id="Title" value="Title" onclick="MyRadio(value)">
            <label for="Title">Title</label>
-           <input type="radio" name="choice" id="ISBM"  value="ISBM" onclick="MyRadio(id)">
+           <input type="radio" name="choice" id="ISBM"  value="ISBM" onclick="MyRadio(value)">
            <label for="ISBM">ISBM</label><br>
-           <p></p>
+
+      <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
-
-
-           <p></p>
-           <button type="submit" class="btn btn-primary" style="background-color:#400080" onclick="MyRadio()" >Search</button>
+         <p></p>
+           <button type="submit" class="btn btn-primary" style="background-color:#400080" >Search</button>
            <p></p>
         </div>
   </div>
 </form>
 
 <script type="text/javascript">
-function checkRadio(id) {
-    if(id == "Author"){
-        console.log("Choice: ", id);
+function checkRadio(value) {
+    if(value == "Author"){
+        console.log("Choice: ", value);
         document.getElementById("Author").checked = true;
         document.getElementById("Title").checked = false;
         document.getElementById("ISBM" ).checked = false;
        }
-    else if (id == "Title"){
-        console.log("Choice: ", id);
+    else if (value == "Title"){
+        console.log("Choice: ", value);
         document.getElementById("Title").checked = true;
         document.getElementById("ISBM").checked = false;
         document.getElementById("Author").checked = false;
         }
-    else if (id == "ISBM"){
-        console.log("Choice: ", id);
+    else if (value == "ISBM"){
+        console.log("Choice: ", value);
         document.getElementById("ISBM").checked = true;
         document.getElementById("Title").checked = false;
         document.getElementById("Author").checked = false;
         }
-    alert("Checked is: "id)
+    alert("Checked is: "value)
 }
-
-
-
 </script>
 
 
