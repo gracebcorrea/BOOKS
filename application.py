@@ -32,6 +32,8 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+#cursor
+cur = db.cursor()
 
 # Principal Page call
 #user = []
@@ -127,16 +129,18 @@ def search():
         results=[]
         #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-            result=db.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author" , {"author": SQLquerry})
-            results.append(result)
+            cur.execute("SELECT 'title', 'author', 'isbn', 'year' FROM books WHERE author = :author" , {"author": SQLquerry})
+            results = cur.fetchall()
             xlen = len(results)
             for result in results:
-
+                print([result])
                 #return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , xlen =xlen , result =[result] )
 
             if len(results) == 0:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+            #close cursor
+            cur.close()
 
 
         #if checkedvalue == "title":
