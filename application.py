@@ -130,15 +130,6 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
-
-
-
-
-
-
-
-
-
 # Review Page
 @app.route("/bookspage", methods=['GET', 'POST'])
 def bookspage():
@@ -146,6 +137,11 @@ def bookspage():
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=session['user'], NewUrl="/index")
     else:
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=session['user'])
+
+
+
+
+
 
 
 
