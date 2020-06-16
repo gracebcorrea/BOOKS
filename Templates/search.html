@@ -23,14 +23,14 @@ ISBM, or author name, your search page should find matches for those as well! --
 <form action="{{ url_for('search')}}" onsubmit="javascript: return MyRadio()" method="post" >
   <div class="container">
        <div class="form-group">
-           <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)">
+           <input type="radio" name="choice" id="Author" value="Author" onclick="MyRadio(value)" checked>
            <label for="Author">Author</label>
            <input type="radio" name="choice" id="Title" value="Title" onclick="MyRadio(value)">
            <label for="Title">Title</label>
            <input type="radio" name="choice" id="ISBM"  value="ISBM" onclick="MyRadio(value)">
            <label for="ISBM">ISBM</label>
-           <p id="checkedvalue"> </p>
-           <p> Selected: <input type="text" id="checkedvalue" name= > </p>
+           <p id="checkedvalue" name=="[checkedvalue]"> Selected: </p>
+
 
       <p></p>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required>
@@ -66,7 +66,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 function MyRadio(value) {
     if(value == "Author"){
 
-        document.getElementById("Author").checked = true;
+        document.getElementByid("Author").checked = true;
         document.getElementById("Title").checked = false;
         document.getElementById("ISBM" ).checked = false;
     }
