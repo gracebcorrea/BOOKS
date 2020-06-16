@@ -38,12 +38,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
   margin: 5px 10px 5px 0;
   padding: 10px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #400080;
 }
 
 .form-inline button {
   padding: 10px 20px;
-  background-color: background-color:#400080;
+  background-color:#400080;
   border: 1px solid #ddd;
   color: white;
   cursor: pointer;
@@ -76,7 +76,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   </div>
 </form>
 
-<h3>Here are your Results</h3>
+<h3>Here are your Results:</h3>
 <div class="form-group">
 	<form action="{{ url_for('search') }}" method="post">
 		{% if results and results|length > 0 %}
