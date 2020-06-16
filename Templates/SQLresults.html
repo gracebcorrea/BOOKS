@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block body %}
+<h3>Here are your Results</h3>
 <div class="form-group">
 	<form action="{{ url_for('search') }}" method="post">
 		{% if results and results|length > 0 %}
@@ -42,8 +43,6 @@
 		{% endif %}
 	</form>
 </div>
-
-
 
 
 {% endblock %}
