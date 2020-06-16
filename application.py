@@ -25,7 +25,8 @@ db = psycopg2.connect(
       password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
       database= "d3ck6mm9jbc163"
       )
-
+      
+cursor = db.cursor()
 
 
 
@@ -131,8 +132,8 @@ def search():
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
-        cursor = db.cursor()
-        SQL= db.execute("SELECT * FROM books WHERE author = :SQLquerry"){"SQLquerry": SQLquerry})
+
+        SQL= db.execute("SELECT * FROM books WHERE author = :SQLquerry",{"SQLquerry": SQLquerry})
 
         if checkedvalue == "author":
             if cursor.execute(SQL):
