@@ -1,5 +1,5 @@
-import os, requests, sqlalchemy, json, psycopg2, login, jsonify
-from flask import Flask, session, render_template, request, redirect, url_for
+import os, requests, sqlalchemy, json, psycopg2, login
+from flask import Flask, session, render_template, request, redirect, url_for , jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -125,7 +125,7 @@ def search():
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         books = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":text, "title":text, "author":text, "year":text}).fetchall()
         return render_template("sqlresults.html", books=books)
-    
+
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
