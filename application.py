@@ -137,12 +137,13 @@ def search():
 
                cur.execute("SELECT * FROM books WHERE 'author' = 'author'",
                         {'author':SQLquerry}).fetchall()
-                x = cur.rowcount()
-                row = cur.fetchone()
-                while row is not None:
-                      print(row)
-                      row = cur.fetchone()
-                      return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
+               x = cur.rowcount()
+               row = cur.fetchone()
+               Print(x)
+               while row is not None:
+                   print(row)
+                   row = cur.fetchone()
+                   return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
 
 
         #if checkedvalue == "title":
