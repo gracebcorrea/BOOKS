@@ -129,17 +129,19 @@ def search():
     if request.method == 'POST':
 
         result=[]
-        results=[]
+        results=["title", "author", "isbm", "year"]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
 
         #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
-        SQL = "SELECT * FROM public.books  WHERE :checkedvalue = :SQLquerry  "
+        SQL = "SELECT title, author, isbm, year FROM public.books  WHERE [:checkedvalue] = [:SQLquerry]  "
         Parametros = "{'checkedvalue' : checkedvalue, 'SQLquerry': SQLquerry}"
-        if db.execute(SQL):
-           results = db.execute(SQL, parametros).fetchall()
+        if db.execute(SQL, Parametros).fetchall():
+
            x = len(SQL)
            for result in results:
+              results.append(:title, :author, :isbm, :year)
+              
               print(x, result)
               return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
               x -= 1
