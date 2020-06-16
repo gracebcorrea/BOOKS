@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block title %}
+    CS50W Project 1: Books
+{% endblock %}
+
+{% block heading%}
+
+{% endblock %}
+
+{% block body%}
+
+
+<h3 sytle= "padding : 10px"> Here are the Books Matching {{x}} Books, {{checkedvalue}}  {{SQLquerry}} </h3>
+<p></p>
+
+{% if {{x}} >= 1 %}
+
+     <table style="width:100%" class="table" >
+       <tr>
+          <th scope="col" >Title</th>
+          <th scope="col" >Author</th>
+          <th scope="col" >ISBM</th>
+          <th scope="col" >Year</th>
+       </tr>
+     </table>
+     <ul>
+     {% for result in results %}
+
+        <li>  <a href="{{ url_for('search')}}">
+            {{result.title}}
+            {{result.author}}
+            {{result.isbm}}
+            {{result.year}} </a>
+        </li>
+
+     {% endfor %}
+     </ul>
+
+{% endif %}
+-->
