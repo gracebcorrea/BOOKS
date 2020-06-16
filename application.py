@@ -1,4 +1,4 @@
-import os, requests, sqlalchemy, json, psycopg2, login
+import os, requests, sqlalchemy, json, psycopg2, login, jsonify
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -83,10 +83,6 @@ def login():
     else:
          return render_template("login.html")
 
-
-
-
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -118,38 +114,18 @@ def register():
         return render_template("register.html")
 
 
-# Search Page parei aqui 13/06/2020 problema a sessao nao vem para a pagina
+
 @app.route("/search", methods=['GET', 'POST'])
 def search():
     if session.get('user') is None:
         session['logged'] =False
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
-
-    if request.method == 'POST':
-
-        result=[]
-        results=[]
-        checkedvalue = "author"    #request.form.get("checkedvalue")
-        SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
-
-        #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
-        SQL = "SELECT id, title, author, isbm, year FROM public.books  WHERE [:checkedvalue] = [:SQLquerry]"
-        Parametros = "{'checkedvalue' : checkedvalue, 'SQLquerry': SQLquerry}"
-
-        if db.execute(SQL, Parametros).fetchall():
-           i=0
-           x = len(SQL)
-           while i <= len(items):
-              results.append([id], [title], [author], [isbm],[year])
-
-              print(x, result)
-              return render_template("SQLresults.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x = x, result = [result] )
-              i += 1
-
-        else:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-
+    if request.method == "POST":
+        SQLquerry = "%"+request.form.get("SQLquerry")+"%"
+        books = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":text, "title":text, "author":text, "year":text}).fetchall()
+        return render_template("sqlresults.html", books=books)
+    
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
