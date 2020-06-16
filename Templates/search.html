@@ -95,19 +95,19 @@ th,td{
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">Title</th>
-						<th scope="col">Author</th>
-						<th scope="col">Year</th>
-						<th scope="col">ISBN</th>
+						<th scope="col">Title </th>
+      			<th scope="col">Author</th>
+						<th scope="col">Year  </th>
+						<th scope="col">ISBN </th>
 					</tr>
 				</thead>
 
 					{% for result in results %}
 						<tr>
-							<td>{{ result.title }}</td>
+							<td><a href="bookspage">{{ result.title }}</a></td>
 							<td>{{ result.author }}</td>
 							<td>{{ result.year }}</td>
-							<td>{{ result.isbn }}</td>
+							<td><a href="bookspage">{{ result.isbn }}</a></td>
 					{% endfor %}
 
 			</table>
