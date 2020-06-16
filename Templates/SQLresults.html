@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-	<h1>Your Serach Results</h1>
+    CS50W Project 1: Books
+{% endblock %}
+
+{% block heading%}
+    <h1>Here are your Results</h1>
 {% endblock %}
 
 {% block body %}
@@ -29,6 +33,8 @@
 
 			</table>
 		</div>
+
+
 		{% else %}
 		<div class="form-group">
 			<output>No matches found</output>
