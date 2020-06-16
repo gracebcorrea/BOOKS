@@ -46,7 +46,9 @@ ISBM, or author name, your search page should find matches for those as well! --
 <!--Show results-->
 <h3 sytle= "padding : 10px"> Here are the Books Matching {{x}} Books, {{checkedvalue}}  {{SQLquerry}} </h3>
 <p></p>
-{% if {{x}} >= 1 %}
+<!--
+{% if {{x}} >= 1: %}
+
      <table style="width:100%" class="table" >
        <tr>
           <th scope="col" >Title</th>
@@ -67,8 +69,9 @@ ISBM, or author name, your search page should find matches for those as well! --
 
      {% endfor %}
      </ul>
-{% endif %}
 
+{% endif %}
+-->
 
 
 <script type="text/javascript">
