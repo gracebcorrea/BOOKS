@@ -125,15 +125,15 @@ def search():
         session['logged'] =False
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
-    else:
-        Try:
-           #cursor
-           cur = db.cursor()
-           result=[]
-           results=[]
-           checkedvalue = "author"    #request.form.get("checkedvalue")
-           SQLquerry = request.form.get("SQLquerry")
-           if checkedvalue == "author":
+
+    if request.method == 'POST':
+        #cursor
+        cur = db.cursor()
+        result=[]
+        results=[]
+        checkedvalue = "author"    #request.form.get("checkedvalue")
+        SQLquerry = request.form.get("SQLquerry")
+        if checkedvalue == "author":
 
                cur.execute("SELECT * FROM books WHERE 'author' = 'author'",
                         {'author':SQLquerry}).fetchall()
@@ -143,10 +143,6 @@ def search():
                       print(row)
                       row = cur.fetchone()
                       return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
-
-                cur.close()
-        except ValueError:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
 
         #if checkedvalue == "title":
@@ -161,6 +157,12 @@ def search():
         #    results.append(result)
         #    for result in results:
         #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
+
+        cur.close()
+    else:
+       return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+
+
 
 
     else:
