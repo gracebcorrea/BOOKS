@@ -100,11 +100,10 @@ def register():
             return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page, ", username=username , NewUrl="/index")
 
        elif password != ckpassword:
-            #print("wrong pass" , [username],[password])
+
             return render_template("Alerts.html",tipo="alert alert-danger", message="Passwords do no check, please try again, ", username=username , NewUrl="/register")
             session.clear()
        else:
-            print("Inserting User")
 
             #db.execute(SQL,USERDATA)
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
@@ -132,18 +131,18 @@ def search():
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
-        if checkedvalue == "author":
-            if db.execute("SELECT * FROM books WHERE author = :SQLquerry"){"SQLquerry": SQLquerry}).fetchall():
-            #results = db.execute("SELECT * FROM books WHERE author = :SQLquerry ", {'SQLquerry':SQLquerry}).fetchall()
-                x = len(results)
-            #while x != 0:
-            #    results.append(result.title, result.author, result.isbm, result.year)
-            #    x -=1
-            #    print(x , result.title)
+        cursor = db.cursor()
+        SQL= db.execute("SELECT * FROM books WHERE author = :SQLquerry"){"SQLquerry": SQLquerry})
 
+        if checkedvalue == "author":
+            if cursor.execute(SQL):
+                results=cursor.fetchall()
+                x = len(SQL)
                 for result in results:
-                    print(result)
+                    print(x, result)
                     return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
+                    x -= 1
+                cursor.close()
             else:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
