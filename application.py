@@ -134,18 +134,18 @@ def search():
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
         cur = db.cursor()
         #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
-        SQL = "SELECT * FROM books  WHERE table_schema = 'public' ""
+        SQL = "SELECT * FROM books  WHERE table_schema = 'public' "
 
-        cur.execute(SQL):
-            results=cur.fetchall()
-            x = len(SQL)
-            for result in results:
-                print(x, result)
-                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
-                x -= 1
-                cur.close()
+        cur.execute(SQL)
+        results=cur.fetchall()
+        x = len(SQL)
+        for result in results:
+            print(x, result)
+            return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
+            x -= 1
+            cur.close()
         else:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+            return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
         #if checkedvalue == "title":
         #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
