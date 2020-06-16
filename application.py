@@ -137,7 +137,7 @@ def search():
         SQL = "SELECT * FROM public.books  WHERE author = 'Agatha Christie'  "
 
         if db.execute(SQL):
-           results= db.fetchall()
+           results = db.execute(SQL).fetchall()
            x = len(SQL)
            for result in results:
               print(x, result)
