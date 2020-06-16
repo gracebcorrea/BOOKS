@@ -119,7 +119,6 @@ def register():
 def search():
     if session.get('user') is None:
         session['logged'] =False
-        session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
 
     if request.method == "POST":
