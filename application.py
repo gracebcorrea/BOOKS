@@ -133,8 +133,7 @@ def search():
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
         if checkedvalue == "author":
-            results = db.execute("SELECT * FROM books WHERE 'author' = 'Agata Christie' ",
-                        {'author':SQLquerry}).fetchall()
+            results = db.execute("SELECT * FROM books WHERE author = :SQLquerry ", {'SQLquerry':SQLquerry}).fetchall()
             x = len(results)
             while x != 0:
                 results.append(result.title, result.author, result.isbm, result.year)
