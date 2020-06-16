@@ -20,13 +20,53 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% block body%}
 <style>
-input, button{
-    margin:0;
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+  cursor: pointer;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 </style>
 
 
-<form action="{{ url_for('search')}}" onsubmit="javascript: return MyRadio()" method="post" >
+<form class="form-inline" action="{{ url_for('search')}}" onsubmit="javascript: return MyRadio()" method="post" >
   <div class="container">
        <h4> You can find your book typing Title or Author or ISBM </h4>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required style="width: 50%">
