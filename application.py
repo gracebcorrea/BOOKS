@@ -127,23 +127,24 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
 
     if request.method == 'POST':
-        #cursor
-        #cur = db.cursor()
+
         result=[]
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
         if checkedvalue == "author":
-               db.execute("SELECT * FROM books WHERE 'author' = 'author'",
+            results = db.execute("SELECT * FROM books WHERE 'author' = 'author'",
                         {'author':SQLquerry}).fetchall()
-               x = cur.rowcount()
-               row = cur.fetchone()
-               Print(x)
-               while row is not None:
-                   print(row)
-                   row = cur.fetchone()
-                   return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
-               cur.close()
+            x = len(results)
+            while x != 0:
+                results.append(result)
+                x -=1
+                Print(x , result)
+
+            for result in results:
+               print(result)
+               return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
+
 
         #if checkedvalue == "title":
         #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
