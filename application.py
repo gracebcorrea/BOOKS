@@ -25,7 +25,7 @@ db = psycopg2.connect(
       password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
       database= "d3ck6mm9jbc163"
       )
-      
+
 cursor = db.cursor()
 
 
@@ -133,18 +133,18 @@ def search():
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
 
-        SQL= db.execute("SELECT * FROM books WHERE author = :SQLquerry",{"SQLquerry": SQLquerry})
+        #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
+        SQL = "SELECT * FROM "books" "
 
-        if checkedvalue == "author":
-            if cursor.execute(SQL):
-                results=cursor.fetchall()
-                x = len(SQL)
-                for result in results:
-                    print(x, result)
-                    return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
-                    x -= 1
+        if cursor.execute(SQL):
+            results=cursor.fetchall()
+            x = len(SQL)
+            for result in results:
+                print(x, result)
+                return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
+                x -= 1
                 cursor.close()
-            else:
+        else:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
         #if checkedvalue == "title":
