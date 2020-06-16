@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	<h1>Your Serach Results</h1>
+{% endblock %}
+
+{% block body %}
+<div class="form-group">
+	<form action="{{ url_for('search') , results=results }}" method="post">
+		{% if results and results|length > 0 %}
+		<div class="form-group">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">ISBN</th>
+						<th scope="col">Title</th>
+						<th scope="col">Author</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+
+					{% for result in results %}
+						<tr>
+							<td>{{ book.title }}</td>
+							<td>{{ book.author }}</td>
+							<td>{{ book.year }}</td>
+							<td>{{ book.isbn }}</td>
+					{% endfor %}
+
+			</table>
+		</div>
+		{% else %}
+		<div class="form-group">
+			<output>No matches found</output>
+		</div>
+		{% endif %}
+	</form>
+</div>
+
+
+
+
+{% endblock %}
