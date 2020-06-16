@@ -6,7 +6,7 @@
 
 {% block body %}
 <div class="form-group">
-	<form action="{{ url_for('search') , results=results }}" method="post">
+	<form action="{{ url_for('search') }}" method="post">
 		{% if results and results|length > 0 %}
 		<div class="form-group">
 			<table class="table">
