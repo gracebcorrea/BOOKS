@@ -98,7 +98,7 @@ def register():
                      {"username": username}).fetchone():
             #print("user exists")
             return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page, ", username=username , NewUrl="/index")
-            session.clear()
+
        elif password != ckpassword:
             #print("wrong pass" , [username],[password])
             return render_template("Alerts.html",tipo="alert alert-danger", message="Passwords do no check, please try again, ", username=username , NewUrl="/register")
@@ -131,19 +131,21 @@ def search():
         result=[]
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
-        SQLquerry = request.form.get("SQLquerry")
+        SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
         if checkedvalue == "author":
-            results = db.execute("SELECT * FROM books WHERE author = :SQLquerry ", {'SQLquerry':SQLquerry}).fetchall()
-            x = len(results)
+            if db.execute("SELECT * FROM books WHERE author = :SQLquerry"){"SQLquerry": SQLquerry}).fetchall():
+            #results = db.execute("SELECT * FROM books WHERE author = :SQLquerry ", {'SQLquerry':SQLquerry}).fetchall()
+                x = len(results)
             #while x != 0:
             #    results.append(result.title, result.author, result.isbm, result.year)
             #    x -=1
             #    print(x , result.title)
 
-            for result in results:
-               print(result)
-               return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
-
+                for result in results:
+                    print(result)
+                    return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
+            else:
+                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
         #if checkedvalue == "title":
         #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
@@ -159,8 +161,7 @@ def search():
         #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
 
-        else:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
 
