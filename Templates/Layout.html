@@ -33,8 +33,9 @@
                /*background-size: cover;
                position: relative;*/
           }
-          body {
-                 color: #f2e6ff;
+          body,div,form {
+                 color:  #400080;
+                 background-color: #f2e6ff;
           }
     </style>
     <title>
@@ -44,7 +45,7 @@
     </title>
     <!--TOP Menu-->
     <div class="container">
-        <nav class="navbar navbar-expand-lg text-white fixed-top justify-content-between" style="background-color: #330066;">
+        <nav class="navbar navbar-expand-lg text-white fixed-top justify-content-between" style="background-color: #400080;">
             <a class="navbar-brand" style="color:white">CS50W Project 1: Books </a>
             <ul class="nav nav-pills nav-fill">
                  <li class="nav-item">
@@ -88,11 +89,13 @@
   </head>
 
   <body>
-  <div class="container">
-        {% block body %}
+
+       <div class="container">
+           {% block body %}
 
 
-        {% endblock %}
-  </div>
+           {% endblock %}
+       </div>
+
   </body>
 </html>
