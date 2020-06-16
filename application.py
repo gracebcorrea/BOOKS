@@ -122,6 +122,7 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
 
     if request.method == "POST":
+
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T")
@@ -133,7 +134,7 @@ def search():
 @app.route("/bookspage", methods=['GET', 'POST'])
 def bookspage():
     if session.get('user') is None:
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", username=session['user'], NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/index")
     else:
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=session['user'])
 
