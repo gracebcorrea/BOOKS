@@ -143,7 +143,7 @@ def search():
                    print(row)
                    row = cur.fetchone()
                    return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
-
+               cur.close()
 
         #if checkedvalue == "title":
         #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
@@ -158,7 +158,7 @@ def search():
         #    for result in results:
         #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
-           cur.close()
+
        else:
            return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
