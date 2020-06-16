@@ -125,17 +125,14 @@ def search():
         session['logged'] =False
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
-
-    if request.method == 'POST':
-        #cursor
-        cur = db.cursor()
-        result=[]
-        results=[]
-        checkedvalue = "author"    #request.form.get("checkedvalue")
-        SQLquerry = request.form.get("SQLquerry")
-
+    else:
         Try:
-
+           #cursor
+           cur = db.cursor()
+           result=[]
+           results=[]
+           checkedvalue = "author"    #request.form.get("checkedvalue")
+           SQLquerry = request.form.get("SQLquerry")
            if checkedvalue == "author":
 
                cur.execute("SELECT * FROM books WHERE 'author' = 'author'",
