@@ -1,4 +1,4 @@
-import os, requests, sqlalchemy, json, psycopg2, login
+import os, requests, sqlalchemy, json, psycopg2, login,jsonify,
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -16,6 +16,16 @@ app = Flask(__name__)
 #set or export FLASK_APP=application.py
 #set or export FLASK_DEBUG=1
 #set or export DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
+
+
+#connect db
+db = psycopg2.connect(
+      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+      user = "dgssjhgflgvwxj",
+      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
+      database= "d3ck6mm9jbc163"
+      )
+
 
 
 
@@ -117,13 +127,17 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
 
     if request.method == 'POST':
+        #cursor
+        cur = db.cursor()
         result=[]
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
-        if checkedvalue == "author":
-            Try:
-               cur = db.cursor()
+
+        Try:
+
+           if checkedvalue == "author":
+
                cur.execute("SELECT * FROM books WHERE 'author' = 'author'",
                         {'author':SQLquerry}).fetchall()
                 x = cur.rowcount()
@@ -134,12 +148,8 @@ def search():
                       return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
 
                 cur.close()
-            except (Exception, psycopg2.DatabaseError) as error:
-                        print(error)
-
-            finally:
-               if len(results) == 0:
-                   return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+        except ValueError:
+               return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
 
         #if checkedvalue == "title":
@@ -148,8 +158,6 @@ def search():
         #    return render_template("Alerts.html",tipo="alert alert-success", message="Executei a query:")
         #    for result in results:
         #         return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
-        #    if len(results) == 0:
-        #         return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
         #if checkedvalue == "isbm":
         #    results=db.execute("SELECT * FROM books WHERE isbm = :isbm" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
@@ -157,8 +165,6 @@ def search():
         #    for result in results:
         #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
-        #    if len(results) == 0:
-        #        return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
