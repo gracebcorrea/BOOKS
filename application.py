@@ -132,18 +132,18 @@ def search():
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
-        cursor = db.cursor()
+        cur = db.cursor()
         #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
         SQL = "SELECT * FROM books LIMIT 50"
 
-        if cursor.execute(SQL):
-            results=cursor.fetchall()
+        if cur.execute(SQL):
+            results=cur.fetchall()
             x = len(SQL)
             for result in results:
                 print(x, result)
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
                 x -= 1
-                cursor.close()
+                cur.close()
         else:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
