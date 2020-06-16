@@ -134,10 +134,10 @@ def search():
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
 
         #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
-        SQL = "SELECT * FROM public.books  WHERE author = 'Agatha Christie'  "
-
+        SQL = "SELECT * FROM public.books  WHERE :checkedvalue = :SQLquerry  "
+        Parametros = "{'checkedvalue' : checkedvalue, 'SQLquerry': SQLquerry}"
         if db.execute(SQL):
-           results = db.execute(SQL).fetchall()
+           results = db.execute(SQL, parametros).fetchall()
            x = len(SQL)
            for result in results:
               print(x, result)
@@ -146,21 +146,6 @@ def search():
 
         else:
             return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-
-        #if checkedvalue == "title":
-        #    results=db.execute("SELECT * FROM books WHERE title = :title" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
-        #    results.append(result)
-        #    return render_template("Alerts.html",tipo="alert alert-success", message="Executei a query:")
-        #    for result in results:
-        #         return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
-
-        #if checkedvalue == "isbm":
-        #    results=db.execute("SELECT * FROM books WHERE isbm = :isbm" , {"author": SQLquerry , "title": SQLquerry, "isbm": SQLquerry, "year" :SQLquerry}).fetchall()
-        #    results.append(result)
-        #    for result in results:
-        #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
-
-
 
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
