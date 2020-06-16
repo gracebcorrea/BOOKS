@@ -134,9 +134,9 @@ def search():
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
         cur = db.cursor()
         #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
-        SQL = "SELECT * FROM books LIMIT 50"
+        SQL = "SELECT * FROM books  WHERE table_schema = 'public' ""
 
-        if cur.execute(SQL):
+        cur.execute(SQL):
             results=cur.fetchall()
             x = len(SQL)
             for result in results:
