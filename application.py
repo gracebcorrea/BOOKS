@@ -159,12 +159,8 @@ def search():
         #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
 
-       else:
-           return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
-
-
-
-
+        else:
+            return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",username=session['user'] )
 
