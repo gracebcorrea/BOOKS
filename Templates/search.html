@@ -10,6 +10,7 @@ ISBM, or author name, your search page should find matches for those as well! --
 
 {% extends "layout.html" %}
 
+
 {% block title %}
     CS50W Project 1: Books
 {% endblock %}
@@ -52,6 +53,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .form-inline button:hover {
   background-color: royalblue;
 }
+.form-inline img {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+}
 
 @media (max-width: 800px) {
   .form-inline input {
@@ -75,6 +80,7 @@ th,td{
        <h4> You can find your book typing Title or Author or ISBM </h4>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required style="width: 50%">
            <button type="submit" class="btn btn-primary" style="background-color:#400080"  >Search</button>
+           <!--<img class="img-rounded"  src="static/capaMC.jpg" alt="Library Search">-->
            <p></p>
         </div>
   </div>
