@@ -51,16 +51,18 @@ ISBM, or author name, your search page should find matches for those as well! --
         <th scope="col" >ISBM</th>
         <th scope="col" >Year</th>
       </tr>
+</table>
+
 {% for result in results %}
 
-<p> dado
-  <a href="{{ url_for('search')}}"> {{[result]}} </a>  </p>
+       <p>  <a href="{{ url_for('search')}}"> {{result}} </a>  </p>
+
 {% endfor %}
 
 
 
 
-    </table>
+
 
 <script type="text/javascript">
 function MyRadio(value) {
