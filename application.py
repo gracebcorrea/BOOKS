@@ -116,22 +116,19 @@ def search():
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
     if request.method == 'POST':
-
         result=[]
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
-        #return render_template("Alerts.html",tipo="alert alert-success", message=checkedvalue, username=SQLquerry, NewUrl="/search")
         if checkedvalue == "author":
-
-            results = db.execute("SELECT * FROM books  WHERE 'author' = 'author'", {'author':SQLquerry}).fetchall()
+            results = db.execute("SELECT * FROM books  WHERE 'author' = 'author'",
+                        {'author':SQLquerry}).fetchall()
             for result in results:
                 x = len(results)
                 print(x, [result])
                 return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , result =[result] )
-
-                if len(results) == 0:
-                    return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+            if len(results) == 0:
+                return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
 
         #if checkedvalue == "title":
