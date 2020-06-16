@@ -42,6 +42,37 @@ ISBM, or author name, your search page should find matches for those as well! --
   </div>
 </form>
 
+<div class="form-group">
+	<form action="{{ url_for('search') }}" method="post">
+		{% if results and results|length > 0 %}
+		<div class="form-group">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">ISBN</th>
+						<th scope="col">Title</th>
+						<th scope="col">Author</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+
+					{% for result in results %}
+						<tr>
+							<td>{{ result.title }}</td>
+							<td>{{ result.author }}</td>
+							<td>{{ result.year }}</td>
+							<td>{{ result.isbn }}</td>
+					{% endfor %}
+
+			</table>
+		</div>
+		{% else %}
+		<div class="form-group">
+			<output>No matches found</output>
+		</div>
+		{% endif %}
+	</form>
+</div>
 
 
 
