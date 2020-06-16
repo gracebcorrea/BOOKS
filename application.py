@@ -134,7 +134,6 @@ def search():
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = request.form.get("SQLquerry")
         if checkedvalue == "author":
-
                cur.execute("SELECT * FROM books WHERE 'author' = 'author'",
                         {'author':SQLquerry}).fetchall()
                x = cur.rowcount()
@@ -159,9 +158,9 @@ def search():
         #    for result in results:
         #        return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry , title = result.title, author = result.author, isbm = result.isbm, year = result.year)
 
-        cur.close()
-    else:
-       return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
+           cur.close()
+       else:
+           return render_template("Alerts.html", tipo="alert alert-danger", message="no results for this search",  NewUrl="/search")
 
 
 
