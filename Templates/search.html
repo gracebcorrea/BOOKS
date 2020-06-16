@@ -19,6 +19,12 @@ ISBM, or author name, your search page should find matches for those as well! --
 {% endblock %}
 
 {% block body%}
+<style>
+input, button{
+    margin:0;
+}
+</style>
+
 
 <form action="{{ url_for('search')}}" onsubmit="javascript: return MyRadio()" method="post" >
   <div class="container">
