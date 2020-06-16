@@ -144,7 +144,7 @@ def search():
               results.append([id], [title], [author], [isbm],[year])
 
               print(x, result)
-              return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x = x, result = [result] )
+              return render_template("SQLresults.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x = x, result = [result] )
               i += 1
 
         else:
