@@ -140,7 +140,7 @@ def search():
 
            x = len(SQL)
            for result in results:
-              results.append(:title, :author, :isbm, :year)
+              results.append([id], [title], [author], [isbm],[year])
 
               print(x, result)
               return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
