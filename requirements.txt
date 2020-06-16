@@ -10,3 +10,4 @@ url_for
 redirect
 pillow
 login
+jsonify
