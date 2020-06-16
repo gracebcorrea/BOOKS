@@ -143,7 +143,7 @@ def search():
               results.append([id], [title], [author], [isbm],[year])
 
               print(x, result)
-              return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x=x, result =[result] )
+              return render_template("search.html" , checkedvalue = checkedvalue, SQLquerry = SQLquerry ,x = x, result = [result] )
               x -= 1
 
         else:
@@ -151,12 +151,6 @@ def search():
 
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
-
-
-    #return render_template("Alerts.html" ,  tipo="alert alert-danger", message="What is wrong?  ", NewUrl="/search")
-
-
-
 
 
 
