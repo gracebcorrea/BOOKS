@@ -26,7 +26,7 @@ db = psycopg2.connect(
       database= "d3ck6mm9jbc163"
       )
 
-cursor = db.cursor()
+
 
 
 
@@ -132,9 +132,9 @@ def search():
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
         SQLquerry = "Agatha Christie" #request.form.get("SQLquerry")
-
+        cursor = db.cursor()
         #SQL= ("SELECT * FROM books WHERE (:checkedvalue ) = (:SQLquerry)",{"checkedvalue" :checkedvalue , "SQLquerry" : SQLquerry})
-        SQL = "SELECT * FROM "books" "
+        SQL = "SELECT * FROM "books" LIMIT 50"
 
         if cursor.execute(SQL):
             results=cursor.fetchall()
