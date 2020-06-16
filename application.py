@@ -128,7 +128,7 @@ def search():
 
     if request.method == 'POST':
         #cursor
-        cur = db.cursor()
+        #cur = db.cursor()
         result=[]
         results=[]
         checkedvalue = "author"    #request.form.get("checkedvalue")
