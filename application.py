@@ -121,10 +121,11 @@ def search():
         session['logged'] =False
         session['user']= ""
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
+
     if request.method == "POST":
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
-        books = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":text, "title":text, "author":text, "year":text}).fetchall()
-        return render_template("sqlresults.html", books=books)
+        results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
+        return render_template("sqlresults.html", results=results)
 
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
