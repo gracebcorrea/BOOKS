@@ -33,15 +33,17 @@ If the requested ISBN number isn’t in your database, your website should retur
 
  <div action="{{ url_for('bookspage') }}" class="flex-container" >
       <div class="row"  width="6000px" >
-           <div class="col-lg-4"  width="2000px" >
-               <h3 style="font-weight:bold">Cover ?</h3>
+           <div class="col-lg-4"  width="1500px" >
+               <h3 style="font-weight:bold"></h3>
                <p></p>
-               <h3> {{ ISBN}} </h3>
-               <p></p>
-               <img src="http://covers.openlibrary.org/b/isbn/{{ ISBN }}-M.jpg">
+               <h4> Title: {{book.Title}}</h4>
+               <h4> ISBN : {{ book.ISBN}} </h4>
+               <h4> Author: {{book.author}}</h4>
+               <h4> Year : {{ book.year}}</h4>
+               <!--<img src="http://covers.openlibrary.org/b/isbn/{{ ISBN }}-M.jpg">-->
                <p><p>
            </div>
-           <div class="col-lg-4"  width="2000px"  style="background-color:#cc99ff">
+           <div class="col-lg-4"  width="1500px"  style="background-color:#cc99ff">
                  <h3 style="font-weight:bold">Book Details</h3>
                  <p></p>
                  <h4> Number of reviews {{ reviews_count }} </h4>
@@ -49,7 +51,7 @@ If the requested ISBN number isn’t in your database, your website should retur
                  <h4> Average Rating {{ average_rating }} </h4>
                  <p></p>
            </div>
-           <div class="col-lg-4"  width="2000px">
+           <div class="col-lg-4"  width="3000px">
                  <h3 style="font-weight:bold">Your Review</h3>
                  <form action="/action_page.php">
                         <div class="form-group">
