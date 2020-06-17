@@ -133,7 +133,7 @@ def search():
 
 # Review Page
 
-
+@app.route("/bookspage")
 @app.route("/bookspage/<string:ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
@@ -162,7 +162,7 @@ def bookspage(ISBN):
         API_work_reviews_count =res["work_reviews_count"]
         API_work_text_reviews_count = res["work_text_reviews_count"]
 
-        return render_template("bookspage/<string:ISBN>", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                 ISBN = API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=session['user'])
 
 
