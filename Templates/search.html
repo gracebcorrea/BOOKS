@@ -128,12 +128,18 @@ th,td{
 </div>
 
 <script>
-function PegaISBN([{{ result.isbn }}])
+function PegaISBN(value)
  {
-   var pegaisbn = [{{ result.isbn }}];
-      document.getElementById("pegaisbn").innerHTML = [pegaisbn];
-      alert(pegaisbn);
-      return pegaisbn;
+   If value == "" {
+        alert("Vazio");
+  }
+  else{
+     var pegaisbn = [value];
+     document.getElementById("pegaisbn").innerHTML = [pegaisbn];
+     alert(pegaisbn);
+  }
+
+    return pegaisbn;
   }
 
 
