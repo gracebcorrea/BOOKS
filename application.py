@@ -18,13 +18,13 @@ app = Flask(__name__)
 #set or export DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
 
 
-#connect db
-db = psycopg2.connect(
-      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
-      user = "dgssjhgflgvwxj",
-      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
-      database= "d3ck6mm9jbc163"
-      )
+#connect db psycopg2 option
+#db = psycopg2.connect(
+#      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
+#      user = "dgssjhgflgvwxj",
+#      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
+#      database= "d3ck6mm9jbc163"
+#      )
 
 
 
@@ -131,9 +131,12 @@ def search():
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
+
+
+
 # Review Page
-@app.route("/bookspage", methods=['GET', 'POST'])
-def bookspage():
+@app.route("/bookspage/<int:ISBN>", methods=['GET', 'POST'])
+def bookspage(ISBN):
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
