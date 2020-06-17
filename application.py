@@ -165,40 +165,23 @@ def bookspage(ISBN):
         book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":API_isbn}).fetchone()
         if book is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.")
-        else:
-            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+
+        #Getting Review query
+
+        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :API_isbn", {"isbn": API_isbn}).fetchall()
+
+        if reviews is None:
+            return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.")
+        
+
+
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                     book=book, ISBN = API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=session['user'])
 
 
 
 
-        #Getting Review query
 
-        if request.method == "POST":
-            username = session['user']
-            ratings_count = request.form.get("ratings_count")
-            reviews_count = request.form.get("reviews_count")
-            average_rating = request.form.get("average_rating")
-            if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
-                          {"username" :username, "isbn" :ISBN}).fetchone() is None:
-
-        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
-        users_review = []
-        for review in reviews:
-            username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
-            users_review.append((username, review))
-
-
-                #db.execute(
-                #    "INSERT INTO reviews (isbn, review, username, rating) VALUES (:isbn, :review, :username, :rating)",
-                #    {"isbn" :ISBN, "review" :review, "username" :username, "rating" :rating})
-            #else:
-            #    db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :ISBN",
-            #        {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
-            #db.commit()
-
-                return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                   book=book, APIres=APIres, users_review=users_review, ratings_count=ratings_count, average_rating=average_rating, username=session['user'])
 
 
 
