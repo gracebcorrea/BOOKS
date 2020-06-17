@@ -143,7 +143,7 @@ def bookspage(ISBN):
     else:
         username = session['user']
         session['logged'] = True
-        APIres[]
+        APIres=[]
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
