@@ -143,8 +143,7 @@ def bookspage(ISBN):
     else:
         username = session['user']
         session['logged'] = True
-        APIres=[]
-        ISBN=ISBN
+
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN}).json()["books"][0]
@@ -162,30 +161,34 @@ def bookspage(ISBN):
         API_work_reviews_count =res["work_reviews_count"]
         API_work_text_reviews_count = res["work_text_reviews_count"]
 
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                ISBN = API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=session['user'])
+        #Getting book query
+        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":API_isbn}).fetchone()
+        if book is None:
+            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.")
+        else:
+            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+                    book=book, ISBN = API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=session['user'])
+
 
 
 
         #Getting Review query
+
+        if request.method == "POST":
+            username = session['user']
+            ratings_count = request.form.get("ratings_count")
+            reviews_count = request.form.get("reviews_count")
+            average_rating = request.form.get("average_rating")
+            if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
+                          {"username" :username, "isbn" :ISBN}).fetchone() is None:
+
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
         users_review = []
         for review in reviews:
             username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
             users_review.append((username, review))
 
-        #Getting books query
-        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN}).fetchone()
-        if book is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no ISBN with this number. Please  try again.")
-        if request.method == "POST":
-            username = session['user']
-            isbn = ISBN
-            ratings_count = request.form.get("ratings_count")
-            reviews_count = request.form.get("reviews_count")
-            average_rating = request.form.get("average_rating")
-            if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
-                          {"username" :username, "isbn" :ISBN}).fetchone() is None:
+
                 #db.execute(
                 #    "INSERT INTO reviews (isbn, review, username, rating) VALUES (:isbn, :review, :username, :rating)",
                 #    {"isbn" :ISBN, "review" :review, "username" :username, "rating" :rating})
