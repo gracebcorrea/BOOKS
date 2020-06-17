@@ -25,7 +25,7 @@ If the requested ISBN number isn’t in your database, your website should retur
 {% endblock %}
 
 {% block heading%}
-    {{Username}}  Can you help us by reviewing this book? {{username}}
+    {{username}}  Can you help us by reviewing this book?
 {% endblock %}
 
 {% block body%}
@@ -76,10 +76,28 @@ If the requested ISBN number isn’t in your database, your website should retur
 </div>
 
 <!--Show other reviews for this book-->
-<div>
+<div class="container">
+	<form action="{{ url_for('bookspage') }}" method="post" style="border:#400080">
+  {% if reviews and reviews|length > 0 %}
+		<div class="form-group">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Rating </th>
+  					<th scope="col">Review</th>
+          </tr>
+				</thead>
 
+				{% for review in reviews %}
+					<tr>
+						<td>{{ review.rating }}</td>
+						<td>{{ review.review }}</td>
+			    </tr>
+				{% endfor %}
 
-</div>
+			</table>
+
+		</div>
 
 
 
