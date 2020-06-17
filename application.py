@@ -191,7 +191,7 @@ def bookspage(ISBN):
             #        {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
             #db.commit()
 
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                    book=book, ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
 
