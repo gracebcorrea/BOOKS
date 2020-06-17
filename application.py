@@ -147,10 +147,10 @@ def bookspage(ISBN):
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
         #Check if API is working
-        #return(res.json())
+        return(res.json())
 
-        ratings_count = res["ratings_count"]
-        average_rating = res["average_rating"]
+        ratings_count = res.json("ratings_count")
+        average_rating = res.json("average_rating")
 
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
