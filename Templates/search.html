@@ -109,7 +109,7 @@ th,td{
 						<td>{{ result.title }}</td>
 						<td>{{ result.author }}</td>
 						<td>{{ result.year }}</td>
-						<td><a href="search/{{ result.isbn }}"  onclick="PegaISBN()" style= "color:#400080"  value="{{ result.isbn }}" name="{{ result.isbn }}" id= "{{ result.isbn }}" >{{ result.isbn }}</a>
+						<td><a href="bookspage/{{ result.isbn }}"  onclick="PegaISBN()" style= "color:#400080"  value="{{ result.isbn }}" name="{{ result.isbn }}" id= "{{ result.isbn }}" >{{ result.isbn }}</a>
             </td>
           </tr>
 				{% endfor %}
