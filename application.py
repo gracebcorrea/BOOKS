@@ -163,7 +163,7 @@ def bookspage(ISBN):
         API_work_text_reviews_count = res["work_text_reviews_count"]
 
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                APIInfo=APIInfo, ISBN=ISBN, username=session['user'])
+                ISBN = API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=session['user'])
 
 
 
