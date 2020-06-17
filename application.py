@@ -144,6 +144,7 @@ def bookspage(ISBN):
         #"Using Goodreads API to find the rattings:"
         username = session['user']
         session['logged'] = True
+
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
         #Check if API is working
