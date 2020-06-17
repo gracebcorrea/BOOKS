@@ -134,12 +134,21 @@ def search():
 @app.route("/bookspage", methods=['GET', 'POST'])
 def bookspage():
     if session.get('user') is None:
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/index")
+        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
+
+
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=session['user'])
 
 
 
+
+
+@app.route("/res")
+def res():
+    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+                        params={"key": "vELE3rrO4BMGthbgfBiKA", "ISBMs": book.isbm})
+    return(res.json())
 
 
 
@@ -158,13 +167,17 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route("/res")
-def res():
-    res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                        params={"key": "vELE3rrO4BMGthbgfBiKA", "ISBMs": "9781632168146"})
-    return(res.json())
+
 
 
 if __name__ == "__main__":
     with app.app_context():
         main()
+
+
+#API original
+#@app.route("/res")
+#def res():
+#    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+#                        params={"key": "vELE3rrO4BMGthbgfBiKA", "ISBMs": "9781632168146"})
+#    return(res.json())
