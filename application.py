@@ -145,8 +145,9 @@ def bookspage(ISBN):
         if request.method == "POST":
             username = session['user']
             isbn = ISBN
-            rating = request.form.get("rating")
-            review = request.form.get("review")
+            ratings_count = request.form.get("ratings_count")
+            reviews_count = request.form.get("reviews_count")
+            average_rating = request.form.get("average_rating")
             if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
                           {"username" :username, "isbn" :ISBN}).fetchone() is None:
                 db.execute(
@@ -157,10 +158,19 @@ def bookspage(ISBN):
                     {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
             db.commit()
 
-            
+            """Goodreads API"""
+            res = requests.get("https://www.goodreads.com/book/review_counts.json",
+                                params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
+            return(res.json())
+            ratings_count = res["ratings_count"]
+            average_rating = res["average_rating"]
+            reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
+            users_review = []
+            for review in reviews:
+                username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
+                users_review.append((username, review))
 
-
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=username)
+            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , book=book, users=users,ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
 
 
@@ -169,7 +179,7 @@ def bookspage(ISBN):
 @app.route("/res")
 def res():
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                        params={"key": "vELE3rrO4BMGthbgfBiKA", "ISBMs": book.isbm})
+                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
     return(res.json())
 
 
@@ -201,5 +211,5 @@ if __name__ == "__main__":
 #@app.route("/res")
 #def res():
 #    res = requests.get("https://www.goodreads.com/book/review_counts.json",
-#                        params={"key": "vELE3rrO4BMGthbgfBiKA", "ISBMs": "9781632168146"})
+#                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
 #    return(res.json())
