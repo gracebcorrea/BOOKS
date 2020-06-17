@@ -147,39 +147,48 @@ def bookspage(ISBN):
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
         #Check if API is working
-        return(res.json())
+        #return(res.json())
 
-        ratings_count = res.json("ratings_count")
-        average_rating = res.json("average_rating")
+        API_Av_Rating = res.json("average_rating")
+        API_id = res.json( "id")
+        API_isbn= res.json("isbn" )
+        API_isbn13= res.json( "isbn13")
+        API_ratings_count = res.json("ratings_count")
+        API_reviews_count = res.json( "reviews_count")
+        API_text_reviews_count = res.json("text_reviews_count")
+        API_work_ratings_count = res.json("work_ratings_count")
+        API_work_reviews_count =res.json("work_reviews_count")
+        API_work_text_reviews_count = res.json("work_text_reviews_count")
 
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
-        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
-        users_review = []
-        for review in reviews:
-            username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
-            users_review.append((username, review))
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , ISBN = API_isbn, ratings_count=API_ratings_count, average_rating=API_Av_Rating , reviews_count=API_reviews_count, username=session['user'])
+
+        #reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
+        #users_review = []
+        #for review in reviews:
+        #    username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
+        #    users_review.append((username, review))
 
 
 
-        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN}).fetchone()
-        if book is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no ISBN with this number. Please  try again.")
-        if request.method == "POST":
-            username = session['user']
-            isbn = ISBN
-            ratings_count = request.form.get("ratings_count")
-            reviews_count = request.form.get("reviews_count")
-            average_rating = request.form.get("average_rating")
-            if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
-                          {"username" :username, "isbn" :ISBN}).fetchone() is None:
-                db.execute(
-                    "INSERT INTO reviews (isbn, review, username, rating) VALUES (:isbn, :review, :username, :rating)",
-                    {"isbn" :ISBN, "review" :review, "username" :username, "rating" :rating})
-            else:
-                db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :ISBN",
-                    {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
-            db.commit()
+        #book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN}).fetchone()
+        #if book is None:
+        #    return render_template("Alerts.html", tipo="alert alert-danger", message="There is no ISBN with this number. Please  try again.")
+        #if request.method == "POST":
+        #    username = session['user']
+        #    isbn = ISBN
+        #    ratings_count = request.form.get("ratings_count")
+        #    reviews_count = request.form.get("reviews_count")
+        #    average_rating = request.form.get("average_rating")
+        #    if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
+        #                  {"username" :username, "isbn" :ISBN}).fetchone() is None:
+        #        db.execute(
+        #            "INSERT INTO reviews (isbn, review, username, rating) VALUES (:isbn, :review, :username, :rating)",
+        #            {"isbn" :ISBN, "review" :review, "username" :username, "rating" :rating})
+        #    else:
+        #        db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :ISBN",
+        #            {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
+        #    db.commit()
 
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , book=book, users=users,ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
