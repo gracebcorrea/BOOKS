@@ -165,7 +165,7 @@ def bookspage(ISBN):
         if book is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.")
 
-        #Getting Review query
+        #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": API_isbn}).fetchall()
         if reviews is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.")
@@ -174,8 +174,15 @@ def bookspage(ISBN):
             return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
+        #Saving a new review
+        if db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
+                      {"username": username, "isbn": isbn}).fetchone() is None:
+            db.execute(
+                "INSERT INTO reviews (username, isbn, rating, review) VALUES (:username, :isbn, :rating, :review)",
+                {"isbn": isbn, "username": username, "rating": rating, "review": review})
+        else:
+            return render_template("Alerts.html", tipo="alert alert-primary", message="You already reviewed and ranked this book, please choose other book.", NewUrl='search')
 
-        #Verify if there are reviews for this books
 
 
 
