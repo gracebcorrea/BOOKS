@@ -101,8 +101,6 @@ def register():
             return render_template("Alerts.html",tipo="alert alert-danger", message="Passwords do no check, please try again, ", username=username , NewUrl="/register")
             session.clear()
        else:
-
-            #db.execute(SQL,USERDATA)
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
 
@@ -122,12 +120,11 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
 
     if request.method == "POST":
-
+        session['logged']=True
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T")
-        guardaisbn= request.form.get("pegaisbn")
-        print(guardaisbn)
+        print("sessão register:" ,session['user'], session['logged'])
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
 
@@ -138,11 +135,32 @@ def search():
 @app.route("/bookspage/<ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
+        session['logged'] =False
+        session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-        user = session['user']
+        books = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN).fetchone()
+        if book is None:
+            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no ISBN with this number. Please  try again.")
+        if request.method == "POST":
+            username = session['user']
+            isbn = ISBN
+            rating = request.form.get("rating")
+            review = request.form.get("review")
+            if db.execute("SELECT id FROM reviews WHERE username = :username AND isbn = :ISBN",
+                          {"username" :username, "isbn" :ISBN}).fetchone() is None:
+                db.execute(
+                    "INSERT INTO reviews (isbn, review, username, rating) VALUES (:isbn, :review, :username, :rating)",
+                    {"isbn" :ISBN, "review" :review, "username" :username, "rating" :rating})
+            else:
+                db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :ISBN",
+                    {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
+            db.commit()
 
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=session['user'])
+            
+
+
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , username=username)
 
 
 
