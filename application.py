@@ -133,6 +133,7 @@ def search():
 
 # Review Page
 
+
 @app.route("/bookspage/<ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
@@ -140,13 +141,19 @@ def bookspage(ISBN):
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-        """Goodreads API"""
+        #"Using Goodreads API to find the rattings:"
+        username = session['user']
+        session['logged'] = True
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
-        return(res.json())
+        #Check if API is working
+        #return(res.json())
 
         ratings_count = res["ratings_count"]
         average_rating = res["average_rating"]
+
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
+
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
         users_review = []
         for review in reviews:
@@ -179,17 +186,6 @@ def bookspage(ISBN):
 
 
 
-
-@app.route("/res")
-def res():
-    res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
-    return(res.json())
-
-
-
-
-
 #Logout: Logged in users should be able to log out of the site.
 @app.route('/logout')
 def logout():
@@ -212,6 +208,16 @@ if __name__ == "__main__":
 
 
 #API original
+
+
+
+#@app.route("/res")
+#def res():
+#    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+#                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
+#    return(res.json())
+
+
 #@app.route("/res")
 #def res():
 #    res = requests.get("https://www.goodreads.com/book/review_counts.json",
