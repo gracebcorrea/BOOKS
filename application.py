@@ -139,7 +139,7 @@ def bookspage(ISBN):
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-        books = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN}).fetchone()
+        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN}).fetchone()
         if book is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no ISBN with this number. Please  try again.")
         if request.method == "POST":
