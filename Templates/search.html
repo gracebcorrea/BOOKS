@@ -104,15 +104,18 @@ th,td{
 					</tr>
 				</thead>
 
-					{% for result in results %}
-						<tr>
-							<td>{{ result.title }}</td>
-							<td>{{ result.author }}</td>
-							<td>{{ result.year }}</td>
-							<td><a href="search" style= "color:#400080" onclick="PegaISBN()" value="{{ result.isbn }}" name="{{ result.isbn }}">{{ result.isbn }}</a></td>
-					{% endfor %}
+				{% for result in results %}
+					<tr>
+						<td>{{ result.title }}</td>
+						<td>{{ result.author }}</td>
+						<td>{{ result.year }}</td>
+						<td><a href="search" style= "color:#400080" onclick="PegaISBN()" value="{{ result.isbn }}" name="{{ result.isbn }}" id= ":{{ result.isbn }}" >{{ result.isbn }}</a>
+            </td>
+          </tr>
+				{% endfor %}
 
 			</table>
+      
 		</div>
 
 
@@ -125,10 +128,12 @@ th,td{
 </div>
 
 <script>
-function PegaISBN({{ result.isbn }})
+function PegaISBN(value)
  {
-   var pegaisbn = {{ result.isbn }}
-   alert(pegaisbn);
+   var pegaisbn = value;
+      document.getElementById("pegaisbn").innerHTML = [pegaisbn];
+      alert(pegaisbn);
+      return pegaisbn;
   }
 
 
