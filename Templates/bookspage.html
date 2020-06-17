@@ -31,7 +31,7 @@ If the requested ISBN number isn’t in your database, your website should retur
 <h2> About the Book you selected: </h2>
 <!--margin-left:50px; margin-right:50px; class="flex-container" -->
 
- <div class="flex-container" >
+ <div action="{{ url_for('bookspage')}}" class="flex-container" >
       <div class="row"  width="6000px" >
            <div class="col-lg-4"  width="2000px" >
                <h3 style="font-weight:bold">Cover ?</h3>
