@@ -43,6 +43,7 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+username = ""
 
 @app.route("/index")
 @app.route("/")
@@ -67,14 +68,13 @@ def login():
     if request.method == 'POST':
        username = request.form.get("username")
        password = request.form.get("password")
-       rememberme = request.form.get("rememberme")
 
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            #abrir seçao
            session['user'].append(username)
            session['logged'].append(True)
-           print("sessão iniciada:" , session['user'], session['logged'])
+           print("sessão iniciada login:" , session['user'], session['logged'])
            return render_template("search.html",Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
@@ -106,7 +106,7 @@ def register():
 
             session['user'].append(username)
             session['logged'].append(True)
-            print("sessão register:" ,session['user'], session['logged'])
+            print("sessão iniciada register:" , session['user'], session['logged'])
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
         return render_template("register.html")
@@ -126,7 +126,7 @@ def search():
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T")
         print("sessão register:" ,session['user'], session['logged'])
     else:
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
 
 
@@ -141,7 +141,7 @@ def bookspage(ISBN):
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-        username = session['user']
+        session['user'] = username
         session['logged'] = True
 
         #Getting Goodreads API data:"
