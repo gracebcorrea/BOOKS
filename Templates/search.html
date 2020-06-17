@@ -80,7 +80,7 @@ th,td{
        <h4> You can find your book typing Title or Author or ISBM: </h4>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required style="width:60%">
            <button type="submit" class="btn btn-primary" style="background-color:#400080; width:30%"   >Search</button>
-           <!--<img class="img-rounded"  src="static/capaMC.jpg" alt="Library Search">-->
+
            <p></p>
         </div>
   </div>
@@ -109,7 +109,7 @@ th,td{
 						<td>{{ result.title }}</td>
 						<td>{{ result.author }}</td>
 						<td>{{ result.year }}</td>
-						<td><a href="bookspage/{{ result.isbn }}"  onclick="PegaISBN()" style= "color:#400080"  value="{{ result.isbn }}" name="{{ result.isbn }}" id= "{{ result.isbn }}" >{{ result.isbn }}</a>
+						<td><a href="bookspage/{{ result.isbn }}" >{{ result.isbn }}</a>
             </td>
           </tr>
 				{% endfor %}
@@ -126,26 +126,6 @@ th,td{
 		{% endif %}
 	</form>
 </div>
-
-<script type="text/javascript">
-function PegaISBN(value)
- {
-   If value == "" {
-        alert("Vazio");
-  }
-  else{
-     var pegaisbn = [value];
-     document.getElementById("pegaisbn").innerHTML = [pegaisbn];
-     alert(pegaisbn);
-  }
-
-    return pegaisbn;
-  }
-
-
-
-</script>
-
 
 
 {% endblock %}
