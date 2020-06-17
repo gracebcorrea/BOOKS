@@ -88,7 +88,7 @@ th,td{
 
 
 <h3>Here are your Results:</h3>
-<h5 style="text-align:center" >Please click on the book name or ISBM to see more and comment your impressions:</h5>
+<h5 style="text-align:center" >Please click on ISBM  code to see more and comment your impressions:</h5>
 
 <div class="form-group">
 	<form action="{{ url_for('search') }}" method="post" style="border:#400080">
@@ -106,7 +106,7 @@ th,td{
 
 					{% for result in results %}
 						<tr>
-							<td><a href="bookspage" style= "color:#400080">{{ result.title }}</a></td>
+							<td>{{ result.title }}</td>
 							<td>{{ result.author }}</td>
 							<td>{{ result.year }}</td>
 							<td><a href="bookspage" style= "color:#400080">{{ result.isbn }}</a></td>
