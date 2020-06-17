@@ -8,6 +8,7 @@ Review Submission: On the book page, users should be able to submit a review:
 consisting of a rating on a scale of 1 to 5, as well as a text component to the
 review where the user can write their opinion about a book. Users should not be
 able to submit multiple reviews for the same book.
+
 Goodreads Review Data: On your book page, you should also display (if available)
 the average rating and number of ratings the work has received from Goodreads.
 
@@ -31,49 +32,54 @@ If the requested ISBN number isn’t in your database, your website should retur
 <h2> About the Book you selected: </h2>
 <!--margin-left:50px; margin-right:50px; class="flex-container" -->
 
- <div action="{{ url_for('bookspage') }}" class="flex-container" >
-      <div class="row"  width="6000px" >
-           <div class="col-lg-4"  width="1000px" >
-               <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
+<div action="{{ url_for('bookspage') }}" class="flex-container" >
+    <div class="row"  width="6000px" >
+        <div class="col-lg-4"  width="1000px" >
+            <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
                <h4 style="padding: 15px"> Title: {{book.title}}</h4>
                <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
                <h4 style="padding: 15px"> Author: {{book.author}}</h4>
                <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
                <!--<img src="http://covers.openlibrary.org/b/isbn/{{ ISBN }}-M.jpg">-->
 
-           </div>
-           <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
-                 <h3 style="font-weight:bold ; padding: 15px">Book Details</h3>
+        </div>
+        <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
+            <h3 style="font-weight:bold ; padding: 15px">Book Details</h3>
                  <h4 style="padding: 10px"> Number of reviews {{ reviews_count }} </h4>
                  <h4 style="padding: 10px"> Number of ratings {{ ratings_count }} </h4>
                  <h4 style="padding: 10px"> Average Rating {{ average_rating }} </h4>
 
-           </div>
-           <div class="col-lg-4"  width="3000px">
-                 <h3 style="font-weight:bold">Your Review</h3>
+        </div>
+        <div class="col-lg-4"  width="3000px">
+            <h3 style="font-weight:bold">Your Review</h3>
                  <form action="/action_page.php">
                         <div class="form-group">
-                            <textarea class="form-control" rows="12" id="comment" name="text"></textarea>
+                            <textarea class="form-control" rows="12" id="review" name="text"></textarea>
                         </div>
                  </form>
 
                  <p></p>
-                 <form method="POST" class="d-flex flex-column-reverse">
-                           <p> <select name="rating">
-                               <option>1 star</option>
-                               <option>2 star</option>
-                               <option>3 star</option>
-                               <option>4 star</option>
-                               <option>5 star</option>
-                               </select>
-                               <button type="submit" class="btn btn-primary" style="background-color:#400080">Post</button>
-                           </p>
+            <form method="POST" class="d-flex flex-column-reverse">
+                 <p> <select name="rating">
+                      <option>1 star</option>
+                      <option>2 star</option>
+                      <option>3 star</option>
+                      <option>4 star</option>
+                      <option>5 star</option>
+                      </select>
+                      <button type="submit" class="btn btn-primary" style="background-color:#400080">Post</button>
+                      </p>
                  </form>
                  <p></p>
-           </div>
-      </div>
+        </div>
+    </div>
 </div>
 
+<!--Show other reviews for this book-->
+<div>
+
+
+</div>
 
 
 
