@@ -125,9 +125,9 @@ th,td{
 </div>
 
 <script>
-function PegaISBN(value)
+function PegaISBN({{ result.isbn }})
  {
-   var pegaisbn = value
+   var pegaisbn = {{ result.isbn }}
    alert(pegaisbn);
   }
 
