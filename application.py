@@ -134,19 +134,16 @@ def search():
 # Review Page
 
 
-@app.route("/bookspage/<ISBN>", methods=['GET', 'POST'])
+@app.route("/bookspage/<string:ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
         session['logged'] =False
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-
         username = session['user']
         session['logged'] = True
-
-
-
+        APIres[]
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
@@ -154,8 +151,7 @@ def bookspage(ISBN):
         #return(res.json())
 
         APIres = res.json()
-        APIres= APIres['books'][0]
-        APIinfo.append(APIres)
+
 
 
         #API_Av_Rating = res.json("average_rating")
@@ -168,6 +164,9 @@ def bookspage(ISBN):
         #API_work_ratings_count = res.json("work_ratings_count")
         #API_work_reviews_count =res.json("work_reviews_count")
         #API_work_text_reviews_count = res.json("work_text_reviews_count")
+
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+               book=book, APIres=APIres, username=session['user'])
 
 
 
@@ -199,7 +198,7 @@ def bookspage(ISBN):
             #db.commit()
 
                 return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                   book=book, APIinfo=APIinfo, users_revie=users_review, ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
+                   book=book, APIres=APIres, users_review=users_review, ratings_count=ratings_count, average_rating=average_rating, username=session['user'])
 
 
 
