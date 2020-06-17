@@ -132,7 +132,7 @@ def search():
 
 
 # Review Page
-@app.route("/bookspage", methods=['GET', 'POST'])
+
 @app.route("/bookspage/<ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
