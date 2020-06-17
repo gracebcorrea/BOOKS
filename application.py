@@ -144,29 +144,26 @@ def bookspage(ISBN):
         username = session['user']
         session['logged'] = True
         APIres=[]
+        ISBN=ISBN
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
+                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN}).json()["books"][0]
         #Check if API is working
         #return(res.json())
 
-        APIres = res.json()
-
-
-
-        #API_Av_Rating = res.json("average_rating")
-        #API_id = res.json( "id")
-        #API_isbn= res.json("isbn" )
-        #API_isbn13= res.json( "isbn13")
-        #API_ratings_count = res.json("ratings_count")
-        #API_reviews_count = res.json( "reviews_count")
-        #API_text_reviews_count = res.json("text_reviews_count")
-        #API_work_ratings_count = res.json("work_ratings_count")
-        #API_work_reviews_count =res.json("work_reviews_count")
-        #API_work_text_reviews_count = res.json("work_text_reviews_count")
+        API_Av_Rating = res["average_rating"]
+        API_id = res["id"]
+        API_isbn= res["isbn"]
+        API_isbn13= res["isbn13"]
+        API_ratings_count = res["ratings_count"]
+        API_reviews_count = res.[ "reviews_count"]
+        API_text_reviews_count = res["text_reviews_count"]
+        API_work_ratings_count = res["work_ratings_count"]
+        API_work_reviews_count =res["work_reviews_count"]
+        API_work_text_reviews_count = res["work_text_reviews_count"]
 
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-               book=book, APIres=APIres, username=session['user'])
+                APIInfo=APIInfo, ISBN=ISBN, username=session['user'])
 
 
 
