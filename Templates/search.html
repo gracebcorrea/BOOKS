@@ -109,7 +109,7 @@ th,td{
 							<td>{{ result.title }}</td>
 							<td>{{ result.author }}</td>
 							<td>{{ result.year }}</td>
-							<td><a href="bookspage" style= "color:#400080">{{ result.isbn }}</a></td>
+							<td><a href="bookspage/{{ result.isbn }}" style= "color:#400080" name=({{result.isbn})>{{ result.isbn }}</a></td>
 					{% endfor %}
 
 			</table>
@@ -123,9 +123,5 @@ th,td{
 		{% endif %}
 	</form>
 </div>
-
-
-
-
 
 {% endblock %}
