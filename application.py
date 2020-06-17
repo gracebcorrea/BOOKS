@@ -132,6 +132,7 @@ def search():
 
 
 # Review Page
+@app.route("/bookspage", methods=['GET', 'POST'])
 @app.route("/bookspage/<ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
@@ -139,6 +140,21 @@ def bookspage(ISBN):
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
+        """Goodreads API"""
+        res = requests.get("https://www.goodreads.com/book/review_counts.json",
+                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
+        return(res.json())
+
+        ratings_count = res["ratings_count"]
+        average_rating = res["average_rating"]
+        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
+        users_review = []
+        for review in reviews:
+            username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
+            users_review.append((username, review))
+
+
+
         book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":ISBN}).fetchone()
         if book is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no ISBN with this number. Please  try again.")
@@ -158,19 +174,7 @@ def bookspage(ISBN):
                     {"isbn" :ISBN, "review":review, "username" :username,  "rating" :rating})
             db.commit()
 
-            """Goodreads API"""
-            res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                                params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
-            return(res.json())
-            ratings_count = res["ratings_count"]
-            average_rating = res["average_rating"]
-            reviews = db.execute("SELECT * FROM reviews WHERE isbn = :ISBN", {"isbn": ISBN}).fetchall()
-            users_review = []
-            for review in reviews:
-                username= db.execute("SELECT username FROM users WHERE username = :username", {"username": review.username}).fetchone().username
-                users_review.append((username, review))
-
-            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , book=book, users=users,ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" , book=book, users=users,ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
 
 
