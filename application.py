@@ -181,9 +181,12 @@ def bookspage(ISBN):
                 "INSERT INTO reviews (username, isbn, rating, review) VALUES (:username, :isbn, :rating, :review)",
                 {"isbn": isbn, "username": username, "rating": rating, "review": review})
         else:
-            return render_template("Alerts.html", tipo="alert alert-primary", message="You already reviewed and ranked this book, please choose other book.", NewUrl='search')
+            db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
+                {"review": review, "rating": rating, "username": username, "isbn": isbn})
+        db.commit()
 
-
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+                    book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
 
 
