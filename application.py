@@ -135,7 +135,7 @@ def search():
 
 
 # Review Page
-@app.route("/bookspage/<int:ISBN>", methods=['GET', 'POST'])
+@app.route("/bookspage/<ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
