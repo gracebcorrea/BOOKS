@@ -166,19 +166,16 @@ def bookspage(ISBN):
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.")
 
         #Getting Review query
-
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": API_isbn}).fetchall()
-
         if reviews is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.")
 
+        else:
+            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+                    book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
 
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                    book=book,reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
-
-
-
+        #Verify if there are reviews for this books
 
 
 
