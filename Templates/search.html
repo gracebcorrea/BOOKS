@@ -109,7 +109,7 @@ th,td{
 							<td>{{ result.title }}</td>
 							<td>{{ result.author }}</td>
 							<td>{{ result.year }}</td>
-							<td><a href="bookspage" style= "color:#400080" onclick="PegaISBN()" name="pegaisbn">{{ result.isbn }}</a></td>
+							<td><a href="bookspage" style= "color:#400080" onclick="PegaISBN()" value="{{ result.isbn }}" name="{{ result.isbn }}">{{ result.isbn }}</a></td>
 					{% endfor %}
 
 			</table>
@@ -125,7 +125,7 @@ th,td{
 </div>
 
 <script>
-function PegaISBN({{ result.isbn }})
+function PegaISBN("{{ result.isbn }}")
  {
    var pegaisbn = {{ result.isbn }}
    alert(pegaisbn);
