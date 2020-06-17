@@ -141,18 +141,23 @@ def bookspage(ISBN):
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-        #Getting Goodreads API data:"
+
         username = session['user']
         session['logged'] = True
 
+
+
+        #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
         #Check if API is working
         #return(res.json())
 
         APIres = res.json()
+        APIres= APIres['books'][0]
+        APIinfo.append(APIres)
 
-        APIres = APIres['books'][0]
+
         #API_Av_Rating = res.json("average_rating")
         #API_id = res.json( "id")
         #API_isbn= res.json("isbn" )
@@ -163,7 +168,7 @@ def bookspage(ISBN):
         #API_work_ratings_count = res.json("work_ratings_count")
         #API_work_reviews_count =res.json("work_reviews_count")
         #API_work_text_reviews_count = res.json("work_text_reviews_count")
-        APIinfo.append(APIres)
+
 
 
         #Getting Review query
@@ -194,7 +199,7 @@ def bookspage(ISBN):
             #db.commit()
 
                 return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                   book=book, ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
+                   book=book, APIinfo=APIinfo, users_revie=users_review, ratings_count=ratings_count,average_rating=average_rating, username=session['user'])
 
 
 
