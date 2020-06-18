@@ -51,14 +51,14 @@ If the requested ISBN number isn’t in your database, your website should retur
         </div>
         <div class="col-lg-4"  width="3000px">
             <h3 style="font-weight:bold">Your Review:</h3>
-                 <form method="POST" >
+                 <form method="post" >
                         <div class="form-group"  >
                             <textarea class="form-control" rows="12" name="review" id="review"></textarea>
                         </div>
                  </form>
 
                  <p></p>
-                 <form action="{{ url_for('bookspage') }}" method="POST" class="d-flex flex-column-reverse" >
+                 <form action="{{ url_for('bookspage') }}" method="post" class="d-flex flex-column-reverse" >
                  <p> <select name="rating" >
                       <option name="rating" id="rating">1 star</option>
                       <option name="rating" id="rating">2 star</option>
