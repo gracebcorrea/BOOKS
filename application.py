@@ -133,7 +133,14 @@ def bookspage(ISBN):
 
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN}).json()["books"][0]
+                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})#.json() #["books"][0]
+
+        if 'json' in res.headers.get('Content-Type'):
+              js = res.json()
+        else:
+            print('Response content is not in JSON format.')
+            js = 'spam'
+
         #Check if API is working
         #return(res.json())
 
