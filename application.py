@@ -157,22 +157,24 @@ def bookspage(ISBN):
             return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.")
 
         else:
-            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
         #Saving a new review
         if db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": isbn}).fetchone() is None:
             try:
-                db.execute("INSERT INTO reviews (username, isbn, rating, review) VALUES (:username, :isbn, :rating, :review)",
-                {"isbn": isbn, "username": username, "rating": rating, "review": review})
+                rating=request.form.get("rating")
+                review=request.form.get("review")
+                db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
+                {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
             except:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
 
         else:
             try:
                 db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
-                {"review": review, "rating": rating, "username": username, "isbn": isbn})
+                {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
             except:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username)
 
