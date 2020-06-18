@@ -96,7 +96,7 @@ def register():
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
             session['user'].append(username)
-                   print("sessão iniciada register:" , session['user'], )
+            print("sessão iniciada register:" , session['user'] )
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
         return render_template("register.html")
@@ -189,7 +189,6 @@ def user():
 #Logout: Logged in users should be able to log out of the site.
 @app.route('/logout')
 def logout():
-     = False
     session['user'] = ""
     # clear user credentials
     session.clear()
