@@ -185,18 +185,13 @@ def bookspage(ISBN):
 
         #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": ISBN}).fetchall()
-        if reviews is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.",NewUrl="/search" )
-
-        else:
+        if reviews >= 1:
             return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
+
             rating=request.form.get("rating")
             review=request.form.get("review")
-
-
-
-        return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d, NewUrl="/search")
+            return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d, NewUrl="/search")
 
         #Saving a new review
         NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
