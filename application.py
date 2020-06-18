@@ -162,15 +162,17 @@ def bookspage(ISBN):
             return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
-        #Saving a new review
+            rating=request.form.get("rating")
+            review=request.form.get("review")
 
+        #Saving a new review
         NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
 
+
+        return render_template("Alerts.html", tipo="alert alert-primary", message="[rating], [review], [API_isbn]" , username = username)
+
         if NewReview is none:
-            rating=request.form.get("rating")
-            review=request.form.get("review")
-            return render_template("Alerts.html", tipo="alert alert-primary", message="[rating], [review], [API_isbn]" , username = username)
             try:
                 db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                 {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
@@ -181,6 +183,7 @@ def bookspage(ISBN):
             try:
                 db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                 {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
+
             except:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username)
 
