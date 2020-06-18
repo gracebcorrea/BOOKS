@@ -196,7 +196,7 @@ def bookspage(ISBN):
 
 
 
-        return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d)
+        return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d, NewUrl="/search")
 
         #Saving a new review
         NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
