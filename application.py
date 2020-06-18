@@ -66,7 +66,7 @@ def login():
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            #abrir seçao
            session['user']=username
-           print("sessão iniciada login:" , [username] )
+           print(f"sessão iniciada login:" , [username] )
            return render_template("search.html",Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
@@ -86,7 +86,6 @@ def register():
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username",
                      {"username": username}).fetchone():
-            #print("user exists")
             return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page, ", username=username , NewUrl="/index")
 
        elif password != ckpassword:
@@ -97,7 +96,7 @@ def register():
             db.commit()
             session['user']= username
 
-            print("Usuário registrado:" , [username] )
+            print(f"Usuário registrado:" , [username] )
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
         return render_template("register.html")
@@ -111,7 +110,7 @@ def search():
 
     if request.method == "POST":
         username = session['user']
-        print("sessão search:" , [username])
+        print(f"sessão search:" , [username])
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
@@ -180,37 +179,44 @@ def bookspage(ISBN):
            API_reviews_count = goodreads["reviews_count"]
 
         except ValueError:
-           print("Response content is not valid JSON")
+           print(f"Response content is not valid JSON")
 
 
         #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": ISBN}).fetchall()
-        if reviews >= 1:
+        if reviews is not None:
             return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
-            rating=request.form.get("rating")
+        if request.method == "POST":
+            username = session['user']
             review=request.form.get("review")
+            rating=request.form.get("rating")
+
+            print(f"sessão tentando salvar" , [username])
+
             return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d, NewUrl="/search")
 
-        #Saving a new review
-        NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
+            #Saving a new review
+            NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
+            if NewReview is none:
+                try:
+                   db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
+                   {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
+                   db.commit()
+                   return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Saved!" )
 
-
-        if NewReview is none:
-            try:
-                db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
-                {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
-                db.commit()
-            except:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
+                except:
+                   return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
 
         else:
             try:
                 db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                 {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
                 db.commit()
+               return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Updated" )
+
             except:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username)
 
