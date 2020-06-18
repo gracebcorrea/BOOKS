@@ -96,6 +96,7 @@ def register():
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
             session['user']= username
+
             print("Usuário registrado:" , [username] )
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
@@ -109,10 +110,11 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us",  NewUrl="/login")
 
     if request.method == "POST":
+        print("sessão search:" , [username])
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
-        print("sessão search:" , [username])
+
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
@@ -161,13 +163,16 @@ def bookspage(ISBN):
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
         #Saving a new review
-
+        print([usename], [isbn], "I will try to save a new review"
         if db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone() is None:
             try:
                 rating=request.form.get("rating")
                 review=request.form.get("review")
-                print([usename], [isbn], [rating],[ review])
+
+                
+                return render_template("Alerts.html", tipo="alert alert-danger", message="[usename], [isbn], [rating],[ review]", usrname=username,  NewUrl="/login")
+
                 db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                 {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
             except:
