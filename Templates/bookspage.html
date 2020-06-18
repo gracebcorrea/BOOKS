@@ -34,88 +34,85 @@ If the requested ISBN number isn’t in your database, your website should retur
 
 <div action="{{ url_for('bookspage') }}" class="flex-container" >
     <div class="row"  width="3500px" >
-        <div class="col-lg-4"  width="1000px" >
+      <!--Book Info-->
+        <div class="col-lg-4"  style="" >
             <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
                <h4 style="padding: 15px"> Title: {{book.title}}</h4>
                <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
                <h4 style="padding: 15px"> Author: {{book.author}}</h4>
                <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
-
         </div>
+      <!-- API info-->
         <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
             <h3 style="font-weight:bold ; padding: 15px">Book Details:</h3>
                  <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
                  <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
                  <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
-
         </div>
-        <div class="col-lg-4"  width="3000px">
-            <h3 style="font-weight:bold">Your Review:</h3>
-                 <form method="post" >
-                        <div class="form-group"  >
-                            <textarea class="form-control" rows="12" name="review" id="review"></textarea>
-                        </div>
-                 </form>
-
-                 <p></p>
-                 <form action="{{ url_for('bookspage') }}" method="post" class="d-flex flex-column-reverse" >
-                 <p> <select name="rating" >
-                      <option name="rating" id="rating">1 star</option>
-                      <option name="rating" id="rating">2 star</option>
-                      <option name="rating" id="rating">3 star</option>
-                      <option name="rating" id="rating">4 star</option>
-                      <option name="rating" id="rating">5 star</option>
-                      </select>
-                      <button type="submit" class="btn btn-primary" style="background-color:#400080; width:70%">Give Stars</button>
-                  </p>
-                  <p>  {{message_salvar_alterar}}</p>
-
-
-
-                 </form>
-                 <p></p>
-        </div>
+        <!--Show other reviews for this book-->
+        <div class="col-lg-4"  width="1000px"  >
+        	   {% if reviews and reviews|length > 0 %}
+        	     	<div class="form-group">
+        		  	<table class="table">
+        				<thead>
+        					<tr>
+        						<th scope="col">Rating </th>
+          					<th scope="col">Review</th>
+                  </tr>
+        				</thead>
+        			  {% for review in reviews %}
+        					<tr>
+        						<td>{{ review.rating }}</td>
+        						<td>{{ review.review }}</td>
+        			    </tr>
+        		   	{% endfor %}
+                {%else%}
+                     <p style="padding:20px"> There are no reviews for this book. </p>
+                {%endif%}
+        			  </table>
     </div>
 </div>
 
-<!--Show other reviews for this book-->
-<div class="container">
-	<form action="{{ url_for('bookspage') }}" method="post" style="border:#400080">
-  {% if reviews and reviews|length > 0 %}
-		<div class="form-group">
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">Rating </th>
-  					<th scope="col">Review</th>
-          </tr>
-				</thead>
+<style>
+#mybox {
+  box-sizing: content-box;
+  width: 300px;
+  height: 100px;
+  padding: 30px;
+  border: 1px solid #400080;
+}
+</style>
 
-				{% for review in reviews %}
-					<tr>
-						<td>{{ review.rating }}</td>
-						<td>{{ review.review }}</td>
-			    </tr>
-				{% endfor %}
-  {%else%}
-      <p style="padding:20px"> There are no reviews for this book. </p>
+<div action="{{ url_for('bookspage') }}" method="post"  class="flex-container" style="padding:20px">
+  <div class="row"  width="6000px" >
+    <div class="col-lg-4"  id="mybox" >
+         <h3 style="font-weight:bold ; paddind: 5px">Your Review:</h3>
+    </div>
+    <div class="col-lg-4" width="1000px"   >
+        <div class="form-group"  >
+          <form>
+            <textarea class="form-control" rows="10" name="review" placeholder=" Please share your opinion here"></textarea>
+          </form>
+        </div>
+    </div>
+    <div class="col-lg-4"  >
+        <form   class="d-flex flex-column-reverse"  >
+            <p> <select name="rating" >
+                <option name="rating" id="rating">1 star</option>
+                <option name="rating" id="rating">2 star</option>
+                <option name="rating" id="rating">3 star</option>
+                <option name="rating" id="rating">4 star</option>
+                <option name="rating" id="rating">5 star</option>
+                </select>
+                <button type="submit" class="btn btn-primary" style="background-color:#400080; width:70%">Give Stars</button>
+            </p>
+            <p>  {{message_salvar_alterar}}</p>
+        </form>
+     </div>
+  </div>
+</div>
 
-  {%endif%}
-			</table>
 
-		</div>
-
-
-
-
-<!--<h2 style="padding:50px">Reviews</h2>
-<ul>
-    {% for review in reviews %}
-        <li>Review: {{ review.review }} Username: {{ review.username }} Date: {{ review.date }}</li>
-    {% else %}
-        <li>No reviews!</li>
-    {% endfor %}
-</ul>-->
 
 
 {% endblock %}
