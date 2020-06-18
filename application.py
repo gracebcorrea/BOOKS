@@ -166,14 +166,13 @@ def bookspage(ISBN):
 
         NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
-                      
+
         if NewReview is none:
+               rating=request.form.get("rating")
+               review=request.form.get("review")
+               return render_template("Alerts.html", tipo="alert alert-primary", message="[rating], [review], [API_isbn]" , username = username)
+
             try:
-                rating=request.form.get("rating")
-                review=request.form.get("review")
-
-
-                return render_template("Alerts.html", tipo="alert alert-danger", message="[usename], [isbn], [rating],[ review]", usrname=username,  NewUrl="/login")
 
                 db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                 {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
