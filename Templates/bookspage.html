@@ -52,20 +52,20 @@ If the requested ISBN number isn’t in your database, your website should retur
         </div>
         <div class="col-lg-4"  width="3000px">
             <h3 style="font-weight:bold">Your Review:</h3>
-                 <form action="/action_page.php">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="12" id="review" name="text"></textarea>
+                 <form action="{{ url_for('bookspage') }}" method="POST" >
+                        <div class="form-group"  >
+                            <textarea class="form-control" rows="12" name="review" id="review"></textarea>
                         </div>
                  </form>
 
                  <p></p>
-            <form method="POST" class="d-flex flex-column-reverse">
-                 <p> <select name="rating">
-                      <option>1 star</option>
-                      <option>2 star</option>
-                      <option>3 star</option>
-                      <option>4 star</option>
-                      <option>5 star</option>
+            <form action="{{ url_for('bookspage') }}" method="POST" class="d-flex flex-column-reverse">
+                 <p> <select name="rating" >
+                      <option id="rating">1 star</option>
+                      <option id="rating">2 star</option>
+                      <option id="rating">3 star</option>
+                      <option id="rating">4 star</option>
+                      <option id="rating">5 star</option>
                       </select>
                       <button type="submit" class="btn btn-primary" style="background-color:#400080">Post</button>
                       </p>
