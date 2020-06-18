@@ -59,11 +59,9 @@ def index():
 # Login Page
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
        username = request.form.get("username")
        password = request.form.get("password")
-
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            #abrir seçao
@@ -76,6 +74,8 @@ def login():
     else:
          return render_template("login.html")
 
+
+#create new user
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -95,7 +95,7 @@ def register():
        else:
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
-            session['user'].append(username)
+            session['user']= username
             print("Usuário registrado:" , [username] )
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
@@ -161,7 +161,7 @@ def bookspage(ISBN):
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
         #Saving a new review
-        
+
         if db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone() is None:
             try:
