@@ -221,7 +221,7 @@ def bookspage(ISBN):
             return render_template("Alerts.html", tipo="alert alert-danger", message="não entrei no post" , NewUrl="/bookspage" )
 
         print("Nao consegui nada:", [review], [rating] , [myISBN],[ username])
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                     book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
 
