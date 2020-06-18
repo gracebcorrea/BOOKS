@@ -94,6 +94,9 @@ If the requested ISBN number isn’t in your database, your website should retur
 						<td>{{ review.review }}</td>
 			    </tr>
 				{% endfor %}
+  {%else%}
+      <p> There are no reviews for this book. </p>
+
   {%endif%}
 			</table>
 
