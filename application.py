@@ -124,7 +124,7 @@ def search():
 
 # Review Page
 
-
+@app.route("/bookspage", methods=["GET", "POST"])
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
     print("Pesquisar:", [ISBN])
@@ -185,10 +185,7 @@ def bookspage(ISBN):
         #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
         if reviews is not None:
-            return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
-                    book=book, reviews=reviews, isbn=API_isbn,
-                    ratings_count = API_ratings_count, reviews_count=API_reviews_count,
-                    average_rating=API_Av_Rating , username=username)
+            return render_template("/bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
 
         #Treat the new review and rating
@@ -196,13 +193,12 @@ def bookspage(ISBN):
             username = session['user']
             review=request.form.get("review")
             rating=request.form.get("rating")
-
-            return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d, NewUrl="/search")
-
+            print("What I have to save:"  , [review], [rating] , [myISBN],[ username])
             #Saving a new review
             NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
             if NewReview is none:
+                print("Trying to save:"  , [review], [rating] , [myISBN],[ username])
                 try:
                    db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                    {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
@@ -212,6 +208,7 @@ def bookspage(ISBN):
                 except:
                    return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
             else:
+                print("Trying to save:"  , [review], [rating] , [myISBN],[ username])
                 try:
                    db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                    {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
