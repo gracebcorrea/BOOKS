@@ -79,22 +79,28 @@ If the requested ISBN number isn’t in your database, your website should retur
 <p></p>
 <div action="{{ url_for('bookspage') }}" method="post"  class="flex-container" style="padding:20px">
     <div class="row">
-        <div class="col-3 ">
-             <h2 style="padding:30">Your Review:</h2>
+        <div class="col-8 ">.
+           <form class="form-group">
+            <label for="mybox">  <h2>Your Review:</h2>   </label>
+            <textarea class="form-control" id="mybox" rows="10" name="review" style="width:100%" placeholder=" Please share your opinion here">
+            </textarea>
+          </form>
         </div>
-        <div class="col-6 ">.
-            <textarea class="form-control" rows="10" name="review" style="width:100%" placeholder=" Please share your opinion here"></textarea>
-        </div>
-        <div class="col-3 ">
-            <form  class="d-flex flex-column-reverse" style="padding:30" >
-               <select name="rating" style="width:70%" >
+        <div class="col-4 " style="padding:30px">
+            <h2>How many stars?</h2>
+            <form  class="d-flex flex-column-reverse">
+              <p>
+              <button type="submit" class="btn btn-primary" style="background-color:#400080; width:100%">Post Review</button>
+              </p>
+               <p>
+               <select name="rating" style="padding:20px; width:100%" >
                <option name="rating" id="rating">1 star</option>
                <option name="rating" id="rating">2 star</option>
                <option name="rating" id="rating">3 star</option>
                <option name="rating" id="rating">4 star</option>
                <option name="rating" id="rating">5 star</option>
-               </select>
-               <button type="submit" class="btn btn-primary" style="background-color:#400080; width:70%">Give Stars</button>
+               </select>  </p>
+
            </form>
         </div>
   </div>
