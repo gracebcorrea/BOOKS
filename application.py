@@ -50,12 +50,9 @@ username = ""
 @app.route("/")
 def index():
     if session.get('user') is None:
-        session['user'] = []
         return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
     else:
-        request.method == 'POST'
-        username= request.form.get("username")
-        session['user'].append(username)
+        username=session['user']
         return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
 
@@ -115,7 +112,7 @@ def search():
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
-        print("sessão register:" ,session['user'] )
+        print("sessão search:" ,session['user'] )
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
@@ -128,11 +125,9 @@ def search():
 @app.route("/bookspage/<string:ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
-         =False
-        session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-         = True
+        username=session['user']
 
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
