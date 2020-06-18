@@ -110,6 +110,7 @@ def search():
         return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us",  NewUrl="/login")
 
     if request.method == "POST":
+        username = session['user']
         print("sessão search:" , [username])
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
@@ -131,48 +132,60 @@ def bookspage(ISBN):
     else:
         username=session['user']
 
-        #Getting Goodreads API data:"
-        res = requests.get("https://www.goodreads.com/book/review_counts.json",
-                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})#.json() #["books"][0]
 
-        if 'json' in res.headers.get('Content-Type'):
-              js = res.json()
-        else:
-            print('Response content is not in JSON format.')
-            js = 'spam'
-
-        #Check if API is working
-        #return(res.json())
-        API_Av_Rating = js.average_rating
-        #API_Av_Rating = res["average_rating"]
-        API_id = res.id
-        #API_id = res["id"]
-        API_isbn= res.isbn
-        #API_isbn= res["isbn"]
-        API_isbn13= res.isbn13
-        #API_isbn13= res["isbn13"]
-        API_ratings_count = res.ratings_count
-        #API_ratings_count = res["ratings_count"]
-        API_reviews_count = res.reviews_count
-        #API_reviews_count = res[ "reviews_count"]
-        API_text_reviews_count = res.text_reviews_count
-        #API_text_reviews_count = res["text_reviews_count"]
-        API_work_ratings_count = res.work_ratings_count
-        #API_work_ratings_count = res["work_ratings_count"]
-        API_work_reviews_count =res.work_reviews_count
-        #API_work_reviews_count =res["work_reviews_count"]
-        API_work_text_reviews_count = res.work_text_reviews_count
-        #API_work_text_reviews_count = res["work_text_reviews_count"]
-        #Getting book query
-        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":API_isbn}).fetchone()
+        #Getting book query from database
+        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": ISBN}).fetchone()
         if book is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.")
 
-        #Getting Review query for the book
-        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": API_isbn}).fetchall()
 
+        #Getting Goodreads API data:"
+        goodreads=[]
+        goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
+                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
+
+        #Check if API is working
+        #return(goodreads.json())
+
+        #exemple
+        # { "books": [ {
+        #"average_rating": "4.42",
+        #"id": 25494343,
+        #"isbn": "1442468351",
+        #"isbn13": "9781442468351",
+        #"ratings_count": 137430,
+        #"reviews_count": 370450,
+        #"text_reviews_count": 14395,
+        #"work_ratings_count": 155150,
+        #"work_reviews_count": 405313,
+        #"work_text_reviews_count": 17119 } ]
+        #}
+
+
+        API_Av_Rating =""
+        API_id = ""
+        API_isbn= ""
+        API_ratings_count =""
+        API_reviews_count = ""
+
+        try:
+           goodreads = goodreads.json()
+           goodreads = goodreads["books"][0]
+
+           API_Av_Rating = goodreads["average_rating"]
+           API_id = goodreads["id"]
+           API_isbn= goodreads["isbn"]
+           API_ratings_count =goodreads["ratings_count"]
+           API_reviews_count = goodreads["reviews_count"]
+
+        except ValueError:
+           print("Response content is not valid JSON")
+
+
+        #Getting Review query for the book
+        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": ISBN}).fetchall()
         if reviews is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.")
+            return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.",NewUrl="/search" )
 
         else:
             return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
@@ -247,13 +260,13 @@ if __name__ == "__main__":
 
 #@app.route("/res")
 #def res():
-#    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+#    goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
 #                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
-#    return(res.json())
+#    return(goodreads.json())
 
 
-#@app.route("/res")
-#def res():
-#    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+#@app.route("/goodreads")
+#def goodreads():
+#    goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
 #                        params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": "9781632168146"})
-#    return(res.json())
+#    return(goodreads.json())
