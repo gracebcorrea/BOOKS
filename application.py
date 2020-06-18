@@ -125,7 +125,7 @@ def search():
 # Review Page
 
 
-@app.route("/bookspage/<string:ISBN>", methods=["GET", "POST"])
+@app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
 
     if session.get('user') is None:
@@ -186,7 +186,7 @@ def bookspage(ISBN):
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": API_isbn}).fetchall()
         if reviews is not None:
             return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
-                    book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
+                    book=book, reviews=reviews,ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
 
         #Treat the new review and rating
