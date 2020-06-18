@@ -147,7 +147,7 @@ def bookspage(ISBN):
         #Check if API is working
         #return(goodreads.json())
 
-        #exemple
+        #fields exemple
         # { "books": [ {
         #"average_rating": "4.42",
         #"id": 25494343,
@@ -158,7 +158,7 @@ def bookspage(ISBN):
         #"text_reviews_count": 14395,
         #"work_ratings_count": 155150,
         #"work_reviews_count": 405313,
-        #"work_text_reviews_count": 17119 } ]
+        #"work_text_reviews_count": 17119 }]
         #}
 
 
@@ -209,18 +209,16 @@ def bookspage(ISBN):
 
                 except:
                    return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
-
+            else:
+                try:
+                   db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
+                   {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
+                   db.commit()
+                   return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Updated!" )
+                except:
+                   return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username)
         else:
-            try:
-                db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
-                {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
-                db.commit()
-               return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Updated" )
-
-            except:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username)
-
-
+            return render_template("Alerts.html", tipo="alert alert-danger", message="não entrei no post" , NewUrl="/bookspage" )
 
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
