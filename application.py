@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
+app.secret_key= "project1"
 
 #connect database on bash
 # source venv/Scripts/activate      (ativar ambiente virutal - toda vez que entrar no bash)
@@ -50,15 +51,12 @@ username = ""
 def index():
     if session.get('user') is None:
         session['user'] = []
-        session['logged']= []
         return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
-
     else:
         request.method == 'POST'
         username= request.form.get("username")
         session['user'].append(username)
-        session['logged'].append(True)
-        return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" )
+        return render_template("index.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
 
 # Login Page
@@ -72,13 +70,11 @@ def login():
        #check if the user exists on the base
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            #abrir seçao
-           session['user'].append(username)
-           session['logged'].append(True)
-           print("sessão iniciada login:" , session['user'], session['logged'])
+           session['user']=username
+           print("sessão iniciada login:" , session['user'], )
            return render_template("search.html",Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
-           session['logged'] = False
 
     else:
          return render_template("login.html")
@@ -97,16 +93,13 @@ def register():
             return render_template("Alerts.html",tipo="alert alert-danger", message="This User is not new, try again or go to login page, ", username=username , NewUrl="/index")
 
        elif password != ckpassword:
-
             return render_template("Alerts.html",tipo="alert alert-danger", message="Passwords do no check, please try again, ", username=username , NewUrl="/register")
             session.clear()
        else:
             db.execute("INSERT INTO users (username, password) VALUES (:username, :password)" , { "username" : username, "password": password } )
             db.commit()
-
             session['user'].append(username)
-            session['logged'].append(True)
-            print("sessão iniciada register:" , session['user'], session['logged'])
+                   print("sessão iniciada register:" , session['user'], )
             return render_template("Alerts.html",tipo="alert alert-success", message="You joined us with sucess:", username=session['user'], NewUrl="/search")
     else:
         return render_template("register.html")
@@ -116,15 +109,13 @@ def register():
 @app.route("/search", methods=['GET', 'POST'])
 def search():
     if session.get('user') is None:
-        session['logged'] =False
-        return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us", username=username , NewUrl="/index")
+        return render_template("Alerts.html", tipo="alert alert-danger", message="You are not logged, please login or join us",  NewUrl="/login")
 
     if request.method == "POST":
-        session['logged']=True
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
-        print("sessão register:" ,session['user'], session['logged'])
+        print("sessão register:" ,session['user'] )
     else:
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
@@ -137,11 +128,11 @@ def search():
 @app.route("/bookspage/<string:ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
     if session.get('user') is None:
-        session['logged'] =False
+         =False
         session['user'] = ""
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
-        session['logged'] = True
+         = True
 
         #Getting Goodreads API data:"
         res = requests.get("https://www.goodreads.com/book/review_counts.json",
@@ -190,12 +181,20 @@ def bookspage(ISBN):
 
 
 
+#check sessions
+@app.route('/user')
+def user():
+    if 'user' in session:
+        username = session['user']
+        return f"<h1>username<h1>"
+    else:
+        return redirect(url_for('login'))
 
 
 #Logout: Logged in users should be able to log out of the site.
 @app.route('/logout')
 def logout():
-    session['logged'] = False
+     = False
     session['user'] = ""
     # clear user credentials
     session.clear()
