@@ -61,11 +61,11 @@ If the requested ISBN number isn’t in your database, your website should retur
                  <p></p>
             <form action="{{ url_for('bookspage') }}" method="POST" class="d-flex flex-column-reverse">
                  <p> <select name="rating" >
-                      <option id="rating">1 star</option>
-                      <option id="rating">2 star</option>
-                      <option id="rating">3 star</option>
-                      <option id="rating">4 star</option>
-                      <option id="rating">5 star</option>
+                      <option name="rating" id="rating">1 star</option>
+                      <option name="rating" id="rating">2 star</option>
+                      <option name="rating" id="rating">3 star</option>
+                      <option name="rating" id="rating">4 star</option>
+                      <option name="rating" id="rating">5 star</option>
                       </select>
                       <button type="submit" class="btn btn-primary" style="background-color:#400080">Post</button>
                       </p>
