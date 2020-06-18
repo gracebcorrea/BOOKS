@@ -53,6 +53,12 @@
     <strong>WARNING:!</strong> {{ message }} {{username}}.
     </div>
 {% endif %}
+{% if tipo == "alert alert-warning" %}
+    <div class="alert alert-warning">
+    <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
+    <strong>Teste de variáveis:!</strong> {{a}}, {{b}}, {{c }}, {{d}}.
+    </div>
+{% endif %}
 
 <script>
 function Myredirect()
