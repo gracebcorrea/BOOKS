@@ -143,18 +143,26 @@ def bookspage(ISBN):
 
         #Check if API is working
         #return(res.json())
-
-        API_Av_Rating = res["average_rating"]
-        API_id = res["id"]
-        API_isbn= res["isbn"]
-        API_isbn13= res["isbn13"]
-        API_ratings_count = res["ratings_count"]
-        API_reviews_count = res[ "reviews_count"]
-        API_text_reviews_count = res["text_reviews_count"]
-        API_work_ratings_count = res["work_ratings_count"]
-        API_work_reviews_count =res["work_reviews_count"]
-        API_work_text_reviews_count = res["work_text_reviews_count"]
-
+        API_Av_Rating = js.average_rating
+        #API_Av_Rating = res["average_rating"]
+        API_id = res.id
+        #API_id = res["id"]
+        API_isbn= res.isbn
+        #API_isbn= res["isbn"]
+        API_isbn13= res.isbn13
+        #API_isbn13= res["isbn13"]
+        API_ratings_count = res.ratings_count
+        #API_ratings_count = res["ratings_count"]
+        API_reviews_count = res.reviews_count
+        #API_reviews_count = res[ "reviews_count"]
+        API_text_reviews_count = res.text_reviews_count
+        #API_text_reviews_count = res["text_reviews_count"]
+        API_work_ratings_count = res.work_ratings_count
+        #API_work_ratings_count = res["work_ratings_count"]
+        API_work_reviews_count =res.work_reviews_count
+        #API_work_reviews_count =res["work_reviews_count"]
+        API_work_text_reviews_count = res.work_text_reviews_count
+        #API_work_text_reviews_count = res["work_text_reviews_count"]
         #Getting book query
         book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn":API_isbn}).fetchone()
         if book is None:
