@@ -127,16 +127,16 @@ def search():
 @app.route("/bookspage")
 @app.route("/bookspage/<string:ISBN>", methods=['GET', 'POST'])
 def bookspage(ISBN):
+
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
         username=session['user']
 
-
         #Getting book query from database
         book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": ISBN}).fetchone()
         if book is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.")
+            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.", NewUrl="/search" )
 
 
         #Getting Goodreads API data:"
