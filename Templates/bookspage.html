@@ -79,29 +79,21 @@ If the requested ISBN number isn’t in your database, your website should retur
 <p></p>
 <div action="{{ url_for('bookspage') }}" method="post"  class="flex-container" style="padding:20px">
     <div class="row">
-        <div class="col-8 ">.
+        <div class="col-7 ">.
            <form class="form-group">
             <label for="mybox">  <h2>Your Review:</h2>   </label>
-            <textarea class="form-control" id="mybox" rows="10" name="review" style="width:100%" placeholder=" Please share your opinion here">
+            <textarea class="form-control" id="review" name="review" rows="10"  style="width:100%" placeholder=" Please share your opinion here">
             </textarea>
           </form>
         </div>
-        <div class="col-4 " style="padding:30px">
-            <h2>How many stars?</h2>
-            <form  class="d-flex flex-column-reverse">
-              <p>
-              <button type="submit" class="btn btn-primary" style="background-color:#400080; width:100%">Post Review</button>
-              </p>
-               <p>
-               <select name="rating" style="padding:20px; width:100%" >
-               <option name="rating" id="rating">1 star</option>
-               <option name="rating" id="rating">2 star</option>
-               <option name="rating" id="rating">3 star</option>
-               <option name="rating" id="rating">4 star</option>
-               <option name="rating" id="rating">5 star</option>
-               </select>  </p>
-
-           </form>
+        <div class="col-5 " style="padding:30px">
+            <form class="form-inline" action="{{ url_for('bookspage')}}"  method="post" >
+               <div class="container">
+                     <h4> From 1 to 5 how much did you like the book? </h4>
+                     <input class="form-control" name="rating" id="rating" placeholder="1 I Hated! - 5 I loved it!" required style="width:100%">
+                     <button type="submit" class="btn btn-primary" style="background-color:#400080; width:100%"   >Post</button>
+              </div>
+            </form>
         </div>
   </div>
 
