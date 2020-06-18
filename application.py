@@ -124,8 +124,8 @@ def search():
 
 # Review Page
 
-@app.route("/bookspage")
-@app.route("/bookspage/<string:ISBN>", methods=['GET', 'POST'])
+@app.route("/bookspage" , methods=["GET", "POST"])
+@app.route("/bookspage/<string:ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
 
     if session.get('user') is None:
@@ -188,12 +188,12 @@ def bookspage(ISBN):
             return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
+
+        #Treat the new review and rating
         if request.method == "POST":
             username = session['user']
             review=request.form.get("review")
             rating=request.form.get("rating")
-
-            print(f"sessão tentando salvar" , [username])
 
             return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d, NewUrl="/search")
 
