@@ -124,7 +124,7 @@ def search():
 
 # Review Page
 
-@app.route("/bookspage" , methods=["GET", "POST"])
+
 @app.route("/bookspage/<string:ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
 
