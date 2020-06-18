@@ -73,42 +73,35 @@ If the requested ISBN number isn’t in your database, your website should retur
     </div>
 </div>
 
-<style>
-#mybox {
-  box-sizing: content-box;
-  width: 300px;
-  height: 100px;
-  padding: 30px;
-  border: 1px solid #400080;
-}
-</style>
 
+
+
+<p></p>
 <div action="{{ url_for('bookspage') }}" method="post"  class="flex-container" style="padding:20px">
-  <div class="row"  width="6000px" >
-    <div class="col-lg-4"  id="mybox" >
-         <h3 style="font-weight:bold ; paddind: 5px">Your Review:</h3>
-    </div>
-    <div class="col-lg-4" width="1000px"   >
-        <div class="form-group"  >
-          <form>
-            <textarea class="form-control" rows="10" name="review" placeholder=" Please share your opinion here"></textarea>
-          </form>
+    <div class="row">
+        <div class="col-3 ">
+             <h2 style="padding:30">Your Review:</h2>
         </div>
+        <div class="col-6 ">.
+            <textarea class="form-control" rows="10" name="review" style="width:100%" placeholder=" Please share your opinion here"></textarea>
+        </div>
+        <div class="col-3 ">
+            <form  class="d-flex flex-column-reverse" style="padding:30" >
+               <select name="rating" style="width:70%" >
+               <option name="rating" id="rating">1 star</option>
+               <option name="rating" id="rating">2 star</option>
+               <option name="rating" id="rating">3 star</option>
+               <option name="rating" id="rating">4 star</option>
+               <option name="rating" id="rating">5 star</option>
+               </select>
+               <button type="submit" class="btn btn-primary" style="background-color:#400080; width:70%">Give Stars</button>
+           </form>
+        </div>
+  </div>
+
+    <p>  {{message_salvar_alterar}}</p>
+
     </div>
-    <div class="col-lg-4"  >
-        <form   class="d-flex flex-column-reverse"  >
-            <p> <select name="rating" >
-                <option name="rating" id="rating">1 star</option>
-                <option name="rating" id="rating">2 star</option>
-                <option name="rating" id="rating">3 star</option>
-                <option name="rating" id="rating">4 star</option>
-                <option name="rating" id="rating">5 star</option>
-                </select>
-                <button type="submit" class="btn btn-primary" style="background-color:#400080; width:70%">Give Stars</button>
-            </p>
-            <p>  {{message_salvar_alterar}}</p>
-        </form>
-     </div>
   </div>
 </div>
 
