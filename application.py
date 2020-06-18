@@ -117,6 +117,7 @@ def search():
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
 
     else:
+        username = session['user']
         return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
 
 
@@ -136,7 +137,7 @@ def bookspage(ISBN):
         #Getting book query from database
         book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": ISBN}).fetchone()
         if book is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.", NewUrl="/search" )
+            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.", NewUrl="/search" , username=username)
 
 
         #Getting Goodreads API data:"
@@ -188,23 +189,25 @@ def bookspage(ISBN):
             return render_template("Alerts.html", tipo="alert alert-danger", message="There are no reviews for thsi book here. Please  try again.",NewUrl="/search" )
 
         else:
-            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
+            return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
+            rating=request.form.get("rating")
+            review=request.form.get("review")
 
-        rating=request.form.get("rating")
-        review=request.form.get("review")
+
+
+        return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d)
 
         #Saving a new review
         NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
 
 
-        return render_template("Alerts.html", tipo="alert alert-warning", review =a, rating= b, isbn= c, username=d)
-
         if NewReview is none:
             try:
                 db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                 {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
+                db.commit()
             except:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
 
@@ -212,11 +215,11 @@ def bookspage(ISBN):
             try:
                 db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                 {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
-
+                db.commit()
             except:
                 return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username)
 
-        db.commit()
+
 
         return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
