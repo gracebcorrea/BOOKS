@@ -187,28 +187,29 @@ def bookspage(ISBN):
         if reviews is not None:
             return render_template("/bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
-        print("Tentando Incluir:", [ISBN])
+        print("Tentando Incluir:", [API_isbn])
         #Treat the new review and rating
         if request.method == "POST":
             username = session['user']
-            review=request.form.get("review")
+            myISBN=API_isbn
+            Newreview=request.form.get("Newreview")
             rating=request.form.get("rating")
-            print("What I have to save:"  , [review], [rating] , [myISBN],[ username])
+            print("What I have to save:"  , [Newreview], [rating] , [myISBN],[ username])
             #Saving a new review
-            NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
+            MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
-            if NewReview is none:
-                print("Trying to save:"  , [review], [rating] , [myISBN],[ username])
+            if MyReview is none:
+                print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
                 try:
                    db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
-                   {"isbn": API_isbn, "review": review , "rating": rating, "username": username})
+                   {"isbn": API_isbn, "review": Newreview= , "rating": rating, "username": username})
                    db.commit()
                   # return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Saved!" )
 
                 except:
                    return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with INSERT, please ty again" , username = username)
             else:
-                print("Trying to save:"   [review], [rating] , [myISBN],[ username])
+                print("Trying to UPDATE:"   [Newreview], [rating] , [myISBN],[ username])
 
                 try:
                    db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
