@@ -127,14 +127,14 @@ def search():
 
 @app.route("/bookspage/<string:ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
-    ISBN=ISBN
+
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
         username=session['user']
-
+        myISBN=ISBN
         #Getting book query from database
-        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": ISBN}).fetchone()
+        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": myISBN}).fetchone()
         if book is None:
             return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.", NewUrl="/search" , username=username)
 
@@ -142,7 +142,7 @@ def bookspage(ISBN):
         #Getting Goodreads API data:"
         goodreads=[]
         goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
-                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": ISBN})
+                            params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": myISBN})
 
         #Check if API is working
         #return(goodreads.json())
@@ -183,7 +183,7 @@ def bookspage(ISBN):
 
 
         #Getting Review query for the book
-        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": ISBN}).fetchall()
+        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": API_isbn}).fetchall()
         if reviews is not None:
             return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
                     book=book, reviews=reviews, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
