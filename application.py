@@ -113,12 +113,10 @@ def search():
         print(f"sessao search:" , [username])
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
-        if results is not None:
+        if len(results):
             return render_template("search.html", results=results , Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username)
         else:
-            procuraisbn = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn ", {"isbn":SQLquerry }).fetchone()
-            if procuraisbn is None:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="404 Not Found - This ISBN is not in Database",  NewUrl="/search")
+            return render_template("Alerts.html", tipo="alert alert-danger", message="404 Not Found - This ISBN  is not in Database",  NewUrl="/search")
     else:
         username = session['user']
         return render_template("search.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username )
@@ -185,7 +183,7 @@ def bookspage(ISBN):
 
         #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
-        if reviews is not None:
+        if len(reviews):
             return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
                                   book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count,
                                   reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
@@ -201,7 +199,7 @@ def bookspage(ISBN):
             #Saving a new review
             MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
-            if MyReview is none:
+            if  len(MyReview) is none:
                 print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
                 try:
                    db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
