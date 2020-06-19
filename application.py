@@ -127,108 +127,108 @@ def search():
 # Review Page
 
 @app.route("/bookspage", methods=["GET", "POST"])
+#def bookspage():
+#    return("bookspage.html")
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
     if session.get('user') is None:
-        return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
-    else:
-        username=session['user']
-        myISBN=ISBN
-        print("sessao bookspage" , [ISBN],[username] )
-        #Getting book query from database
-        book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": myISBN}).fetchone()
+           return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
 
-        #Getting Goodreads API data:"
-        goodreads=[]
-        goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
+    username=session['user']
+    myISBN=ISBN
+    print("sessao bookspage:" , [ISBN],[username] )
+    #Getting book query from database
+    book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": myISBN}).fetchone()
+    #Getting Goodreads API data:"
+    goodreads=[]
+    goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
                             params={"key": "vELE3rrO4BMGthbgfBiKA", "isbns": myISBN})
 
-        #Check if API is working
-        #return(goodreads.json())
+    #Check if API is working
+    #return(goodreads.json())
+    #fields exemple
+    # { "books": [ {
+    #"average_rating": "4.42",
+    #"id": 25494343,
+    #"isbn": "1442468351",
+    #"isbn13": "9781442468351",
+    #"ratings_count": 137430,
+    #"reviews_count": 370450,
+    #"text_reviews_count": 14395,
+    #"work_ratings_count": 155150,
+    #"work_reviews_count": 405313,
+    #"work_text_reviews_count": 17119 }]
+    #}
 
-        #fields exemple
-        # { "books": [ {
-        #"average_rating": "4.42",
-        #"id": 25494343,
-        #"isbn": "1442468351",
-        #"isbn13": "9781442468351",
-        #"ratings_count": 137430,
-        #"reviews_count": 370450,
-        #"text_reviews_count": 14395,
-        #"work_ratings_count": 155150,
-        #"work_reviews_count": 405313,
-        #"work_text_reviews_count": 17119 }]
-        #}
+    API_Av_Rating =""
+    API_id = ""
+    API_isbn= ""
+    API_ratings_count =""
+    API_reviews_count = ""
+    try:
+       goodreads = goodreads.json()
+       goodreads = goodreads["books"][0]
+       API_Av_Rating = goodreads["average_rating"]
+       API_id = goodreads["id"]
+       API_isbn= goodreads["isbn"]
+       API_ratings_count =goodreads["ratings_count"]
+       API_reviews_count = goodreads["reviews_count"]
 
-
-        API_Av_Rating =""
-        API_id = ""
-        API_isbn= ""
-        API_ratings_count =""
-        API_reviews_count = ""
-
-        try:
-           goodreads = goodreads.json()
-           goodreads = goodreads["books"][0]
-
-           API_Av_Rating = goodreads["average_rating"]
-           API_id = goodreads["id"]
-           API_isbn= goodreads["isbn"]
-           API_ratings_count =goodreads["ratings_count"]
-           API_reviews_count = goodreads["reviews_count"]
-
-        except ValueError:
-           print(f"Response content is not valid JSON")
+    except ValueError:
+        print(f"Response content is not valid JSON")
 
 
-        #Getting Review query for the book
-        reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
-        if len(reviews):
-            return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
+    #Getting Review query for the book
+    reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
+    if len(reviews):
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
                                   book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count,
                                   reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
+        print("sessao bookspage" , [ISBN],[username], [API_reviews_count],[API_reviews_count] )
+
+
         #Treat the new review and rating
-        if request.method == "POST":
-            username = session['user']
-            myISBN=API_isbn
-            ISBN=API_isbn
-            Newreview=request.form.get("Newreview")
-            rating=request.form.get("rating")
-            print("Estou  no  POST" ,[username] , [API_isbn], [Newreview],[rating])
+        def UpdateReview():
+
+            if request.method == "POST":
+                username = session['user']
+                myISBN=API_isbn
+                Newreview=request.form.get("Newreview")
+                rating=request.form.get("rating")
+                print("Inside  POST" ,[username] , [API_isbn], [Newreview],[rating])
 
 
-            #Saving / updating a new review:
-            MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
-                      {"username": username, "isbn": API_isbn}).fetchone()
+                #Saving / updating a new review:
+                MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
+                              {"username": username, "isbn": API_isbn}).fetchone()
 
-            if  len(MyReview):
-                print("Trying to UPDATE:"   [Newreview], [rating] , [myISBN],[ username])
-                try:
-                   db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
+                if len(MyReview):
+                    print("Trying to UPDATE:"   [Newreview], [rating] , [myISBN],[ username])
+
+                    try:
+                        db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                               {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
-                   db.commit()
-                   return render_template("Alerts.html", tipo="alert alert-sucess", message="Review Updated, Thank You!" , username = username, NewUrl="search")
+                        db.commit()
+                        return render_template("Alerts.html", tipo="alert alert-sucess", message="Review Updated, Thank You!" , username = username, NewUrl="search")
+                    except:
+                        return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username,NewUrl="bookspage")
+                else:
+                    print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
+                    try:
+                        db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
+                             {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
+                        db.commit()
+                        return render_template("Alerts.html", tipo="alert alert-sucess", message="New Review Saved, Thank You!" , username = username, NewUrl="search")
 
-                except:
-                   return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username,NewUrl="search")
+                    except:
+                        return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="bookspage" )
 
-            else:
-                print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
-                try:
-                   db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
-                   {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
-                   db.commit()
-                   return render_template("Alerts.html", tipo="alert alert-sucess", message="New Review Saved, Thank You!" , username = username, NewUrl="search")
-
-                except:
-                   return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="bookspage" )
-
-        else:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="não entrei no post" , NewUrl="bookspage" )
-
-        print("Nao consegui nada:", [Newreview], [rating] , [myISBN],[ username])
-        return render_template("search.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username)
+                return render_template("bookspage.html")
+    else:
+        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
+                              book=book, isbn=API_isbn, ratings_count = API_ratings_count,
+                              reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username, msgrev ="No reviews to show")
 
 
 
