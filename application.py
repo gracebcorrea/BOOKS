@@ -127,7 +127,6 @@ def search():
 @app.route("/bookspage", methods=["GET", "POST"])
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
-    print("Pesquisar:", [ISBN])
     if session.get('user') is None:
         return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
@@ -185,7 +184,9 @@ def bookspage(ISBN):
         #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
         if reviews is not None:
-            return render_template("/bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
+            print(f"review is not none")
+            return render_template("/bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
+                                  book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
         #Treat the new review and rating
         if request.method == "POST":
