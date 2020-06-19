@@ -32,62 +32,58 @@ If the requested ISBN number isn’t in your database, your website should retur
 <h2> About the Book you selected: </h2>
 <!--margin-left:50px; margin-right:50px; class="flex-container" -->
 
-<div action="{{ url_for('bookspage') }}" class="flex-container" >
-    <div class="row"  width="3500px" >
-      <!--Book Info-->
-        <div class="col-lg-4"  style="" >
-            <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
-               <h4 style="padding: 15px"> Title: {{book.title}}</h4>
-               <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
-               <h4 style="padding: 15px"> Author: {{book.author}}</h4>
-               <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
-        </div>
-      <!-- API info-->
-        <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
-            <h3 style="font-weight:bold ; padding: 15px">Book Details:</h3>
-                 <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
-                 <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
-                 <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
-        </div>
-        <!--Show other reviews for this book-->
-        <div class="col-lg-4"  width="1000px"  >
-        	   {% if reviews and reviews|length > 0 %}
-        	     	<div class="form-group">
-        		  	<table class="table">
-        				<thead>
-        					<tr>
-        						<th scope="col">Rating </th>
-          					<th scope="col">Review</th>
-                  </tr>
-        				</thead>
-        			  {% for review in reviews %}
+<div action="{{ url_for('bookspage') }}" method="post" class="flex-container" >
+  <div class="row"  width="3500px" >
+  <!--Book Info-->
+    <div class="col-lg-4"  style="" >
+      <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
+         <h4 style="padding: 15px"> Title: {{book.title}}</h4>
+         <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
+         <h4 style="padding: 15px"> Author: {{book.author}}</h4>
+         <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
+    </div>
+    <!-- API info-->
+    <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
+        <h3 style="font-weight:bold ; padding: 15px">Book Details:</h3>
+          <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
+          <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
+          <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
+    </div>
+    <!--Show other reviews for this book-->
+    <div class="col-lg-4"  width="1000px"  >
+       {% if reviews and reviews|length > 0 %}
+         	<div class="form-group">
+      		  	<table class="table">
+      				<thead>
+    					<tr>
+                <th scope="col">Rating </th>
+          			<th scope="col">Review</th>
+              </tr>
+        			</thead>
+        			{% for review in reviews %}
         					<tr>
         						<td>{{ review.rating }}</td>
         						<td>{{ review.review }}</td>
         			    </tr>
-        		   	{% endfor %}
-                {%else%}
-                     <p style="padding:20px"> There are no reviews for this book. </p>
-                {%endif%}
-        			  </table>
+        		  {% endfor %}
+              {%else%}
+                 <p style="padding:20px"> There are no reviews for this book. </p>
+              {%endif%}
+        			</table>
+          </div>
     </div>
-</div>
 
-
-
-
-<p></p>
-<div  class="flex-container" style="padding:20px">
+    <p></p>
     <div class="row">
         <div class="col-7 ">.
-           <form class="form-group" action="{{ url_for('bookspage') }}" method="post" >
+           <form class="form-group"   >
             <label for="mybox">  <h2>Your Review:</h2>   </label>
             <textarea class="form-control" id="Newreview" name="Newreview" rows="10"  style="width:100%" placeholder=" Please share your opinion here" required>
             </textarea>
           </form>
         </div>
         <div class="col-5 " style="padding:30px">
-            <form class="form-inline" action="{{ url_for('bookspage') }}" method="post"  >
+            <form class="form-inline"   >
                <div class="container">
                      <h4> From 1 to 5 how much did you like the book? </h4>
                      <input class="form-control" name="rating" id="rating" placeholder="1 I Hated! - 5 I loved it!" style="width:100%" required>
@@ -98,7 +94,7 @@ If the requested ISBN number isn’t in your database, your website should retur
         </div>
   </div>
 
-    <p>  {{message_salvar_alterar}}</p>
+  <p>  {{message_salvar_alterar}}</p>
 
     </div>
   </div>
