@@ -66,7 +66,7 @@ def login():
        if db.execute("SELECT * FROM users WHERE username = :username and password = :password", {"username": username, "password": password}).rowcount == 1:
            #abrir seçao
            session['user']=username
-           print(f"sessão iniciada login:" , [username] )
+           print(f"sessao iniciada login:" , [username] )
            return render_template("search.html",Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
@@ -110,7 +110,7 @@ def search():
 
     if request.method == "POST":
         username = session['user']
-        print(f"sessão search:" , [username])
+        print(f"sessao search:" , [username])
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         return render_template("search.html", results=results , Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
@@ -132,11 +132,9 @@ def bookspage(ISBN):
     else:
         username=session['user']
         myISBN=ISBN
+        print("sessao bookspage" , [ISBN],[username] )
         #Getting book query from database
         book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": myISBN}).fetchone()
-        if book is None:
-            return render_template("Alerts.html", tipo="alert alert-danger", message="There is no information for this book here. Please  try again.", NewUrl="/search" , username=username)
-
 
         #Getting Goodreads API data:"
         goodreads=[]
@@ -184,8 +182,9 @@ def bookspage(ISBN):
         #Getting Review query for the book
         reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
         if reviews is not None:
-            return render_template("/bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
-                                  book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
+            return render_template("bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T",
+                                  book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count,
+                                  reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
         #Treat the new review and rating
         if request.method == "POST":
@@ -194,7 +193,7 @@ def bookspage(ISBN):
             ISBN=API_isbn
             Newreview=request.form.get("Newreview")
             rating=request.form.get("rating")
-
+            print("Estou  no  POST" ,[username] , [API_isbn], [Newreview],[rating])
             #Saving a new review
             MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                       {"username": username, "isbn": API_isbn}).fetchone()
@@ -215,7 +214,7 @@ def bookspage(ISBN):
                    db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                    {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
                    db.commit()
-                    return render_template("Alerts.html", tipo="alert alert-sucess", message="Review Updated, Thank You!" , username = username, NewUrl="search")
+                   return render_template("Alerts.html", tipo="alert alert-sucess", message="Review Updated, Thank You!" , username = username, NewUrl="search")
 
                 except:
                    return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username,NewUrl="search")
