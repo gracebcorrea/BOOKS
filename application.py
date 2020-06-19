@@ -187,7 +187,6 @@ def bookspage(ISBN):
         if reviews is not None:
             return render_template("/bookspage.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
 
-        print("Tentando Incluir:", [API_isbn])
         #Treat the new review and rating
         if request.method == "POST":
             username = session['user']
@@ -202,7 +201,7 @@ def bookspage(ISBN):
                 print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
                 try:
                    db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
-                   {"isbn": API_isbn, "review": Newreview= , "rating": rating, "username": username})
+                   {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
                    db.commit()
                   # return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Saved!" )
 
@@ -213,7 +212,7 @@ def bookspage(ISBN):
 
                 try:
                    db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
-                   {"review": review, "rating": rating, "username": username, "isbn": API_isbn})
+                   {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
                    db.commit()
                  #  return render_template("bookspage.html", tipo="alert alert-sucess", message_salvar_alterar="Review Updated!" )
                 except:
@@ -221,9 +220,8 @@ def bookspage(ISBN):
         else:
             return render_template("Alerts.html", tipo="alert alert-danger", message="não entrei no post" , NewUrl="/bookspage" )
 
-        print("Nao consegui nada:", [review], [rating] , [myISBN],[ username])
-        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T" ,
-                    book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
+        print("Nao consegui nada:", [Newreview], [rating] , [myISBN],[ username])
+        return render_template("search.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T", username=username)
 
 
 
