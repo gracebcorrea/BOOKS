@@ -35,7 +35,7 @@ If the requested ISBN number isn’t in your database, your website should retur
 <div action="{{ url_for('bookspage') }}" method="post" class="flex-container" >
   <div class="row"  width="3500px" >
        <!--Book Info-->
-       <div class="col-lg-4"  style="" >
+       <div class="col-lg-4"  width="1000px" >
            <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
            <h4 style="padding: 15px"> Title: {{book.title}}</h4>
            <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
@@ -43,8 +43,8 @@ If the requested ISBN number isn’t in your database, your website should retur
            <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
        </div>
        <!-- API info-->
-       <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
-           <h3 style="font-weight:bold ; padding: 15px">Book Details:</h3>
+       <div class="col-lg-4"   style="background-color:#cc99ff; width:1000px">
+           <h3 style="font-weight:bold ; padding:15px">Book Details:</h3>
            <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
            <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
            <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
@@ -61,55 +61,52 @@ If the requested ISBN number isn’t in your database, your website should retur
                     </tr>
           		  	</thead>
           		  	{% for review in reviews %}
-         			 	 	<tr>
-         				  		<td>{{ review.rating }}</td>
-         				  		<td>{{ review.review }}</td>
-         			     </tr>
+         			    	 	<tr>
+         				     		<td>{{ review.rating }}</td>
+         				  		  <td>{{ review.review }}</td>
+         			        </tr>
+                  {% endfor %}
                 </table>
               </div>
-         		      {% endfor %}
+
         {%else%}
-                 <p style="padding:20px"> There are no reviews for this book. </p>
+              <p>
+                 {{msgrev}}
+              </p>
         {%endif%}
-
-
         </div>
-
-    <p></p>
-    <div class="row">
-        <div class="col-7 ">.
-           <form class="form-group"   >
-            <label for="mybox">  <h2>Your Review:</h2>   </label>
-            <textarea class="form-control" id="Newreview" name="Newreview" rows="10"  style="width:100%" placeholder=" Please share your opinion here" required>
-            </textarea>
-          </form>
-        </div>
-        <div class="col-5 " style="padding:30px">
-            <form class="form-inline"   >
-               <div class="container">
-                     <h4> From 1 to 5 how much did you like the book? </h4>
-                     <input class="form-control" name="rating" id="rating" placeholder="1 I Hated! - 5 I loved it!" style="width:100%" required>
-                     <button type="submit" class="btn btn-primary" onclick="saidaqui()"  style="background-color:#400080; width:100%"   >Post</button>
-
-              </div>
-            </form>
-           </div>
-       </div>
-
-          <p>  {{message_salvar_alterar}}</p>
-
-    </div>
+   </div>
 </div>
+<!--Review form-->
+
+
+<div class="container" action="{{ url_for('UpdateReview', id='rating' , id='Newreview')}}" method="post">
+  <div class="row">
+      <div class="col-lg-7">
+          <form>
+             <label style="font-size: 22px">  Your Review: </label>
+             <textarea class="form-control" id="Newreview"  rows="10"  style="width:100%" placeholder="Please share your thougts" required>
+             </textarea>
+          </form>
+      </div>
+      <div class="col-lg-5">
+          <form class="form-inline" >
+                   <h4> From 1 to 5 how much did you like the book? </h4>
+                   <input class="form-control"  id="rating" placeholder="1 I Hated! - 5 I loved it!" style="width:100%" required>
+                   <button type="submit" class="btn btn-primary" onclick="saidaqui()"  style="background-color:#400080; width:100%">Post</button>
+          </form>
+          <p>  {{message_salvar_alterar}}</p>
+       </div>
+  </div>
+
+</div>
+
 <script>
 
-    function saidaqui()
-       {
-
-         Alert("Salvando dados")
+    function saidaqui(){
+         Alert("Salvando dados");
          window.location.replace("Search.html");
        }
-
-
 
  </script>
 
