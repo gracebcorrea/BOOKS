@@ -34,44 +34,46 @@ If the requested ISBN number isn’t in your database, your website should retur
 
 <div action="{{ url_for('bookspage') }}" method="post" class="flex-container" >
   <div class="row"  width="3500px" >
-  <!--Book Info-->
-    <div class="col-lg-4"  style="" >
-      <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
-         <h4 style="padding: 15px"> Title: {{book.title}}</h4>
-         <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
-         <h4 style="padding: 15px"> Author: {{book.author}}</h4>
-         <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
-    </div>
-    <!-- API info-->
-    <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
-        <h3 style="font-weight:bold ; padding: 15px">Book Details:</h3>
-          <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
-          <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
-          <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
-    </div>
-    <!--Show other reviews for this book-->
-    <div class="col-lg-4"  width="1000px"  >
-       {% if reviews and reviews|length > 0 %}
-         	<div class="form-group">
-      		  	<table class="table">
-      				<thead>
-    					<tr>
-                <th scope="col">Rating </th>
-          			<th scope="col">Review</th>
-              </tr>
-        			</thead>
-        			{% for review in reviews %}
-        					<tr>
-        						<td>{{ review.rating }}</td>
-        						<td>{{ review.review }}</td>
-        			    </tr>
-        		  {% endfor %}
-              {%else%}
+       <!--Book Info-->
+       <div class="col-lg-4"  style="" >
+           <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
+           <h4 style="padding: 15px"> Title: {{book.title}}</h4>
+           <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
+           <h4 style="padding: 15px"> Author: {{book.author}}</h4>
+           <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
+       </div>
+       <!-- API info-->
+       <div class="col-lg-4"  width="1000px"  style="background-color:#cc99ff">
+           <h3 style="font-weight:bold ; padding: 15px">Book Details:</h3>
+           <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
+           <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
+           <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
+       </div>
+        <!--Show other reviews for this book-->
+        <div class="col-lg-4"  width="1000px"  >
+        {% if reviews and reviews|length > 0 %}
+           	<div class="form-group">
+        		  	<table class="table">
+        			  	<thead>
+    	  			    	<tr>
+                    <th scope="col">Rating </th>
+            	  		<th scope="col">Review</th>
+                    </tr>
+          		  	</thead>
+          		  	{% for review in reviews %}
+         			 	 	<tr>
+         				  		<td>{{ review.rating }}</td>
+         				  		<td>{{ review.review }}</td>
+         			     </tr>
+                </table>
+              </div>
+         		      {% endfor %}
+        {%else%}
                  <p style="padding:20px"> There are no reviews for this book. </p>
-              {%endif%}
-        			</table>
-          </div>
-    </div>
+        {%endif%}
+
+
+        </div>
 
     <p></p>
     <div class="row">
@@ -87,17 +89,28 @@ If the requested ISBN number isn’t in your database, your website should retur
                <div class="container">
                      <h4> From 1 to 5 how much did you like the book? </h4>
                      <input class="form-control" name="rating" id="rating" placeholder="1 I Hated! - 5 I loved it!" style="width:100%" required>
-                     <button type="submit" class="btn btn-primary" style="background-color:#400080; width:100%"   >Post</button>
+                     <button type="submit" class="btn btn-primary" onclick="saidaqui()"  style="background-color:#400080; width:100%"   >Post</button>
 
               </div>
             </form>
-        </div>
-  </div>
+           </div>
+       </div>
 
-  <p>  {{message_salvar_alterar}}</p>
+          <p>  {{message_salvar_alterar}}</p>
 
     </div>
-  </div>
 </div>
+<script>
+
+    function saidaqui()
+       {
+
+         Alert("Salvando dados")
+         window.location.replace("Search.html");
+       }
+
+
+
+ </script>
 
 {% endblock %}
