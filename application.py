@@ -135,12 +135,7 @@ def bookspage(ISBN):
     else:
         username=session['user']
 
-    if request.method == 'POST':
-        ISBN = request.form[book.isbn]
-        return redirect(url_for('bookspage',ISBN = ISBN))
-    else:
-        ISBN = request.args.get('ISBN')
-        return render_template('/')
+
 
     myISBN=(ISBN)
 
@@ -203,8 +198,7 @@ def bookspage(ISBN):
     print("sessao bookspage" , [API_isbn],[username], [API_reviews_count],[API_reviews_count] )
         #Treat the new review and rating
 
-@app.route("/bookspage", methods=["GET", "POST"])
-def MyReview():
+
     #if request.method == "POST":
     username = session['user']
     Newreview=request.form.get("Newreview")
