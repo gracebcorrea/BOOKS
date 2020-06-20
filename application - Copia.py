@@ -4,6 +4,7 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.routing import Map, Rule, NotFound, RequestRedirect
 
 
 
@@ -50,10 +51,10 @@ username = ""
 @app.route("/")
 def index():
     if session.get('user') is None:
-        return render_template("index.html", Search="F", Bookspage="F", Login="T", NewUser="T" ,logout="F" )
+        return render_template("index.html", Search="F", Login="T", NewUser="T" ,logout="F" )
     else:
         username=session['user']
-        return render_template("index.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username )
+        return render_template("index.html", Search="T", Login="F", NewUser="F", Logout="T", username=username )
 
 
 # Login Page
@@ -67,7 +68,7 @@ def login():
            #abrir seçao
            session['user']=username
            print(f"sessao iniciada login:" , [username] )
-           return render_template("search.html",Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username )
+           return render_template("search.html",Search="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
 
@@ -114,12 +115,12 @@ def search():
         SQLquerry = "%"+request.form.get("SQLquerry")+"%"
         results = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn OR title LIKE :title OR author LIKE :author OR year LIKE :year)", {"isbn":SQLquerry, "title":SQLquerry, "author":SQLquerry, "year":SQLquerry}).fetchall()
         if len(results):
-            return render_template("search.html", results=results , Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username)
+            return render_template("search.html", results=results , Search="T", Login="F", NewUser="F", Logout="T", username=username)
         else:
             return render_template("Alerts.html", tipo="alert alert-danger", message="404 Not Found - This ISBN  is not in Database",  NewUrl="/search")
     else:
         username = session['user']
-        return render_template("search.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username )
+        return render_template("search.html", Search="T", Login="F", NewUser="F", Logout="T", username=username )
 
 
 
@@ -127,16 +128,25 @@ def search():
 # Review Page
 
 @app.route("/bookspage", methods=["GET", "POST"])
-#def bookspage():
-#    return("bookspage.html")
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
-def bookspage(ISBN):
+def bookspage():
     if session.get('user') is None:
            return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
+    else:
+        username=session['user']
 
-    username=session['user']
-    myISBN=ISBN
-    print("sessao bookspage:" , [ISBN],[username] )
+    if request.method == 'POST':
+        ISBN = request.form[book.isbn]
+        return redirect(url_for('bookspage',ISBN = ISBN))
+    else:
+        ISBN = request.args.get('ISBN')
+        return render_template('bookspage.html')
+
+
+
+    myISBN=(ISBN)
+
+
     #Getting book query from database
     book = db.execute("SELECT * FROM books WHERE (isbn LIKE :isbn)", {"isbn": myISBN}).fetchone()
     #Getting Goodreads API data:"
@@ -177,57 +187,63 @@ def bookspage(ISBN):
     except ValueError:
         print(f"Response content is not valid JSON")
 
-
+    print("sessao bookspage looking for reviews:" , [myISBN],[username] )
     #Getting Review query for the book
     reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
     if len(reviews):
-        return render_template("bookspage.html", Search="T", Bookspage="T", Login="F", NewUser="F", Logout="T",
-                                  book=book, reviews=reviews, isbn=API_isbn, ratings_count = API_ratings_count,
-                                  reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username)
-
-        print("sessao bookspage" , [ISBN],[username], [API_reviews_count],[API_reviews_count] )
-        #Treat the new review and rating
-        
-        if request.method == "POST":
-            username = session['user']
-            myISBN=API_isbn
-            ISBN=API_isbn
-            Newreview=request.form.get("Newreview")
-            rating=request.form.get("rating")
-            print("Inside  POST" ,[username] , [API_isbn], [Newreview],[rating])
-
-
-            #Saving / updating a new review:
-            MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
-                      {"username": username, "isbn": API_isbn}).fetchone()
-
-            if  len(MyReview):
-                print("Trying to UPDATE:"   [Newreview], [rating] , [myISBN],[ username])
-
-                try:
-                   db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
-                              {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
-                   db.commit()
-                   return render_template("Alerts.html", tipo="alert alert-sucess", message="Review Updated, Thank You!" , username = username, NewUrl="search")
-
-                except:
-                   return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username,NewUrl="bookspage")
-
-            else:
-                print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
-                try:
-                   db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
-                   {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
-                   db.commit()
-                   return render_template("Alerts.html", tipo="alert alert-sucess", message="New Review Saved, Thank You!" , username = username, NewUrl="search")
-
-                except:
-                   return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="bookspage" )
+        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
+                                  book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+                                  average_rating=API_Av_Rating , reviews=reviews,username=username)
+        flash("Reading Reviews")
 
     else:
-        print("Nao consegui nada:", [Newreview], [rating] , [myISBN],[ username])
-        return render_template("search.html", Search="T", Bookspage="F", Login="F", NewUser="F", Logout="T", username=username)
+        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
+                                  book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+                                 average_rating=API_Av_Rating , username=username, msgrev = "No reviews for this book")
 
+
+    print("sessao bookspage" , [API_isbn],[username], [API_reviews_count],[API_reviews_count] )
+        #Treat the new review and rating
+
+@app.route("/bookspage", methods=["GET", "POST"])
+def MyReview():
+    #if request.method == "POST":
+    username = session['user']
+    Newreview=request.form.get("Newreview")
+    rating=int(request.form.get("rating"))
+    print("Inside  POST" ,[username] , [API_isbn], [Newreview],[rating])
+
+
+        #Saving / updating a new review:
+    MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
+                          {"username": username, "isbn": API_isbn}).fetchone()
+
+    if len(MyReview):
+        print("Trying to UPDATE:"   [Newreview], [rating] , [API_isbn],[ username])
+
+        try:
+            db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
+                          {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
+            db.commit()
+            flash('You already submitted a review for this book , updating', 'warning')
+        except:
+            return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username,NewUrl="search")
+    else:
+        print("Trying to SAVE:"  , [Newreview], [rating] , [myISBN],[ username])
+        try:
+            db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
+                         {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
+            db.commit()
+        except:
+                return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="bookspage" )
+
+    reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": myISBN}).fetchall()
+    if len(reviews):
+        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
+                                  book=book,isbn=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+                                  average_rating=API_Av_Rating , reviews=reviews,username=username)
+
+    return render_template("search.html")
 
 
 #check sessions
@@ -259,7 +275,7 @@ def logout():
 if __name__ == "__main__":
     with app.app_context():
         main()
-
+        app.run()
 
 #API original
 
