@@ -127,21 +127,13 @@ def search():
 
 # Review Page
 
-@app.route("/bookspage", methods=["GET", "POST"])
+@app.route("/bookspage")
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
-def bookspage():
+def bookspage(ISBN):
     if session.get('user') is None:
            return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
     else:
         username=session['user']
-
-    if request.method == 'POST':
-        ISBN = request.form[book.isbn]
-        return redirect(url_for('bookspage',ISBN = ISBN))
-    else:
-        ISBN = request.args.get('ISBN')
-        return render_template('bookspage.html')
-
 
 
     myISBN=(ISBN)
