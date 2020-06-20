@@ -204,17 +204,17 @@ def bookspage(ISBN):
                db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                           {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
                db.commit()
-               print("Trying to UPDATE:"   [Newreview], [rating] , [API_isbn],[ username])
+               print("Trying to UPDATE:"  [username], [rating] , [API_isbn], [Newreview])
             except:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username, NewUrl="../search")
+                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username, NewUrl="/search")
         else:
             try:
-               print("Trying to SAVE:"  , [Newreview], [rating] , [API_isbn],[ username])
+               print("Trying to SAVE:" [username], [API_isbn] , [Newreview], [rating] )
                db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                          {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
                db.commit()
             except:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="../bookspage" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="/search" )
 
 
 
