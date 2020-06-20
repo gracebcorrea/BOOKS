@@ -32,7 +32,7 @@ If the requested ISBN number isn’t in your database, your website should retur
 <h2> About the Book you selected: </h2>
 <!--margin-left:50px; margin-right:50px; class="flex-container" -->
 
-<div  class="flex-container" >
+<div  class="flex-container"  action = "{{ url_for('bookspage')}}" method="get" >
   <div class="row"  width="3500px" >
        <!--Book Info-->
        <div class="col-lg-4"  width="1000px" >
@@ -80,7 +80,7 @@ If the requested ISBN number isn’t in your database, your website should retur
 
 
 
-  <div class = "row" action = "{{ url_for('bookspage')}}" >
+  <div class = "row" action = "{{ url_for('bookspage')}}" method="post" >
     <div class ="col-lg-7">
          <form   method = "post"  style = "padding:25px">
             <label for = "Newreview" style = "font-size: 22px">  Your Review: </label>
@@ -90,7 +90,7 @@ If the requested ISBN number isn’t in your database, your website should retur
      </div>
 
      <div class ="col-lg-5">
-         <form class ="form-inline" style ="padding:25px" method="post">
+         <form class ="form-inline" style ="padding:25px">
                         <h4> From 1 to 5 how much did you like the book? </h4>
                         <input class ="form-control"  id ="rating" name ="rating" placeholder = "1 I Hated! - 5 I loved it!" style="width:100%" required>
                         <button type ="submit" class="btn btn-primary"  style= "background-color:#400080; width:100%">Post</button>
