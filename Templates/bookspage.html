@@ -80,20 +80,20 @@ If the requested ISBN number isn’t in your database, your website should retur
 
 
 
-  <div class="row" action="{{ url_for('bookspage')}}" >
-    <div class="col-lg-7">
-         <form   method="post"  style="padding:25px">
-            <label for="Newreview" style="font-size: 22px">  Your Review: </label>
-            <textarea  class="form-control" id="Newreview" name="Newreview"  rows="5" cols="7" placeholder="Please share your thougts" required>
+  <div class = "row" action = "{{ url_for('bookspage')}}" >
+    <div class ="col-lg-7">
+         <form   method = "post"  style = "padding:25px">
+            <label for = "Newreview" style = "font-size: 22px">  Your Review: </label>
+            <textarea  class = "form-control" id ="Newreview" name ="Newreview"  rows ="5" cols="7" placeholder ="Please share your thougts" required>
             </textarea>
          </form>
      </div>
 
-     <div class="col-lg-5">
-         <form class="form-inline" style="padding:25px" method="post">
+     <div class ="col-lg-5">
+         <form class ="form-inline" style ="padding:25px" method="post">
                         <h4> From 1 to 5 how much did you like the book? </h4>
-                        <input class="form-control"  id="rating" name="rating" placeholder="1 I Hated! - 5 I loved it!" style="width:100%" required>
-                        <button type="submit" class="btn btn-primary"  style="background-color:#400080; width:100%">Post</button>
+                        <input class ="form-control"  id ="rating" name ="rating" placeholder = "1 I Hated! - 5 I loved it!" style="width:100%" required>
+                        <button type ="submit" class="btn btn-primary"  style= "background-color:#400080; width:100%">Post</button>
 
 
           </form>
