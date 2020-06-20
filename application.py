@@ -186,8 +186,8 @@ def bookspage(ISBN):
         #MyISBN = API_isbn
 
 
-        MyReview="Teste de insert, Insert Test, asfkasç~fka~fkas~fkas~fkas~ka~s, 123456"
-        Myrating = 4
+        MyReview="Teste de UPDATE, Insert Test, asfkasç~fka~fkas~fkas~fkas~ka~s, 123456"
+        Myrating = "4"
         MyISBN = "0142405787"
         MyUser = "username2"
 
@@ -195,7 +195,7 @@ def bookspage(ISBN):
 
         #API_ratings_count += 1
         #API_reviews_count += 1
-        print("vou gravar" ,[MyUser] , [MyISBN], [MyReview] , [Myrating])
+
 
 
         #Saving / updating a new review:
@@ -204,7 +204,7 @@ def bookspage(ISBN):
 
         if len(NewReview):
             try:
-               print("Trying to UPDATE   -> :" [MyISBN],  [MyReview] , [Myrating] , [MyUser] )
+               print("Trying to UPDATE   ->", [MyISBN],  [MyReview] , [Myrating] , [MyUser] )
 
                db.execute("UPDATE public.reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                           {'isbn' :MyISBN, 'review':MyReview, 'rating':Myrating, 'username':MyUser})
@@ -231,13 +231,13 @@ def bookspage(ISBN):
 
     if len(reviews):
         print("found" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html",Search="T",  Logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                   average_rating=API_Av_Rating , reviews=reviews,username=username)
 
 
     else:
         print("did not find" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html",Search="T",  Logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                  average_rating=API_Av_Rating , username=username, msgrev = "No reviews for this book")
 
 
