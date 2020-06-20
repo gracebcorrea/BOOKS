@@ -30,6 +30,9 @@
 .closebtn:hover {
   color: black;
 }
+
+
+
 </style>
 </head>
 <body>
@@ -42,14 +45,14 @@
      <span class="closebtn" onclick="Myredirect()"  id="message">&times;</span>
      <strong>ERROR !</strong> {{ message }} {{username}}.
      </div>
-     <p> <img class="rouded-circle"   src="static/avatar.jpg" alt="My avatar" >  </p>
+     <p> <img class="rouded-circle"   src="static/avatar.jpg" alt="My avatar" style="width=300px">  </p>
 {% endif %}
 {% if tipo == "alert alert-success" %}
       <div class="alert alert-success">
       <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
       <strong>SUCCESS!</strong> {{ message }} {{username}}.
      </div>
-     <p> <img class="rouded-circle"   src="static/MC2.jpg" alt="MC" >  </p>
+     <p> <img class="rouded-circle"   src="static/MC2.jpg" alt="MC" style="width=300px" >  </p>
 {% endif %}
 {% if tipo == "alert alert-primary" %}
     <div class="alert alert-primary">
