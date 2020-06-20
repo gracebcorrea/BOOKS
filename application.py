@@ -186,10 +186,10 @@ def bookspage(ISBN):
         #MyISBN = API_isbn
 
 
-        MyReview="Teste de UPDATE, Insert Test, asfkasç~fka~fkas~fkas~fkas~ka~s, 123456"
-        Myrating = "4"
-        MyISBN = "0142405787"
-        MyUser = "username2"
+        MyReview=str(request.form.get("Review"))
+        Myrating =str(request.form.get("rating"))
+        MyISBN = "0441013465"
+        MyUser = "seconduser@test.com"
 
 
 
@@ -210,22 +210,22 @@ def bookspage(ISBN):
                           {'isbn' :MyISBN, 'review':MyReview, 'rating':Myrating, 'username':MyUser})
                db.commit()
 
-               return render_template("Alerts.html",tipo="alert alert-success", message="New review saved with sucess:", username =session['user'], NewUrl="bookspage")
+               return render_template("Alerts.html",tipo="alert alert-success", message="UPDATE review saved with sucess:", username =session['user'], NewUrl="../search")
 
             except (Exception, psycopg2.DatabaseError) as error:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="UPDATE  "+error , username = username,NewUrl="/search" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message="UPDATE  "+error , username = username,NewUrl="../search" )
 
         else:
             try:
-               print("Trying to SAVE   -> :"  [MyISBN],  [MyReview] , [Myrating] , [MyUser] )
+               print("Trying to SAVE   -> :" , [MyISBN],  [MyReview] , [Myrating] , [MyUser] )
 
                db.execute("INSERT INTO reviews ( isbn, review , rating, username) VALUES (:isbn, :review, :rating, :username)",
                         {'isbn':MyISBN, 'review' :MyReview , 'rating' :Myrating, 'username' :MyUser})
                db.commit()
-               return render_template("Alerts.html",tipo="alert alert-success", message="New review saved with sucess:", username=session['user'], NewUrl="/search")
+               return render_template("Alerts.html",tipo="alert alert-success", message="INSERT review saved with sucess:", username=session['user'], NewUrl="../search")
 
             except (Exception, psycopg2.DatabaseError) as error:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="INSERT  "+error , username = username,NewUrl="/search" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message="INSERT  "+error , username = username,NewUrl="../search" )
 
 
 
