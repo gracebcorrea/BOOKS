@@ -45,7 +45,7 @@ If the requested ISBN number isn’t in your database, your website should retur
        <!-- API info-->
        <div class="col-lg-4"   style="background-color:#cc99ff; width:1000px">
            <h3 style="font-weight:bold ; padding:15px">Book Details:</h3>
-           <h4 style="padding: 10px"> Number of reviews: {{ ISBN }} </h4>
+           <h4 style="padding: 10px"> ISBN: {{ ISBN }} </h4>
            <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
            <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
            <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
@@ -78,7 +78,7 @@ If the requested ISBN number isn’t in your database, your website should retur
         </div>
    </div>
 
-<!--Review form-->MyReview
+
 
   <div class="row" action="{{ url_for('bookspage')}}" >
     <div class="col-lg-7">
