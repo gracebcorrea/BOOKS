@@ -5,7 +5,8 @@ Web Programming with Python and JavaScript
 The goal of this project is to show the knowledge acquired in lectures 2,3 and 4, obeying the rules stipulated for graduation of the project1.
 
 0)File Testcon.py
-  I created this file just to build enovironment and check connection with database
+  I created this file just to build enovironment and check connection with database.
+  passwords for use database and what to set in bash are on this file.
 
 1) File createtables.py
    Creates the necessary tables to meet the project:
@@ -37,5 +38,5 @@ The goal of this project is to show the knowledge acquired in lectures 2,3 and 4
       After login user can search a book from the database and list research results
 
 9) Bookspage.html
-      After serach the book and clik on the books name redirect to this page and Shows
+      After search the book and click on the books ISBN redirect to this page and Shows
       details from the book, also allow to make a review on the book.
