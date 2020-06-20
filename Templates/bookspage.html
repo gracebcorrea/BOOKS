@@ -32,7 +32,7 @@ If the requested ISBN number isn’t in your database, your website should retur
 <h2> About the Book you selected: </h2>
 <!--margin-left:50px; margin-right:50px; class="flex-container" -->
 
-<div action="{{ url_for('bookspage') }}" method="post" class="flex-container" >
+<div  class="flex-container" >
   <div class="row"  width="3500px" >
        <!--Book Info-->
        <div class="col-lg-4"  width="1000px" >
@@ -79,9 +79,9 @@ If the requested ISBN number isn’t in your database, your website should retur
 
 <!--Review form-->
 
-  <div class="row">
+  <div class="row" >
     <div class="col-lg-7">
-         <form style="padding:25px">
+         <form  action="{{ url_for('bookspage') }}" method="post"  style="padding:25px">
             <label for="Newreview" style="font-size: 22px">  Your Review: </label>
             <textarea  class="form-control" id="Newreview" name="Newreview"  rows="5" cols="7" placeholder="Please share your thougts" required>
             </textarea>
@@ -89,10 +89,12 @@ If the requested ISBN number isn’t in your database, your website should retur
      </div>
 
      <div class="col-lg-5">
-         <form class="form-inline" style="padding:25px">
+         <form class="form-inline" style="padding:25px" action="{{ url_for('bookspage'), }}" method="post">
                         <h4> From 1 to 5 how much did you like the book? </h4>
                         <input class="form-control"  id="rating" name="rating" placeholder="1 I Hated! - 5 I loved it!" style="width:100%" required>
-                        <button type="submit" class="btn btn-primary" onclick="saidaqui()"  style="background-color:#400080; width:100%">Post</button>
+                        <button type="submit" class="btn btn-primary" onclick="window.history.go(-1)"  style="background-color:#400080; width:100%">Post</button>
+
+
           </form>
           <p>  {{message_salvar_alterar}}</p>
       </div>
@@ -100,14 +102,5 @@ If the requested ISBN number isn’t in your database, your website should retur
   </div>
 </div>
 
-<script>
-
-    function saidaqui()
-    {
-         Alert("Salvando dados");
-         window.location.replace("Search.html");
-    }
-
- </script>
 
 {% endblock %}
