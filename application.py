@@ -186,10 +186,10 @@ def bookspage(ISBN):
         #MyISBN = API_isbn
 
 
-        MyReview=str(request.form.get("Review"))
-        Myrating =str(request.form.get("rating"))
-        MyISBN = "0441013465"
-        MyUser = "seconduser@test.com"
+        MyReview = str(request.form.get("Review"))
+        Myrating = str(request.form.get("rating"))
+        MyISBN = str(API_isbn)
+        MyUser = str(username)
 
 
 
