@@ -58,7 +58,7 @@ def login():
            print(f"sessao iniciada login:" , [username] )
            return render_template("search.html",Search="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
-           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
+           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="index")
 
     else:
          return render_template("login.html")
@@ -119,7 +119,7 @@ def search():
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
     if session.get('user') is None:
-           return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
+           return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="../login")
     else:
         username = session['user']
 
@@ -189,20 +189,22 @@ def bookspage(ISBN):
 
         if len(MyReview):
             try:
+               print("Trying to UPDATE:"  [username], [rating] , [API_isbn], [Newreview])
                db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
                           {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
                db.commit()
-               print("Trying to UPDATE:"  [username], [rating] , [API_isbn], [Newreview])
+               return render_template("Alerts.html",tipo="alert alert-success", message="New review saved with sucess:", username=session['user'], NewUrl="bookspage")
             except:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username, NewUrl="/search")
+                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username, NewUrl="bookspage")
         else:
             try:
                print("Trying to SAVE:" [username], [API_isbn] , [Newreview], [rating] )
                db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
                          {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
                db.commit()
+               return render_template("Alerts.html",tipo="alert alert-success", message="New review saved with sucess:", username=session['user'], NewUrl="../search")
             except:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="/search" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="../search" )
 
 
 
