@@ -114,7 +114,7 @@ def search():
 
 
 # Review Page
-
+@app.route("/")
 @app.route("/bookspage", methods=["GET", "POST"])
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
@@ -195,7 +195,7 @@ def bookspage(ISBN):
                db.commit()
                return render_template("Alerts.html",tipo="alert alert-success", message="New review saved with sucess:", username=session['user'], NewUrl="bookspage")
             except:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username, NewUrl="bookspage")
+                return (Exception)
         else:
             try:
                print("Trying to SAVE:" [username], [API_isbn] , [Newreview], [rating] )
@@ -204,21 +204,19 @@ def bookspage(ISBN):
                db.commit()
                return render_template("Alerts.html",tipo="alert alert-success", message="New review saved with sucess:", username=session['user'], NewUrl="../search")
             except:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="../search" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again  " , username = username,NewUrl="/search" )
 
 
 
     if len(reviews):
         print("found" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
-                                  book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                   average_rating=API_Av_Rating , reviews=reviews,username=username)
 
 
     else:
         print("did not find" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
-                                  book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                  average_rating=API_Av_Rating , username=username, msgrev = "No reviews for this book")
 
 
@@ -239,11 +237,12 @@ def logout():
     session['user'] = ""
     # clear user credentials
     session.clear()
+    # Redirect user to index form
+    return redirect(url_for('index'))
     #close connection
     db.close()
 
-    # Redirect user to index form
-    return redirect(url_for('index'))
+
 
 
 
