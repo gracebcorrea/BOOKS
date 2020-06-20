@@ -40,24 +40,28 @@
      <span class="closebtn" onclick="Myredirect()"  id="message">&times;</span>
      <strong>ERROR !</strong> {{ message }} {{username}}.
      </div>
+     <p> <img class="rouded-circle"   src="static/avatar.jpg" alt="My avatar" >  </p>
 {% endif %}
 {% if tipo == "alert alert-success" %}
       <div class="alert alert-success">
       <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
       <strong>SUCCESS!</strong> {{ message }} {{username}}.
      </div>
+     <p> <img class="rouded-circle"   src="static/MC2.jpg" alt="MC" >  </p>
 {% endif %}
 {% if tipo == "alert alert-primary" %}
     <div class="alert alert-primary">
     <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
     <strong>WARNING:!</strong> {{ message }} {{username}}.
     </div>
+     <p> <img class="rouded-circle"   src="static/MC2.jpg" alt="MC" >  </p>
 {% endif %}
 {% if tipo == "alert alert-warning" %}
     <div class="alert alert-warning">
     <span class="closebtn" onclick="Myredirect()" id="message">&times;</span>
     <strong>Teste de variáveis:!</strong> {{a}}, {{b}}, {{c }}, {{d}}.
     </div>
+    <p> <img class="rouded-circle"   src="static/avatar.jpg" alt="My avatar" >  </p>
 {% endif %}
 
 <script>
@@ -85,7 +89,7 @@ function Myredirect()
 </style>
 
 
-<p> <img class="rouded-circle"   src="static/avatar.jpg" alt="My avatar" >  </p>
+
 
 
 
