@@ -83,8 +83,7 @@ If the requested ISBN number isn’t in your database, your website should retur
   <div class ="flex-container" action = "{{ url_for('bookspage')}}"  >
        <form   method= "post"  style = "padding:25px">
             <label for = "Newreview" style = "font-size: 22px">  Your Review: </label>
-            <input type="text" class = "form-control" id ="review" name ="review"  rows ="5" cols="7" placeholder ="Please share your thougts" required>
-
+            <input  class = "form-control" id ="review" name ="review"   placeholder ="Please share your thougts required" style="width:100%">
        </form>
        <form  method= "post" class ="form-inline" style ="padding:15px">
                         <h4> From 1 to 5 how much did you like the book?            </h4>
