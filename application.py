@@ -188,8 +188,8 @@ def bookspage(ISBN):
     if request.method == "POST":
 
 
-        Newreview = request.form.get("Newreview")
-        rating = request.form.get("rating")
+        Newreview =str(request.form.get("Newreview"))
+        rating = int(request.form.get("rating"))
         API_ratings_count += 1
         API_reviews_count += 1
         print("vou gravar" ,[username] , [API_isbn], [Newreview] , [rating])
