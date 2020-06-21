@@ -18,10 +18,10 @@
        <!--Book Info-->
       <div class="col-lg-3"  width="900px" >
            <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
-           <h4 style="padding: 10px"> Title: {{book.title}}</h4>
-           <h4 style="padding: 10px"> ISBN : {{ ISBN }} </h4>
+           <h4 style="padding: 10px"> Title:  {{book.title}}</h4>
+           <h4 style="padding: 10px"> ISBN :  {{book.isbn }} </h4>
            <h4 style="padding: 10px"> Author: {{book.author}}</h4>
-           <h4 style="padding: 10px"> Year : {{ book.year}}</h4>
+           <h4 style="padding: 10px"> Year :  {{ book.year}}</h4>
       </div>
        <!-- API info-->
       <div class="col-lg-3"   style="background-color:#cc99ff; width:900px">
@@ -60,21 +60,20 @@
 </div>
 
 
-<!--Form for review submit-->
+<!--***************************Form for review submit***************************-->
 <style>
     form {border: 2px solid #330066;}
 
     textarea[type=text] {
-       width:90%;
-       padding: 12px 20px;
+       width:100%;
        margin: 8px 0;
-       rows:5;
+       /*rows=4*/
     }
 
     input[type=text] {
-    width: 30%;
-    padding: 12px 20px;
-    margin: 8px 0;
+
+       padding: 12px 20px;
+       margin: 8px 0;
     }
 
 
@@ -98,18 +97,16 @@
 </style>
 
 
+<div class ="flex-container" action = "{{ url_for('bookspage')}}" >
+    <form  method="post">
+        <label for="nreview"><b>Your Review </b></label><br>
+        <textarea class="form-control" id="nreview" name="nreview" placeholder="Place here your comments" required ></textarea>
 
-<form action="{{ url_for('bookspage')}}" method="post">
-  <div class="container">
-    <label for="nreview"><b>Your Review</b></label>
-    <textarea type="text" name="nreview" id="nreview" placeholder="Place here your comments" required >
-    </textarea><br>
-    <label for="nrating"><b>From 1 to 5 how much did you like the book ?</b></label>
-    <input type="text" name="nrating" id="nrating" placeholder="1 -> I Hated ; 5 -> I Loved" required >
-
-    <button type="submit" >Post</button>
-  </div>
-</form>
+        <label for="nrating"><b>From 1 to 5 how much did you like the book ?</b></label>
+        <input class="form-control"  id="nrating" name="nrating" placeholder="1 -> I Hated ; 5 -> I Loved" required  style="width:50px;" >
+        <button type="submit" >Post</button>
+    </form>
+</div>
 
 
 
