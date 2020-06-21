@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block title %}
+    CS50W Project 1: Books
+{% endblock %}
+
+{% block heading%}
+    {{username}},  can you help us by reviewing this book?
+{% endblock %}
+
+{% block body%}
+<h2> About the Book you selected: </h2>
+
+<div  class="flex-container" >
+  <div class="row"  width="3500px" >
+       <!--Book Info-->
+      <div class="col-lg-4"  width="1000px" >
+           <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
+           <h4 style="padding: 15px"> Title: {{book.title}}</h4>
+           <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
+           <h4 style="padding: 15px"> Author: {{book.author}}</h4>
+           <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
+      </div>
+       <!-- API info-->
+      <div class="col-lg-4"   style="background-color:#cc99ff; width:1000px">
+           <h3 style="font-weight:bold ; padding:15px">Book Details:</h3>
+           <h4 style="padding: 10px"> ISBN: {{ ISBN }} </h4>
+           <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
+           <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
+           <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
+      </div>
+        <!--Show other reviews for this book-->
+      <div class="col-lg-4"  width="1000px"  >
+          {% if reviews and reviews|length > 0 %}
+           	<div class="form-group">
+        		  	<table class="table">
+        			  	<thead>
+    	  			    	<tr>
+                    <th scope="col">Rating </th>
+            	  		<th scope="col">Review</th>
+                    </tr>
+          		  	</thead>
+          		  	{% for review in reviews %}
+         			    	 	<tr>
+         				     		<td>{{ review.rating }}</td>
+         				  		  <td>{{ review.review }}</td>
+         			        </tr>
+                  {% endfor %}
+                </table>
+              </div>
+
+          {%else%}
+              <p>
+                 {{msgrev}}
+              </p>
+          {%endif%}
+        </div>
+  </div>
+</div>
+
+
+<div class ="flex-container" action = "{{ url_for('bookspage')}}" >
+       <form  method= "post"  style = "padding:25px">
+            <label for="nreview" style = "font-size: 22px">  Your Review: </label>
+            <input type="text" class="form-control" id="nreview" name="nreview"   placeholder ="Please share your thougts required" style="width:100%">
+       </form>
+       <form  method= "post" class ="form-inline" style ="padding:15px">
+              <h4> From 1 to 5 how much did you like the book ? </h4>
+              <p></p>
+              <input type="text"  class ="form-control"  id ="nrating" name="nrating" placeholder = "1 -> I Hated! - 5 ->I loved it!" style="width:10%" required>
+              <button type ="submit" class="btn btn-primary"  style= "background-color:#400080; width:30%">Post</button>
+      </form>
+</div>
+{% endblock %}
