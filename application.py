@@ -180,19 +180,10 @@ def bookspage(ISBN):
 
     if request.method == "POST":
 
-        #Data to insert or update
-        #MyReview =request.form.get("Review")
-        #Myrating =request.form.get("rating")
-        #MyISBN = API_isbn
-
-
-        MyReview = str(request.form.get("Review"))
-        Myrating = str(request.form.get("rating"))
         MyISBN = str(API_isbn)
         MyUser = str(username)
-
-
-
+        MyReview = str(request.form.get("review"))
+        Myrating = str(request.form.get("rating"))
         #API_ratings_count += 1
         #API_reviews_count += 1
 
