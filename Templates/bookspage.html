@@ -16,23 +16,22 @@
 <div  class="flex-container" >
   <div class="row"  width="3500px" >
        <!--Book Info-->
-      <div class="col-lg-4"  width="1000px" >
+      <div class="col-lg-3"  width="900px" >
            <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
-           <h4 style="padding: 15px"> Title: {{book.title}}</h4>
-           <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
-           <h4 style="padding: 15px"> Author: {{book.author}}</h4>
-           <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
+           <h4 style="padding: 10px"> Title: {{book.title}}</h4>
+           <h4 style="padding: 10px"> ISBN : {{ ISBN }} </h4>
+           <h4 style="padding: 10px"> Author: {{book.author}}</h4>
+           <h4 style="padding: 10px"> Year : {{ book.year}}</h4>
       </div>
        <!-- API info-->
-      <div class="col-lg-4"   style="background-color:#cc99ff; width:1000px">
+      <div class="col-lg-3"   style="background-color:#cc99ff; width:900px">
            <h3 style="font-weight:bold ; padding:15px">Book Details:</h3>
-           <h4 style="padding: 10px"> ISBN: {{ ISBN }} </h4>
            <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
            <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
            <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
       </div>
         <!--Show other reviews for this book-->
-      <div class="col-lg-4"  width="1000px"  >
+      <div class="col-lg-6"  width="1200px"  >
           {% if reviews and reviews|length > 0 %}
            	<div class="form-group">
         		  	<table class="table">
@@ -56,38 +55,39 @@
                  {{msgrev}}
               </p>
           {%endif%}
-        </div>
+      </div>
   </div>
 </div>
 
 
 <!--Form for review submit-->
 <style>
-    body {font-family: Arial, Helvetica, sans-serif;}
-    form {border: 3px solid #330066;}
+    form {border: 2px solid #330066;}
 
-    .container {
-      padding: 10px;
-      Width: 70%;
-       }
+    textarea[type=text] {
+       width:90%;
+       padding: 12px 20px;
+       margin: 8px 0;
+       rows:5;
+    }
 
     input[type=text] {
-    width: 50%;
+    width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
     }
+
+
 
     button {
        background-color: #330066;
        color: white;
-       padding: 14px 20px;
+       padding: 12px 20px;
        margin: 8px 0;
        border: none;
        cursor: pointer;
-       width: 100%;
+       width: 30%;
+       display: inline-block;
      }
 
     button:hover {
@@ -102,10 +102,10 @@
 <form action="{{ url_for('bookspage')}}" method="post">
   <div class="container">
     <label for="nreview"><b>Your Review</b></label>
-    <textarea type="text" name="nreview" id="nreview" rows="4"required placeholder="Place here your comments" ><br>
-
+    <textarea type="text" name="nreview" id="nreview" placeholder="Place here your comments" required >
+    </textarea><br>
     <label for="nrating"><b>From 1 to 5 how much did you like the book ?</b></label>
-    <input type="text" name="nrating" id="nrating" required placeholder="1 -> I Hated ; 5 -> I Loved"  >
+    <input type="text" name="nrating" id="nrating" placeholder="1 -> I Hated ; 5 -> I Loved" required >
 
     <button type="submit" >Post</button>
   </div>
