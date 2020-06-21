@@ -246,14 +246,13 @@ def user():
 #Logout: Logged in users should be able to log out of the site.
 @app.route('/logout')
 def logout():
-    #Clear session
-    session.clear()
-
-    #close connection
-    db.close()
-
+    if 'user' in session:
+        del session['user']
+        return render_template("index.html", login="T" , logout="F" , register="T")
     # Redirect user to index form
-    return redirect(url_for('login'))
+
+
+#    return redirect(url_for('login'))
 
 
 
