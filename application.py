@@ -39,10 +39,10 @@ username = ""
 @app.route("/")
 def index():
     if session.get('user') is None:
-        return render_template("index.html", Search="F", Login="T", NewUser="T" ,logout="F" )
+        return render_template("index.html", search="F", login="T", NewUser="T" ,logout="F" )
     else:
         username=session['user']
-        return render_template("index.html", Search="T", Login="F", NewUser="F", Logout="T", username=username )
+        return render_template("index.html", search="T", login="F", NewUser="F", logout="T", username=username )
 
 
 # Login Page
@@ -56,7 +56,7 @@ def login():
            #abrir seçao
            session['user']=username
            print(f"sessao iniciada login:" , [username] )
-           return render_template("search.html",Search="T", Login="F", NewUser="F", Logout="T", username=username )
+           return render_template("search.html",search="T", login="F", NewUser="F", logout="T", username=username )
        else:
            return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="index")
 
@@ -108,7 +108,7 @@ def search():
             return render_template("Alerts.html", tipo="alert alert-danger", message="404 Not Found - This ISBN  is not in Database",  NewUrl="/search")
     else:
         username = session['user']
-        return render_template("search.html", Search="T", Login="F", NewUser="F", Logout="T", username=username )
+        return render_template("search.html", search="T", login="F", NewUser="F", logout="T", username=username )
 
 
 
@@ -174,7 +174,7 @@ def bookspage(ISBN):
 
     MyUser = ""
     MyReview=""
-    Myrating =0
+    Myrating =""
     MyISBN = ""
     MyUser = ""
 
@@ -221,13 +221,13 @@ def bookspage(ISBN):
 
     if len(reviews):
         print("found" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html",Search="T",  Logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html",index="T",search="T",  logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                   average_rating=API_Av_Rating , reviews=reviews,username=username)
 
 
     else:
         print("did not find" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html",Search="T",  Logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html",index="T",search="T",  logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                  average_rating=API_Av_Rating , username=username, msgrev = "No reviews for this book")
 
 
