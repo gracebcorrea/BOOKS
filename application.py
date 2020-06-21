@@ -182,8 +182,8 @@ def bookspage(ISBN):
 
         MyISBN = str(API_isbn)
         MyUser = str(username)
-        MyReview = str(request.form.get("review"))
-        Myrating = str(request.form.get("rating"))
+        MyReview = str(request.form.get("nreview"))
+        Myrating = str(request.form.get("nrating"))
         #API_ratings_count += 1
         #API_reviews_count += 1
 
@@ -204,7 +204,7 @@ def bookspage(ISBN):
                return render_template("Alerts.html",tipo="alert alert-success", message="UPDATE review saved with sucess:", username =session['user'], NewUrl="../search")
 
             except (Exception, psycopg2.DatabaseError) as error:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="UPDATE  "+error , username = username,NewUrl="../search" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message=error , username = "UPDATE" ,NewUrl="../search" )
 
         else:
             try:
@@ -216,7 +216,7 @@ def bookspage(ISBN):
                return render_template("Alerts.html",tipo="alert alert-success", message="INSERT review saved with sucess:", username=session['user'], NewUrl="../search")
 
             except (Exception, psycopg2.DatabaseError) as error:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="INSERT  "+error , username = username,NewUrl="../search" )
+               return render_template("Alerts.html", tipo="alert alert-danger", message=error , username = "INSERT  ",NewUrl="../search" )
 
 
 
@@ -246,13 +246,20 @@ def user():
 #Logout: Logged in users should be able to log out of the site.
 @app.route('/logout')
 def logout():
-    session['user'] = ""
-    # clear user credentials
-    session.clear()
-    # Redirect user to index form
-    return redirect(url_for('index'))
+
     #close connection
     db.close()
+    #Clear session
+    session.clear()
+    session.close()
+
+    # clear user credentials
+    session['user'] = ""
+
+    # Redirect user to index form
+    return redirect(url_for('index'))
+
+
 
 
 
