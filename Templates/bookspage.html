@@ -67,27 +67,42 @@
     textarea[type=text] {
        width:100%;
        margin: 8px 0;
-       /*rows=4*/
+
     }
 
     input[type=text] {
-
+       width: 70px;
        padding: 12px 20px;
        margin: 8px 0;
+       width:60px;
+       display: inline-block;
     }
 
 
 
-    button {
+    button[type=submit]{
        background-color: #330066;
        color: white;
        padding: 12px 20px;
        margin: 8px 0;
        border: none;
        cursor: pointer;
-       width: 30%;
+       width: 100px;
        display: inline-block;
      }
+
+     button[type=cancelbtnbutton]{
+        background-color: red;
+        color: white;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100px;
+        display: inline-block;
+      }
+
+
 
     button:hover {
        opacity: 0.8;
@@ -101,14 +116,22 @@
     <form  method="post">
         <label for="nreview"><b>Your Review </b></label><br>
         <textarea class="form-control" id="nreview" name="nreview" placeholder="Place here your comments" required ></textarea>
+        <form class="form-inline">
+            <label for="nrating"><b>From 1 to 5 how much did you like the book ?</b></label>
+            <input type="text" class="form-control"  id="nrating" name="nrating" placeholder="1 -> I Hated ; 5 -> I Loved" required  >
+            <button type="submit" >Post</button>
+        </form>
+        <button type="cancelbtnbutton" class="cancelbtn" id="cancel" onclick=gosearch()  width="100px;">Cancel
 
-        <label for="nrating"><b>From 1 to 5 how much did you like the book ?</b></label>
-        <input class="form-control"  id="nrating" name="nrating" placeholder="1 -> I Hated ; 5 -> I Loved" required  style="width:50px;" >
-        <button type="submit" >Post</button>
     </form>
 </div>
 
-
+<script>
+    function gosearch()
+       {
+        window.location.replace("../search");
+       }
+</script>
 
 
 
