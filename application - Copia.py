@@ -20,18 +20,6 @@ app.secret_key= "project1"
 #set or export DATABASE_URL="postgres://dgssjhgflgvwxj:b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740@ec2-34-198-243-120.compute-1.amazonaws.com:5432/d3ck6mm9jbc163"
 
 
-#connect db psycopg2 option
-#db = psycopg2.connect(
-#      host = "ec2-34-198-243-120.compute-1.amazonaws.com",
-#      user = "dgssjhgflgvwxj",
-#      password = "b7c2cd60be73f4127ca0dc1159d755dfebcf9881459a8885b2ec2ee4b2cf2740",
-#      database= "d3ck6mm9jbc163"
-#      )
-
-
-
-
-
 # Check for environment variable - begin
 if not os.getenv("DATABASE_URL"):
    raise RuntimeError("DATABASE_URL is not set")
@@ -70,7 +58,7 @@ def login():
            print(f"sessao iniciada login:" , [username] )
            return render_template("search.html",Search="T", Login="F", NewUser="F", Logout="T", username=username )
        else:
-           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="/index")
+           return render_template("Alerts.html",tipo="alert alert-primary", message="This User or E-mail is not valid, please try again or join us", username=username , NewUrl="index")
 
     else:
          return render_template("login.html")
@@ -126,12 +114,12 @@ def search():
 
 
 # Review Page
-
+@app.route("/")
 @app.route("/bookspage", methods=["GET", "POST"])
 @app.route("/bookspage/<ISBN>", methods=["GET", "POST"])
 def bookspage(ISBN):
     if session.get('user') is None:
-           return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="/login")
+           return render_template("Alerts.html",tipo="alert alert-danger", message="You are not logged, please login", NewUrl="../login")
     else:
         username = session['user']
 
@@ -184,51 +172,63 @@ def bookspage(ISBN):
     #Getting Review query for the book
     reviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": API_isbn}).fetchall()
 
+    MyUser = ""
+    MyReview=""
+    Myrating =0
+    MyISBN = ""
+    MyUser = ""
 
     if request.method == "POST":
 
+        MyISBN = str(API_isbn)
+        MyUser = str(username)
+        MyReview = str(request.form.get("Review"))
+        Myrating = str(request.form.get("rating"))
+        #API_ratings_count += 1
+        #API_reviews_count += 1
 
-        Newreview =str(request.form.get("Newreview"))
-        rating = int(request.form.get("rating"))
-        API_ratings_count += 1
-        API_reviews_count += 1
-        print("vou gravar" ,[username] , [API_isbn], [Newreview] , [rating])
 
 
         #Saving / updating a new review:
-        MyReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
-                          {"username": username, "isbn": API_isbn}).fetchall()
+        NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
+                          {"username": MyUser, "isbn": MyISBN}).fetchall()
 
-        if len(MyReview):
+        if len(NewReview):
             try:
-               db.execute("UPDATE reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
-                          {"review": Newreview, "rating": rating, "username": username, "isbn": API_isbn})
+               print("Trying to UPDATE   ->", [MyISBN],  [MyReview] , [Myrating] , [MyUser] )
+
+               db.execute("UPDATE public.reviews SET review = :review, rating = :rating WHERE username = :username AND isbn = :isbn",
+                          {'isbn' :MyISBN, 'review':MyReview, 'rating':Myrating, 'username':MyUser})
                db.commit()
-               print("Trying to UPDATE:"  [username], [rating] , [API_isbn], [Newreview])
-            except:
-                return render_template("Alerts.html", tipo="alert alert-danger", message="Something worng with UPDATE, please ty again" , username = username, NewUrl="/search")
+
+               return render_template("Alerts.html",tipo="alert alert-success", message="UPDATE review saved with sucess:", username =session['user'], NewUrl="../search")
+
+            except (Exception, psycopg2.DatabaseError) as error:
+               return render_template("Alerts.html", tipo="alert alert-danger", message="UPDATE  "+error , username = username,NewUrl="../search" )
+
         else:
             try:
-               print("Trying to SAVE:" [username], [API_isbn] , [Newreview], [rating] )
-               db.execute("INSERT INTO reviews ( isbn, review , rating, username, rating, ) VALUES (:isbn, :review, :rating, :username)",
-                         {"isbn": API_isbn, "review": Newreview , "rating": rating, "username": username})
+               print("Trying to SAVE   -> :" , [MyISBN],  [MyReview] , [Myrating] , [MyUser] )
+
+               db.execute("INSERT INTO reviews ( isbn, review , rating, username) VALUES (:isbn, :review, :rating, :username)",
+                        {'isbn':MyISBN, 'review' :MyReview , 'rating' :Myrating, 'username' :MyUser})
                db.commit()
-            except:
-               return render_template("Alerts.html", tipo="alert alert-danger", message="Something wrong with INSERT, please ty again" , username = username,NewUrl="/search" )
+               return render_template("Alerts.html",tipo="alert alert-success", message="INSERT review saved with sucess:", username=session['user'], NewUrl="../search")
+
+            except (Exception, psycopg2.DatabaseError) as error:
+               return render_template("Alerts.html", tipo="alert alert-danger", message="INSERT  "+error , username = username,NewUrl="../search" )
 
 
 
     if len(reviews):
         print("found" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
-                                  book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html",Search="T",  Logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                   average_rating=API_Av_Rating , reviews=reviews,username=username)
 
 
     else:
         print("did not find" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html", Search="T", Login="F", NewUser="F", Logout="T",
-                                  book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+        return render_template("bookspage.html",Search="T",  Logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
                                  average_rating=API_Av_Rating , username=username, msgrev = "No reviews for this book")
 
 
@@ -249,11 +249,12 @@ def logout():
     session['user'] = ""
     # clear user credentials
     session.clear()
+    # Redirect user to index form
+    return redirect(url_for('index'))
     #close connection
     db.close()
 
-    # Redirect user to index form
-    return redirect(url_for('index'))
+
 
 
 
