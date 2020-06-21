@@ -68,7 +68,7 @@ th,td{
 
 <form class="form-inline" action="{{ url_for('search')}}"  method="post" >
   <div class="container">
-       <h4> You can find your book typing Title or Author or ISBM: </h4>
+       <h4> You can find your book typing Title or Author or ISBN: </h4>
            <input class="form-control" name="SQLquerry" id="SQLquerry" placeholder="Search by Title, Author or ISBM" required style="width:60%">
            <button type="submit" class="btn btn-primary" style="background-color:#400080; width:30%"   >Search</button>
 
@@ -79,7 +79,7 @@ th,td{
 
 
 <h3>Here are your Results:</h3>
-<h5 style="text-align:center" >Please click on ISBM  code to see more and comment your impressions:</h5>
+<h5 style="text-align:center" >Please click on ISBN  code to see more and comment your impressions:</h5>
 
 <div class="form-group">
 	<form action="{{ url_for('search') }}" method="post" style="border:#400080">
