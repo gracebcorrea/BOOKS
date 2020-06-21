@@ -61,16 +61,60 @@
 </div>
 
 
-<div class ="flex-container" action = "{{ url_for('bookspage')}}" >
-       <form  method= "post"  style = "padding:25px">
-            <label for="nreview" style = "font-size: 22px">  Your Review: </label>
-            <input type="text" class="form-control" id="nreview" name="nreview"   placeholder ="Please share your thougts required" style="width:100%">
-       </form>
-       <form  method= "post" class ="form-inline" style ="padding:15px">
-              <h4> From 1 to 5 how much did you like the book ? </h4>
-              <p></p>
-              <input type="text"  class ="form-control"  id ="nrating" name="nrating" placeholder = "1 -> I Hated! - 5 ->I loved it!" style="width:10%" required>
-              <button type ="submit" class="btn btn-primary"  style= "background-color:#400080; width:30%">Post</button>
-      </form>
-</div>
+<!--Form for review submit-->
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    form {border: 3px solid #330066;}
+
+    .container {
+      padding: 10px;
+      Width: 70%;
+       }
+
+    input[type=text] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    }
+
+    button {
+       background-color: #330066;
+       color: white;
+       padding: 14px 20px;
+       margin: 8px 0;
+       border: none;
+       cursor: pointer;
+       width: 100%;
+     }
+
+    button:hover {
+       opacity: 0.8;
+    }
+
+
+</style>
+
+
+
+<form action="{{ url_for('bookspage')}}" method="post">
+  <div class="container">
+    <label for="nreview"><b>Your Review</b></label>
+    <textarea type="text" name="nreview" id="nreview" rows="4"required placeholder="Place here your comments" ><br>
+
+    <label for="nrating"><b>From 1 to 5 how much did you like the book ?</b></label>
+    <input type="text" name="nrating" id="nrating" required placeholder="1 -> I Hated ; 5 -> I Loved"  >
+
+    <button type="submit" >Post</button>
+  </div>
+</form>
+
+
+
+
+
+
+
 {% endblock %}
