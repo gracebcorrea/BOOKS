@@ -188,7 +188,6 @@ def bookspage(ISBN):
         #API_reviews_count += 1
 
 
-
         #Saving / updating a new review:
         NewReview  = db.execute("SELECT username FROM reviews WHERE username = :username AND isbn = :isbn",
                           {"username": MyUser, "isbn": MyISBN}).fetchall()
