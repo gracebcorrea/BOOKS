@@ -1,0 +1,100 @@
+<!--
+Book Page: When users click on a book from the results of the search page, they
+should be taken to a book page, with details about the book: its title, author,
+publication year, ISBN number, and any reviews that users have left for the book
+on your website.
+
+Review Submission: On the book page, users should be able to submit a review:
+consisting of a rating on a scale of 1 to 5, as well as a text component to the
+review where the user can write their opinion about a book. Users should not be
+able to submit multiple reviews for the same book.
+
+Goodreads Review Data: On your book page, you should also display (if available)
+the average rating and number of ratings the work has received from Goodreads.
+
+If the requested ISBN number isn’t in your database, your website should return a 404 error.
+-->
+
+
+<!DOCTYPE html>
+
+{% extends "layout.html" %}
+
+{% block title %}
+    CS50W Project 1: Books
+{% endblock %}
+
+{% block heading%}
+    {{username}},  can you help us by reviewing this book?
+{% endblock %}
+
+{% block body%}
+<h2> About the Book you selected: </h2>
+<!--margin-left:50px; margin-right:50px; class="flex-container" -->
+
+<div  class="flex-container" >
+  <div class="row"  width="3500px" >
+       <!--Book Info-->
+       <div class="col-lg-4"  width="1000px" >
+           <h3 style="font-weight:bold ; padding: 15px"> You chose:</h3>
+           <h4 style="padding: 15px"> Title: {{book.title}}</h4>
+           <h4 style="padding: 15px"> ISBN : {{ book.isbn}} </h4>
+           <h4 style="padding: 15px"> Author: {{book.author}}</h4>
+           <h4 style="padding: 15px"> Year : {{ book.year}}</h4>
+       </div>
+       <!-- API info-->
+       <div class="col-lg-4"   style="background-color:#cc99ff; width:1000px">
+           <h3 style="font-weight:bold ; padding:15px">Book Details:</h3>
+           <h4 style="padding: 10px"> ISBN: {{ ISBN }} </h4>
+           <h4 style="padding: 10px"> Number of reviews: {{ reviews_count }} </h4>
+           <h4 style="padding: 10px"> Number of ratings: {{ ratings_count }} </h4>
+           <h4 style="padding: 10px"> Average Rating: {{ average_rating }} </h4>
+       </div>
+        <!--Show other reviews for this book-->
+        <div class="col-lg-4"  width="1000px"  >
+        {% if reviews and reviews|length > 0 %}
+           	<div class="form-group">
+        		  	<table class="table">
+        			  	<thead>
+    	  			    	<tr>
+                    <th scope="col">Rating </th>
+            	  		<th scope="col">Review</th>
+                    </tr>
+          		  	</thead>
+          		  	{% for review in reviews %}
+         			    	 	<tr>
+         				     		<td>{{ review.rating }}</td>
+         				  		  <td>{{ review.review }}</td>
+         			        </tr>
+                  {% endfor %}
+                </table>
+              </div>
+
+        {%else%}
+              <p>
+                 {{msgrev}}
+              </p>
+        {%endif%}
+        </div>
+   </div>
+
+
+
+  <div class ="flex-container" action = "{{ url_for('bookspage')}}"  >
+       <form   method= "post"  style = "padding:25px">
+            <label for = "Newreview" style = "font-size: 22px">  Your Review: </label>
+            <input  class = "form-control" id ="review" name ="review"   placeholder ="Please share your thougts required" style="width:100%">
+       </form>
+       <form  method= "post" class ="form-inline" style ="padding:15px">
+                        <h4> From 1 to 5 how much did you like the book?            </h4>
+                        <p></p>
+                        <input class ="form-control"  id ="rating" name ="rating" placeholder = "1 -> I Hated! - 5 ->I loved it!" style="width:20%" required>
+                        <button type ="submit" class="btn btn-primary"  style= "background-color:#400080; width:80%">Post</button>
+                        <p>  {{message_salvar_alterar}}</p>
+       </form>
+
+  </div>
+</div>
+
+
+{% endblock %}
