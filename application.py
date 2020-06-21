@@ -174,7 +174,7 @@ def bookspage(ISBN):
 
     MyUser = ""
     MyReview=""
-    Myrating =""
+    Myrating =0
     MyISBN = ""
     MyUser = ""
 
@@ -200,7 +200,7 @@ def bookspage(ISBN):
                           {'isbn' :MyISBN, 'review':MyReview, 'rating':Myrating, 'username':MyUser})
                db.commit()
 
-               return render_template("Alerts.html",tipo="alert alert-success", message="UPDATE review saved with sucess:", username =username, NewUrl="../search")
+               return render_template("Alerts.html",tipo="alert alert-success", message="UPDATE review saved with sucess:", username =session['user'], NewUrl="../search")
 
             except (Exception, psycopg2.DatabaseError) as error:
                return render_template("Alerts.html", tipo="alert alert-danger", message=error , username = "UPDATE" ,NewUrl="../search" )
@@ -212,7 +212,7 @@ def bookspage(ISBN):
                db.execute("INSERT INTO reviews ( isbn, review , rating, username) VALUES (:isbn, :review, :rating, :username)",
                         {'isbn':MyISBN, 'review' :MyReview , 'rating' :Myrating, 'username' :MyUser})
                db.commit()
-               return render_template("Alerts.html",tipo="alert alert-success", message="INSERT review saved with sucess:", username=username, NewUrl="../search")
+               return render_template("Alerts.html",tipo="alert alert-success", message="INSERT review saved with sucess:", username=session['user'], NewUrl="../search")
 
             except (Exception, psycopg2.DatabaseError) as error:
                return render_template("Alerts.html", tipo="alert alert-danger", message=error , username = "INSERT  ",NewUrl="../search" )
@@ -221,18 +221,15 @@ def bookspage(ISBN):
 
     if len(reviews):
         print("found" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html",index="T",search="T",  logout="T", login="F", register="F" , bookspage="F" ,
-                                book=book, reviews=reviews, username=username,
-                                ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
-                                average_rating=API_Av_Rating )
+        return render_template("bookspage.html",search="T",  logout="T", book=book, reviews=reviews,username=username,
+                               ISBN=API_isbn, ratings_count = API_ratings_count, reviews_count=API_reviews_count,
+                                  average_rating=API_Av_Rating )
 
 
     else:
         print("did not find" , [API_isbn],[username], [API_ratings_count],[API_reviews_count] )
-        return render_template("bookspage.html",index="T",search="T",  logout="T", login="F", register="F" , bookspage="F" ,
-                                book=book,  username=username, ISBN=API_isbn,
-                                ratings_count = API_ratings_count, reviews_count=API_reviews_count,
-                                average_rating=API_Av_Rating , msgrev = "No reviews for this book")
+        return render_template("bookspage.html",search="T",  logout="T", book=book, ISBN=API_isbn, ratings_count = API_ratings_count,
+                                reviews_count=API_reviews_count, average_rating=API_Av_Rating , username=username, msgrev = "No reviews for this book")
 
 
 
